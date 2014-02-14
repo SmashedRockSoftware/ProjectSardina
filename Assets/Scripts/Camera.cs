@@ -10,8 +10,8 @@ public class Camera : MonoBehaviour {
 	public int speed = 10; //This lets us change the speed in the inspector
 
 	void MoveBuildCam(){
-		if(transform.position.z >= 46) transform.Translate(Vector3.forward * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of 46 horizontaly
-		if(transform.position.z <= -46) transform.Translate(Vector3.forward * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -46 horizontaly
+		if(transform.position.z >= 46) transform.Translate(Vector3.up * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of 46 horizontaly
+		if(transform.position.z <= -46) transform.Translate(Vector3.up * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -46 horizontaly
 		if(transform.position.x >= 43) transform.Translate(Vector3.right * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of 43 verticly
 		if(transform.position.x <= -43) transform.Translate(Vector3.right * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -43 verticly
 		
@@ -22,7 +22,7 @@ public class Camera : MonoBehaviour {
 				transform.Translate(Vector3.right * speed * h * Time.deltaTime);//This is then adjusted by that value
 				
 				float v = Input.GetAxis("Vertical");//This is the number you edit to control the v axis
-				transform.Translate(Vector3.forward * speed * v * Time.deltaTime);//This is then adjusted by that value
+				transform.Translate(Vector3.up * speed * v * Time.deltaTime);//This is then adjusted by that value
 			}
 			
 		}
