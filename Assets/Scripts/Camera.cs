@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildMenu : MonoBehaviour {
+public class Camera : MonoBehaviour {
 //This is the camera script made by Tiny
 //This was made on 2/13/14
 //The basic idead is that it has inputs that affect where the camera translates to
