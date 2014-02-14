@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Camera : MonoBehaviour {
+public class BasicCamera : MonoBehaviour {
 //This is the camera script made by Tiny
 //This was made on 2/13/14
 //The basic idead is that it has inputs that affect where the camera translates to
@@ -15,7 +15,8 @@ public class Camera : MonoBehaviour {
 		if(transform.position.z <= -ZLimits) transform.Translate(Vector3.up * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -46 horizontaly
 		if(transform.position.x >= XLimits) transform.Translate(Vector3.right * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of 43 verticly
 		if(transform.position.x <= -XLimits) transform.Translate(Vector3.right * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -43 verticly
-		
+		Camera.main.orthographicSize += Input.GetAxis("Mouse ScrollWheel") * speed * -1;
+
 		if(transform.position.z <= ZLimits && transform.position.z >= -ZLimits){ //If that this is in the right area let us control it
 			if(transform.position.x <= XLimits && transform.position.x >= -XLimits){ //If that this is in the right area let us control it
 				
