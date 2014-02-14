@@ -1,3 +1,3 @@
 ProjectSardina
 ==============
-Project Sardina is a space-stratagy game being developed in Unity3D by Shattered Rock Software.
+Project Sardina is a space-stratagy game being developed in Unity3D by the indie team Smashed Rock Software.
