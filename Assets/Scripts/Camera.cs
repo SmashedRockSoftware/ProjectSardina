@@ -5,8 +5,7 @@ public class Camera : MonoBehaviour {
 //This is the camera script made by Tiny
 //This was made on 2/13/14
 //The basic idead is that it has inputs that affect where the camera translates to
-
-	public Camera buildcam; //lets us choose the camera and reference it
+	
 	public int speed = 10; //This lets us change the speed in the inspector
 	public int ZLimits = 46;//This locks it to the int + or - so it limits the camera
 	public int XLimits = 43;//This locks it to the int + or - so it limits the camera
