@@ -109,6 +109,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 1300975642}
@@ -149,6 +153,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 556184773}
@@ -163,6 +171,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 97620028}
   - 212: {fileID: 97620027}
+  - 114: {fileID: 97620029}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -205,6 +214,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &97620029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1034334675}
+  m_GameObject: {fileID: 97620026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1001 &249200129
 Prefab:
   m_ObjectHideFlags: 0
@@ -240,6 +263,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 1715802366}
@@ -359,6 +386,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 327444507}
   - 212: {fileID: 327444506}
+  - 114: {fileID: 327444508}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -401,6 +429,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &327444508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1406617805}
+  m_GameObject: {fileID: 327444505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1 &339947511
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,8 +472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   threshold: .600000024
   roughness: .100000001
-  xRange: 100
-  yRange: 100
+  xRange: 50
+  yRange: 50
   spacing: .5
   scaleRange: .5
   offsetRange: 1
@@ -458,6 +500,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 440594529}
   - 212: {fileID: 440594528}
+  - 114: {fileID: 440594530}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -500,6 +543,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &440594530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 768971344}
+  m_GameObject: {fileID: 440594527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1 &556184773
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +566,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 556184775}
   - 212: {fileID: 556184774}
+  - 114: {fileID: 556184776}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -551,6 +609,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &556184776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 84975358}
+  m_GameObject: {fileID: 556184773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1001 &579031470
 Prefab:
   m_ObjectHideFlags: 0
@@ -586,6 +658,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 1976181560}
@@ -626,6 +702,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 2013783151}
@@ -775,6 +855,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 440594527}
@@ -815,6 +899,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 1649845787}
@@ -855,6 +943,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 97620026}
@@ -869,6 +961,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1300975644}
   - 212: {fileID: 1300975643}
+  - 114: {fileID: 1300975645}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -911,6 +1004,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1300975645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 43194476}
+  m_GameObject: {fileID: 1300975642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1 &1324563888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1133,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 327444505}
@@ -1040,6 +1151,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1649845789}
   - 212: {fileID: 1649845788}
+  - 114: {fileID: 1649845790}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -1082,6 +1194,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1649845790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 952724970}
+  m_GameObject: {fileID: 1649845787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1001 &1693811320
 Prefab:
   m_ObjectHideFlags: 0
@@ -1133,6 +1259,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1715802368}
   - 212: {fileID: 1715802367}
+  - 114: {fileID: 1715802369}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -1175,6 +1302,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1715802369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 249200129}
+  m_GameObject: {fileID: 1715802366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1001 &1810610643
 Prefab:
   m_ObjectHideFlags: 0
@@ -1210,6 +1351,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+      propertyPath: star
+      value: 
+      objectReference: {fileID: 316859389}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   m_RootGameObject: {fileID: 2105486610}
@@ -1224,6 +1369,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1976181562}
   - 212: {fileID: 1976181561}
+  - 114: {fileID: 1976181563}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -1266,6 +1412,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1976181563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 579031470}
+  m_GameObject: {fileID: 1976181560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1 &2013783151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,6 +1435,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2013783153}
   - 212: {fileID: 2013783152}
+  - 114: {fileID: 2013783154}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -1317,6 +1478,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &2013783154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 600117396}
+  m_GameObject: {fileID: 2013783151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0
 --- !u!1 &2105486610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1501,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2105486612}
   - 212: {fileID: 2105486611}
+  - 114: {fileID: 2105486613}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -1368,3 +1544,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &2105486613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 37172a235cce1a84db8cdb38fdfb69dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810610643}
+  m_GameObject: {fileID: 2105486610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  star: {fileID: 316859389}
+  speed: 0

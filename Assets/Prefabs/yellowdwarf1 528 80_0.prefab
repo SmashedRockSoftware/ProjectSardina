@@ -69,8 +69,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Planet: {fileID: 100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
   planetLimit: 10
-  orbitalVariation: 5
+  orbitalVariation: 1
   orbitalMult: 2
+  orbitalSpeedVariation: 5
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class Star : MonoBehaviour {
 	public int planetLimit;
 	public float orbitalVariation;
 	public float orbitalMult;
+	public float orbitalSpeedVariation;
 	Camera main;
 
 	// Use this for initialization
@@ -26,8 +27,9 @@ public class Star : MonoBehaviour {
 		planets = new Planet[planetNumber];
 		for(int i = 0; i < planetNumber; i++){
 			planets[i] = new Planet();
-			planets[i].radius = i * orbitalMult + Random.Range(-orbitalVariation, orbitalVariation);
+			planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation);
 			planets[i].planet = Planet;
+			planets[i].orbitSpeed = Random.Range(0.5f, orbitalSpeedVariation);
 		}
 	}
 
@@ -45,6 +47,8 @@ public class Star : MonoBehaviour {
 			SpriteRenderer sprite = SystemStar.planets[i].GetComponent<SpriteRenderer>() as SpriteRenderer;
 			SpriteRenderer spritePlanet = planets[i].planet.GetComponent<SpriteRenderer>() as SpriteRenderer;
 			sprite.sprite = spritePlanet.sprite;
+			SystemPlanet planetScript = SystemStar.planets[i].GetComponent<SystemPlanet>() as SystemPlanet;
+			planetScript.speed = planets[i].orbitSpeed;
 		}
 		SystemStar.HidePlanets(planets.Length);
 	}
