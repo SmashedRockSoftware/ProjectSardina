@@ -13,10 +13,10 @@ public class BasicCamera : MonoBehaviour {
 	public int NegXLimit;
 
 	void MoveBuildCam(){
-		if(transform.position.z >= ZLimit) transform.Translate(Vector3.up * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of zlimit horizontaly
-		if(transform.position.z <= NegZLimit) transform.Translate(Vector3.up * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -zlimit horizontaly
-		if(transform.position.x >= XLimit) transform.Translate(Vector3.right * speed * -1 * Time.deltaTime); //This forced it to stay within bounds of xlimit verticly
-		if(transform.position.x <= NegXLimit) transform.Translate(Vector3.right * speed * 1 * Time.deltaTime); //This forced it to stay within bounds of -xlimit verticly
+		if(transform.position.z >= ZLimit) transform.position = new Vector3(transform.position.x, transform.position.y, ZLimit); //This forced it to stay within bounds of zlimit horizontaly
+		if(transform.position.z <= NegZLimit) transform.position = new Vector3(transform.position.x, transform.position.y, NegZLimit); //This forced it to stay within bounds of -zlimit horizontaly
+		if(transform.position.x >= XLimit) transform.position = new Vector3(XLimit, transform.position.y, transform.position.z); //This forced it to stay within bounds of xlimit verticly
+		if(transform.position.x <= NegXLimit) transform.position = new Vector3(NegXLimit, transform.position.y, transform.position.z); //This forced it to stay within bounds of -xlimit verticly
 		Camera.main.orthographicSize += Input.GetAxis("Mouse ScrollWheel") * speed * -1; // This sets the size of the orthographic camera, essentially a zoom
 		if(Camera.main.orthographicSize < 1){ // Limits it so that it can't get too small
 			Camera.main.orthographicSize = 1;

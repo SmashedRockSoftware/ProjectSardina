@@ -102,9 +102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: .600000024
-  roughness: .100000001
+  roughness: .899999976
   xRange: 100
   yRange: 100
+  spacing: 1
+  scaleRange: .300000012
+  offsetRange: 1
   star: {fileID: 100000, guid: 832a091c9cae4364c990bbc004554d24, type: 2}
   starList: []
   stars: []
