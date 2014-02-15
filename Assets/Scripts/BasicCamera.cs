@@ -40,7 +40,7 @@ public class BasicCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(true){ //Later we can determine a reason to disable this control
+		if(Camera.main != null){ //Later we can determine a reason to disable this control
 			MoveBuildCam(); //This calls the function
 		}
 	}
