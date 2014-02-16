@@ -9,6 +9,7 @@ public class Star : MonoBehaviour {
 	public float orbitalVariation;
 	public float orbitalMult;
 	public float orbitalSpeedVariation;
+	public float StarMass;
 	Camera main;
 
 	// Use this for initialization
@@ -23,6 +24,7 @@ public class Star : MonoBehaviour {
 	}
 
 	void PlanetaryGenerator () {
+		StarMass = Random.Range (1.989f, 527.085f);
 		int planetNumber = Random.Range(0, planetLimit);
 		planets = new Planet[planetNumber];
 		for(int i = 0; i < planetNumber; i++){
@@ -30,11 +32,10 @@ public class Star : MonoBehaviour {
 			planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation) + 2;
 			Debug.Log(planets[i].radius.ToString());
 			planets[i].planet = PlanetList[Random.Range(0, PlanetList.Length)];
-
 			//Commented for later, in case we can get it to not throw 1000 errors every second
 			planets[i].mass = Random.Range(5973600000000f, 1899604800000000f); // Remeber, these numbers are 12 digits smaller than they should be
-			planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*(planets[i].mass*1000000000000))/planets[i].radius);
-			planets[i].orbitPeriod = ((2f*3.1415f*(planets[i].radius * 1))/planets[i].orbitVelocity)/31536000;
+			planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*(StarMass*1000000000000000000000000000000f))/(planets[i].radius*149597870700f));
+			planets[i].orbitPeriod = ((2f*3.1415f*((planets[i].radius*149597870700f) * 1))/planets[i].orbitVelocity)/31536000;
 			Debug.Log(planets[i].orbitPeriod.ToString());
 			planets[i].orbitSpeed= 0.0036f/planets[i].orbitPeriod;
 		}
