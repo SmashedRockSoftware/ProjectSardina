@@ -29,10 +29,12 @@ public class Star : MonoBehaviour {
 			planets[i] = new Planet();
 			planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation) + 2;
 			planets[i].planet = PlanetList[Random.Range(0, PlanetList.Length)];
-			planets[i].orbitSpeed = Random.Range(0.5f, orbitalSpeedVariation)/planets[i].radius;
+			planets[i].mass = Random.Range (5973600000000000000000000f, 1899604800000000000000000000f);
+			planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*planets[i].mass)/planets[i].radius);
+			planets[i].orbitPeriod = (2f*3.1415f*planets[i].radius)/planets[i].orbitVelocity;
+			planets[i].orbitSpeed= 360f/planets[i].orbitPeriod;
 		}
 	}
-
 	public void LoadSystem () {
 		SystemStar.ShowPlanets();
 		AudioListener listenerMain = Camera.main.GetComponent<AudioListener>() as AudioListener;
