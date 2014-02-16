@@ -67,7 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9d8e4bdb78c8468af475597fd5365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Planet: {fileID: 100000, guid: 37172a235cce1a84db8cdb38fdfb69dc, type: 2}
+  PlanetList:
+  - {fileID: 100000, guid: cd759848830df404db5b54b9b8849aed, type: 2}
+  - {fileID: 100000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
   planetLimit: 10
   orbitalVariation: 1
   orbitalMult: 2
