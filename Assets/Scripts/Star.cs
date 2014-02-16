@@ -29,10 +29,15 @@ public class Star : MonoBehaviour {
 			planets[i] = new Planet();
 			planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation) + 2;
 			planets[i].planet = PlanetList[Random.Range(0, PlanetList.Length)];
-			planets[i].mass = Random.Range (5973600000000000000000000f, 1899604800000000000000000000f);
+			planets[i].mass = Random.Range(59736, 18996048);
+			planets[i].orbitPeriod =  planets[i].mass/planets[i].radius;
+			planets[i].orbitSpeed = .000036f * planets[i].orbitPeriod;
+
+			//Commented for later, in case we can get it to not throw 1000 errors every second
+			/*planets[i].mass = Random.Range(5973600000000f, 1899604800000000f); // Remeber, these numbers are 12 digits smaller than they should be
 			planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*planets[i].mass)/planets[i].radius);
 			planets[i].orbitPeriod = (2f*3.1415f*planets[i].radius)/planets[i].orbitVelocity;
-			planets[i].orbitSpeed= 360f/planets[i].orbitPeriod;
+			planets[i].orbitSpeed= 0.0036f/planets[i].orbitPeriod;*/
 		}
 	}
 	public void LoadSystem () {
