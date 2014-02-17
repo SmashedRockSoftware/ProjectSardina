@@ -13,7 +13,7 @@ public class PerlinStars : MonoBehaviour {
 	public float offsetRange;
 	public GameObject star;
 	public List<GameObject> starList = new List<GameObject>();
-	public GameObject[] stars;
+	public static GameObject[] stars;
 
 	// Use this for initialization
 	void Start () {
@@ -26,9 +26,11 @@ public class PerlinStars : MonoBehaviour {
 					starI.transform.Rotate(90, 0, 0);
 					float scaleAdd = Random.Range(-scaleRange, scaleRange);
 					starI.transform.localScale = new Vector3(starI.transform.localScale.x + scaleAdd, starI.transform.localScale.y + scaleAdd, 0);
+					starList.Add(starI);
 				}
 			}
 		}
+		stars = starList.ToArray();
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
 		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);
 		cam.ZLimit = Mathf.RoundToInt(yRange + yRange * spacing);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Star : MonoBehaviour {
 
@@ -10,17 +11,32 @@ public class Star : MonoBehaviour {
 	public float orbitalMult;
 	public float orbitalSpeedVariation;
 	public float StarMass;
+	public List<GameObject> connectionList = new List<GameObject>();
+	public GameObject[] connections;
 	Camera main;
 
 	// Use this for initialization
 	void Start () {
 		PlanetaryGenerator();
+		ConnectionGenerator();
 		main = Camera.main;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void ConnectionGenerator () {
+		for(int i = 0; i < PerlinStars.stars.Length; i++){
+			if(Vector3.Distance(transform.position, PerlinStars.stars[i].transform.position) < 5.0f){
+				connectionList.Add(PerlinStars.stars[i]);
+			}
+		}
+		connections = connectionList.ToArray();
+		for(int i = 0; i < connections.Length; i++){
+			MeshLine.DrawLine(gameObject.transform.position, connections[i].transform.position, 0.2f);
+		}
 	}
 
 	void PlanetaryGenerator () {
