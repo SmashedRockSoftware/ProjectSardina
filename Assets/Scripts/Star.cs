@@ -29,7 +29,7 @@ public class Star : MonoBehaviour {
 		planets = new Planet[planetNumber];
 		for(int i = 0; i < planetNumber; i++){
 			GeneratePlanet(i);
-			while(float.IsNaN(planets[i].orbitSpeed)){
+			while(float.IsNaN(planets[i].orbitSpeed) || planets[i].radius < 0.5f){
 				GeneratePlanet(i);
 			}
 		}
@@ -66,7 +66,6 @@ public class Star : MonoBehaviour {
 	void GeneratePlanet (int i) {
 		planets[i] = new Planet();
 		planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation) + 2;
-		Debug.Log(planets[i].radius.ToString());
 		planets[i].planet = PlanetList[Random.Range(0, PlanetList.Length)];
 		//Commented for later, in case we can get it to not throw 1000 errors every second
 		planets[i].mass = Random.Range(5973600000000f, 1899604800000000f); // Remeber, these numbers are 12 digits smaller than they should be

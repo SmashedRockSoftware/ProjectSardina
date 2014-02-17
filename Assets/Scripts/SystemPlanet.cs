@@ -12,7 +12,7 @@ public class SystemPlanet : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		transform.RotateAround(star.position, Vector3.up, speed);
 	}
 }
