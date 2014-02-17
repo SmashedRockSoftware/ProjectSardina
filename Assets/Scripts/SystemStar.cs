@@ -21,15 +21,13 @@ public class SystemStar : MonoBehaviour {
 	
 	}
 
-	public static void HidePlanets (int planetNumber) {
-		for(int i = planetNumber; i < planets.Length; i++){
+	public static void HidePlanets () {
+		for(int i = 0; i < planets.Length; i++){
 			planets[i].renderer.enabled = false;
 		}
 	}
 
-	public static void ShowPlanets () {
-		for(int i = 0; i < planets.Length; i++){
-			planets[i].renderer.enabled = true;
-		}
+	public static void ShowPlanet (int i) {
+		planets[i].renderer.enabled = true;
 	}
 }

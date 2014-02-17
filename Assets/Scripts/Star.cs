@@ -35,7 +35,6 @@ public class Star : MonoBehaviour {
 		}
 	}
 	public void LoadSystem () {
-		SystemStar.ShowPlanets();
 		AudioListener listenerMain = Camera.main.GetComponent<AudioListener>() as AudioListener;
 		Camera.main.enabled = false;
 		listenerMain.enabled = false;
@@ -50,8 +49,8 @@ public class Star : MonoBehaviour {
 			sprite.sprite = spritePlanet.sprite;
 			SystemPlanet planetScript = SystemStar.planets[i].GetComponent<SystemPlanet>() as SystemPlanet;
 			planetScript.speed = planets[i].orbitSpeed;
+			SystemStar.ShowPlanet(i);
 		}
-		SystemStar.HidePlanets(planets.Length);
 	}
 
 	public void UnloadSystem () {
@@ -61,6 +60,7 @@ public class Star : MonoBehaviour {
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = false;
 		SystemStar.planetCam.enabled = false;
+		SystemStar.HidePlanets();
 	}
 
 	void GeneratePlanet (int i) {
