@@ -29,5 +29,8 @@ public class PerlinStars : MonoBehaviour {
 				}
 			}
 		}
+		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
+		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);
+		cam.ZLimit = Mathf.RoundToInt(yRange + yRange * spacing);
 	}
 }
