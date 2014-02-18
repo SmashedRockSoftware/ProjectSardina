@@ -30,7 +30,7 @@ public class Star : MonoBehaviour {
 
 	void ConnectionGenerator () {
 		for(int i = 0; i < PerlinStars.stars.Length; i++){
-			if(Vector3.Distance(transform.position, PerlinStars.stars[i].transform.position) < 10.0f){
+			if(Vector3.Distance(transform.position, PerlinStars.stars[i].transform.position) < 15.0f){
 				connectionList.Add(PerlinStars.stars[i]);
 			}
 		}
@@ -39,13 +39,15 @@ public class Star : MonoBehaviour {
 		GameObject closest1 = null;
 		GameObject closest2 = null;
 		for(int i = 0; i < connectionsTemp.Length; i++){
-			if(closest1 == null){
-				closest1 = connectionsTemp[i];
-			}else if(closest1 != null && closest2 == null){
-				closest2 = connectionsTemp[i];
-			}else if(Vector3.Distance(transform.position, connectionsTemp[i].transform.position) < Vector3.Distance(transform.position, closest1.transform.position)){
-				closest2 = closest1;
-				closest1 = connectionsTemp[i];
+			if(connectionsTemp[i] != gameObject){
+				if(closest1 == null){
+					closest1 = connectionsTemp[i];
+				}else if(closest1 != null && closest2 == null){
+					closest2 = connectionsTemp[i];
+				}else if(Vector3.Distance(transform.position, connectionsTemp[i].transform.position) < Vector3.Distance(transform.position, closest1.transform.position)){
+					closest2 = closest1;
+					closest1 = connectionsTemp[i];
+				}
 			}
 		}
 
