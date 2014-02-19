@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
-  - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   m_Layer: 0
   m_Name: yellowdwarf1 528 80_0
@@ -56,24 +55,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec9d8e4bdb78c8468af475597fd5365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlanetList:
-  - {fileID: 100000, guid: cd759848830df404db5b54b9b8849aed, type: 2}
-  - {fileID: 100000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
-  planetLimit: 10
-  orbitalVariation: 1
-  orbitalMult: 2
-  orbitalSpeedVariation: 5
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

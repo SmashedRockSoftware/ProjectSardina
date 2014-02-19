@@ -6,10 +6,10 @@ public class Star : MonoBehaviour {
 
 	public GameObject[] PlanetList = new GameObject[2];
 	public Planet[] planets;
-	public int planetLimit;
-	public float orbitalVariation;
-	public float orbitalMult;
-	public float orbitalSpeedVariation;
+	public int planetLimit = 10;
+	public float orbitalVariation = 1;
+	public float orbitalMult = 2;
+	public float orbitalSpeedVariation = 5;
 	public float StarMass;
 	public List<GameObject> connectionList = new List<GameObject>();
 	private GameObject[] connectionsTemp;

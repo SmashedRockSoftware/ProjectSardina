@@ -30,7 +30,24 @@ public class PerlinStars : MonoBehaviour {
 				}
 			}
 		}
+
+		for(int i = 0; i < starList.Count; i++){
+			for(int x = 0; x < starList.Count; x++){
+				if(starList[i] != starList[x]){
+					if(Vector3.Distance(starList[i].transform.position, starList[x].transform.position) < 1f){
+						GameObject star = starList[i];
+						starList.Remove(star);
+						Destroy(star);
+						Debug.Log("Destroyed star");
+					}
+				}
+			}
+		}
+
 		stars = starList.ToArray();
+		for(int i = 0; i < stars.Length; i++){
+			stars[i].gameObject.AddComponent("Star");
+		}
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
 		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);
 		cam.ZLimit = Mathf.RoundToInt(yRange + yRange * spacing);
