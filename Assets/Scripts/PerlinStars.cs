@@ -14,6 +14,7 @@ public class PerlinStars : MonoBehaviour {
 	public GameObject star;
 	public List<GameObject> starList = new List<GameObject>();
 	public static GameObject[] stars;
+	public GameObject[] planets = new GameObject[2];
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +47,8 @@ public class PerlinStars : MonoBehaviour {
 
 		stars = starList.ToArray();
 		for(int i = 0; i < stars.Length; i++){
-			stars[i].gameObject.AddComponent("Star");
+			Star star = stars[i].gameObject.AddComponent("Star") as Star;
+			star.PlanetList = planets;
 		}
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
 		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);

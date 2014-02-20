@@ -544,6 +544,9 @@ MonoBehaviour:
   offsetRange: 1
   star: {fileID: 100000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
   starList: []
+  planets:
+  - {fileID: 100000, guid: cd759848830df404db5b54b9b8849aed, type: 2}
+  - {fileID: 100000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
 --- !u!4 &339947513
 Transform:
   m_ObjectHideFlags: 0
