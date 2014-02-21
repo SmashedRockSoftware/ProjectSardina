@@ -120,7 +120,9 @@ public class Star : MonoBehaviour {
 	public void ConnectionSharer () {
 		for(int i = 0; i < connectionSelf.Length; i++){
 			Star starI = connectionSelf[i].GetComponent<Star>() as Star;
-			starI.connectionList.Add(connectionSelf[i]);
+			if(starI.connectionSelf[0] != gameObject && starI.connectionSelf[1]){
+				starI.connectionList.Add(gameObject);
+			}
 		}
 	}
 }
