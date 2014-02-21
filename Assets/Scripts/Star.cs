@@ -11,13 +11,15 @@ public class Star : MonoBehaviour {
 	public float orbitalMult = 2;
 	public float orbitalSpeedVariation = 5;
 	public float StarMass;
-	public List<GameObject> connectionList = new List<GameObject>();
+	public List<GameObject> connectionPossibleList = new List<GameObject>();
 	private GameObject[] connectionsTemp;
+	public GameObject[] connectionSelf = new GameObject[2];
+	public List<GameObject> connectionList = new List<GameObject>();
 	public GameObject[] connections;
 	Camera main;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		PlanetaryGenerator();
 		ConnectionGenerator();
 		main = Camera.main;
@@ -31,10 +33,10 @@ public class Star : MonoBehaviour {
 	void ConnectionGenerator () {
 		for(int i = 0; i < PerlinStars.stars.Length; i++){
 			if(Vector3.Distance(transform.position, PerlinStars.stars[i].transform.position) < 15.0f){
-				connectionList.Add(PerlinStars.stars[i]);
+				connectionPossibleList.Add(PerlinStars.stars[i]);
 			}
 		}
-		connectionsTemp = connectionList.ToArray();
+		connectionsTemp = connectionPossibleList.ToArray();
 
 		GameObject closest1 = null;
 		GameObject closest2 = null;
@@ -51,13 +53,10 @@ public class Star : MonoBehaviour {
 			}
 		}
 
-		connections = new GameObject[2];
-		connections[0] = closest1;
-		connections[1] = closest2;
-
-		for(int i = 0; i < connections.Length; i++){
-			MeshLine.DrawLine(gameObject.transform.position, connections[i].transform.position, 0.2f);
-		}
+		connectionList.Add(closest1);
+		connectionList.Add(closest2);
+		connectionSelf[0] = closest1;
+		connectionSelf[1] = closest2;
 	}
 
 	void PlanetaryGenerator () {
@@ -109,5 +108,19 @@ public class Star : MonoBehaviour {
 		planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*(StarMass*1000000000000000000000000000000f))/(planets[i].radius*149597870700f));
 		planets[i].orbitPeriod = ((2f*3.1415f*((planets[i].radius*149597870700f) * 1))/planets[i].orbitVelocity)/31536000;
 		planets[i].orbitSpeed= 0.036f/planets[i].orbitPeriod;
+	}
+
+	public void ConnectionDrawer () {
+		connections = connectionList.ToArray();
+		for(int i = 0; i < connections.Length; i++){
+			MeshLine.DrawLine(gameObject.transform.position, connections[i].transform.position, 0.2f);
+		}
+	}
+
+	public void ConnectionSharer () {
+		for(int i = 0; i < connectionSelf.Length; i++){
+			Star starI = connectionSelf[i].GetComponent<Star>() as Star;
+			starI.connectionList.Add(connectionSelf[i]);
+		}
 	}
 }

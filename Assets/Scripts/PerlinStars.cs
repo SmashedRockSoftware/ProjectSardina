@@ -47,8 +47,16 @@ public class PerlinStars : MonoBehaviour {
 
 		stars = starList.ToArray();
 		for(int i = 0; i < stars.Length; i++){
-			Star star = stars[i].gameObject.AddComponent("Star") as Star;
+			Star star = stars[i].AddComponent("Star") as Star;
 			star.PlanetList = planets;
+		}
+		for(int i = 0; i < stars.Length; i++){
+			Star star = stars[i].GetComponent<Star>() as Star;
+			star.ConnectionSharer();
+		}
+		for(int i = 0; i < stars.Length; i++){
+			Star star = stars[i].GetComponent<Star>() as Star;
+			star.ConnectionDrawer();
 		}
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
 		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);
