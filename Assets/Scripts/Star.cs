@@ -125,4 +125,41 @@ public class Star : MonoBehaviour {
 			}
 		}
 	}
+
+	public void ConnectionPruner () {
+		for(int i = 0; i < connectionList.Count; i++){
+			for(int x = 0; x < connectionList.Count; x++){
+				if(connectionList[i] != connectionList[x]){
+					float AB = Vector3.Distance(transform.position, connectionList[i].transform.position);
+					float BC = Vector3.Distance(transform.position, connectionList[x].transform.position);
+					float CA = Vector3.Distance(connectionList[i].transform.position, connectionList[x].transform.position);
+					float c = Mathf.Max(AB, Mathf.Max(BC,CA));
+					float a;
+					float b;
+					if(c == AB){
+						a = BC;
+						b = CA;
+					}else if(c == BC){
+						a = AB;
+						b = CA;
+					}else{
+						a = AB;
+						b = BC;
+					}
+					if(Mathf.Acos(((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg < 15.0f){
+						GameObject connRemove;
+						if(AB > BC){
+							connRemove = connectionList[i];
+						}else{
+							connRemove = connectionList[x];
+						}
+						Star star = connRemove.GetComponent<Star>() as Star;
+						star.connectionList.Remove(connRemove);
+						connectionList.Remove(connRemove);
+						Debug.Log("Removed connection " + (Mathf.Acos(((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg).ToString());
+					}
+				}
+			}
+		}
+	}
 }

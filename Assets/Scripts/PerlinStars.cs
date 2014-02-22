@@ -56,6 +56,10 @@ public class PerlinStars : MonoBehaviour {
 		}
 		for(int i = 0; i < stars.Length; i++){
 			Star star = stars[i].GetComponent<Star>() as Star;
+			star.ConnectionPruner();
+		}
+		for(int i = 0; i < stars.Length; i++){
+			Star star = stars[i].GetComponent<Star>() as Star;
 			star.ConnectionDrawer();
 		}
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
