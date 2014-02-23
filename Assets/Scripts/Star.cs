@@ -130,25 +130,12 @@ public class Star : MonoBehaviour {
 		for(int i = 0; i < connectionList.Count; i++){
 			for(int x = 0; x < connectionList.Count; x++){
 				if(connectionList[i] != connectionList[x]){
-					float AB = Vector3.Distance(transform.position, connectionList[i].transform.position);
-					float BC = Vector3.Distance(transform.position, connectionList[x].transform.position);
-					float CA = Vector3.Distance(connectionList[i].transform.position, connectionList[x].transform.position);
-					float c = Mathf.Max(AB, Mathf.Max(BC,CA));
-					float a;
-					float b;
-					if(c == AB){
-						a = BC;
-						b = CA;
-					}else if(c == BC){
-						a = AB;
-						b = CA;
-					}else{
-						a = AB;
-						b = BC;
-					}
-					if(Mathf.Acos(((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg < 15.0f){
+					/*float a = Vector3.Distance(transform.position, connectionList[i].transform.position);
+					float b = Vector3.Distance(transform.position, connectionList[x].transform.position);
+					float c = Vector3.Distance(connectionList[i].transform.position, connectionList[x].transform.position);
+					if((Mathf.Acos((a*a + b*b - c*c)/(2*a*b)) * Mathf.Rad2Deg) < 15.0f){
 						GameObject connRemove;
-						if(AB > BC){
+						if(a > b){
 							connRemove = connectionList[i];
 						}else{
 							connRemove = connectionList[x];
@@ -156,7 +143,24 @@ public class Star : MonoBehaviour {
 						Star star = connRemove.GetComponent<Star>() as Star;
 						star.connectionList.Remove(connRemove);
 						connectionList.Remove(connRemove);
-						Debug.Log("Removed connection " + (Mathf.Acos(((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg).ToString());
+						Debug.Log("Removed connection " + (Mathf.Acos((((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg).ToString()));
+					}*/
+
+					Vector3 a = transform.position;
+					Vector3 b = connectionList[i].transform.position;
+					Vector3 c = connectionList[x].transform.position;
+
+					float v1x = b.x - c.x;
+					float v1y = b.z - c.z;
+					float v2x = a.x - c.x;
+					float v2y = a.z - c.z;
+					
+					float angle = (Mathf.Atan2(v1x, v1y) - Mathf.Atan2(v2x, v2y) * Mathf.Rad2Deg);
+					if(angle > 0 && angle < 15.0f){
+						Debug.Log("Small angle" + angle.ToString());
+					}
+					if(angle < 0  && angle > -15.0f){
+						Debug.Log("Small angle" + angle.ToString());
 					}
 				}
 			}
