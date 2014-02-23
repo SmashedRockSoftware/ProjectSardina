@@ -16,6 +16,7 @@ public class Star : MonoBehaviour {
 	public GameObject[] connectionSelf = new GameObject[2];
 	public List<GameObject> connectionList = new List<GameObject>();
 	public GameObject[] connections;
+	private List<GameObject> connectionDestroy = new List<GameObject>(); 
 	Camera main;
 
 	// Use this for initialization
@@ -157,13 +158,29 @@ public class Star : MonoBehaviour {
 					
 					float angle = (Mathf.Atan2(v1x, v1y) - Mathf.Atan2(v2x, v2y) * Mathf.Rad2Deg);
 					if(angle > 0 && angle < 15.0f){
+						if(Vector3.Distance(a,b) > Vector3.Distance(a,c)){
+							connectionDestroy.Add(connectionList[i]);
+						}else{
+							connectionDestroy.Add(connectionList[x]);
+						}
 						Debug.Log("Small angle" + angle.ToString());
 					}
 					if(angle < 0  && angle > -15.0f){
+						if(Vector3.Distance(a,b) > Vector3.Distance(a,c)){
+							connectionDestroy.Add(connectionList[i]);
+						}else{
+							connectionDestroy.Add(connectionList[x]);
+						}
 						Debug.Log("Small angle" + angle.ToString());
 					}
 				}
 			}
+		}
+		for(int i = 0; i < connectionDestroy.Count; i++){
+			Star star = connectionDestroy[i].GetComponent<Star>() as Star;
+			star.connectionList.Remove(connectionDestroy[i]);
+			connectionList.Remove(connectionDestroy[i]);
+			Debug.Log("Destroyed connection");
 		}
 	}
 }
