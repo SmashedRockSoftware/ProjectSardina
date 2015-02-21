@@ -5,6 +5,7 @@ public class SelectSystem : MonoBehaviour {
 
 	Star star;
 	MoveShip ship;
+	public Camera planetCam;
 	
 
 	// Update is called once per frame
@@ -25,6 +26,7 @@ public class SelectSystem : MonoBehaviour {
 		if(Input.GetButton("Fire2") && Camera.main == null){
 			star.UnloadSystem();
 		}
+
 		if(Input.GetButton("Fire2") && Camera.main != null){
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;

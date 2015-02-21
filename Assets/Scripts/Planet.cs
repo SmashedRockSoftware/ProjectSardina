@@ -1,12 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Planet {
+public class Planet : MonoBehaviour{
 
-	public float radius;
-	public GameObject planet;
-	public float orbitVelocity;
-	public float mass;
-	public float orbitPeriod;
-	public float orbitSpeed;
+	//Orbit characteristics
+	public float orbitRadius; //orbitRadius of orbit, in AU. Planets go in perfect circles currently
+	public SpriteRenderer planet; //Sprite for planet
+	public float orbitPeriod; //Period of orbit in years
+	public float angle; //Angle of the planet from the horizontal (pos x axis)
+
+	//Planetary characteristics
+	public int planetType; //0 = terrestrial, 1 = gas giant, 2 = ice giant
+	public float mass; //In earth/jupiter/neptune mass
+	public float radius; //In earth/jupiter/neptune radius
+	public float surfaceGrav; //In m/s^2
+	
+	private Vector3 position; //Position of planet
+
+	void FixedUpdate(){
+
+		//Movement
+		angle += (0.5f/orbitPeriod)/60f;
+		position = new Vector3(1000 + Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius, 0, Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius);
+
+	}
+
+	public Vector3 getPos(){
+		return position;
+	}
+
+	public override string ToString (){
+		return "Planet: " + position;
+	}
 }

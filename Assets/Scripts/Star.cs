@@ -4,26 +4,27 @@ using System.Collections.Generic;
 
 public class Star : MonoBehaviour {
 
-	public GameObject[] PlanetList = new GameObject[2];
+	//Planet vars
 	public Planet[] planets;
-	public int planetLimit = 10;
-	public float orbitalVariation = 1;
-	public float orbitalMult = 2;
-	public float orbitalSpeedVariation = 5;
-	public float StarMass;
-	public List<GameObject> connectionPossibleList = new List<GameObject>();
-	private GameObject[] connectionsTemp;
-	public GameObject[] connectionSelf = new GameObject[2];
-	public List<GameObject> connectionList = new List<GameObject>();
-	public GameObject[] connections;
-	private List<GameObject> connectionDestroy = new List<GameObject>(); 
-	Camera main;
+
+	//Star vars
+	public float starMass; //solar masses
+	public float starRadius; //solar radii
+	public float starLuminosity; //solar luminosity
+
+	private Camera mainCam;
+	private float auMod = 0; //For systems with less planets, expands system out a bit
+	private bool notSpaced = true;
+
+	public static int[] count = new int[3];
+
+	public void setCam (Camera cam){
+		mainCam = cam;
+	}
 
 	// Use this for initialization
 	void Awake () {
 		PlanetaryGenerator();
-		ConnectionGenerator();
-		main = Camera.main;
 	}
 	
 	// Update is called once per frame
@@ -31,68 +32,57 @@ public class Star : MonoBehaviour {
 	
 	}
 
-	void ConnectionGenerator () {
-		for(int i = 0; i < PerlinStars.stars.Length; i++){
-			if(Vector3.Distance(transform.position, PerlinStars.stars[i].transform.position) < 15.0f){
-				connectionPossibleList.Add(PerlinStars.stars[i]);
-			}
-		}
-		connectionsTemp = connectionPossibleList.ToArray();
-
-		GameObject closest1 = null;
-		GameObject closest2 = null;
-		for(int i = 0; i < connectionsTemp.Length; i++){
-			if(connectionsTemp[i] != gameObject){
-				if(closest1 == null){
-					closest1 = connectionsTemp[i];
-				}else if(closest1 != null && closest2 == null){
-					closest2 = connectionsTemp[i];
-				}else if(Vector3.Distance(transform.position, connectionsTemp[i].transform.position) < Vector3.Distance(transform.position, closest1.transform.position)){
-					closest2 = closest1;
-					closest1 = connectionsTemp[i];
-				}
-			}
-		}
-
-		connectionList.Add(closest1);
-		connectionList.Add(closest2);
-		connectionSelf[0] = closest1;
-		connectionSelf[1] = closest2;
-	}
-
 	void PlanetaryGenerator () {
-		StarMass = Random.Range (1.989f, 527.085f);
-		int planetNumber = Random.Range(0, planetLimit);
+
+		//Starstuff
+		starMass = RandomGenerator.getStarMass(); //Star mass is measured in solar masses
+
+		if(starMass > 1.0f){
+			starRadius = Mathf.Pow(starMass, 0.57f);
+		}else{
+			starRadius = Mathf.Pow(starMass, 0.8f);
+		}
+
+		if(starMass < 0.43f){
+			starLuminosity = 0.23f * Mathf.Pow(starMass, 2.3f);
+		}else if(starMass < 2.0f){
+			starLuminosity = Mathf.Pow(starMass, 4.0f);
+		}else if(starMass < 20.0f){
+			starLuminosity = 1.5f * Mathf.Pow(starMass, 3.5f);
+		}else{
+			starLuminosity = 3200 * starMass;
+		}
+
+
+		//Planet stuff
+		int planetNumber = RandomGenerator.getPlanetNumber();
 		planets = new Planet[planetNumber];
-		for(int i = 0; i < planetNumber; i++){
+		for(int i = 0; i < planets.Length; i++){
 			GeneratePlanet(i);
-			while(float.IsNaN(planets[i].orbitSpeed) || planets[i].radius < 0.5f){
-				GeneratePlanet(i);
-			}
 		}
 	}
 	public void LoadSystem () {
-		AudioListener listenerMain = Camera.main.GetComponent<AudioListener>() as AudioListener;
-		Camera.main.enabled = false;
+		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
+		mainCam.enabled = false;
 		listenerMain.enabled = false;
 		SystemStar.planetCam.enabled = true;
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = true;
 		for(int i = 0; i < planets.Length; i++){
-			SystemStar.planets[i].transform.position = new Vector3(1000, 0, 0);
-			SystemStar.planets[i].transform.position += new Vector3(Random.Range(-100.0f, 100.0f), 0, Random.Range(-100.0f, 100.0f)).normalized * planets[i].radius;
+			SystemStar.planets[i].transform.position = planets[i].getPos();
+			//SystemStar.planets[i].transform.position += new Vector3(1f * planets[i].radius, 0, 0);
 			SpriteRenderer sprite = SystemStar.planets[i].GetComponent<SpriteRenderer>() as SpriteRenderer;
 			SpriteRenderer spritePlanet = planets[i].planet.GetComponent<SpriteRenderer>() as SpriteRenderer;
 			sprite.sprite = spritePlanet.sprite;
 			SystemPlanet planetScript = SystemStar.planets[i].GetComponent<SystemPlanet>() as SystemPlanet;
-			planetScript.speed = planets[i].orbitSpeed;
+			planetScript.planet = planets[i];
 			SystemStar.ShowPlanet(i);
 		}
 	}
 
 	public void UnloadSystem () {
-		main.enabled = true;
-		AudioListener listenerMain = Camera.main.GetComponent<AudioListener>() as AudioListener;
+		mainCam.enabled = true;
+		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
 		listenerMain.enabled = true;
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = false;
@@ -101,86 +91,105 @@ public class Star : MonoBehaviour {
 	}
 
 	void GeneratePlanet (int i) {
-		planets[i] = new Planet();
-		planets[i].radius = 100/(i + 1) * Random.Range(-orbitalVariation, orbitalVariation) + 2;
-		planets[i].planet = PlanetList[Random.Range(0, PlanetList.Length)];
-		//Commented for later, in case we can get it to not throw 1000 errors every second
-		planets[i].mass = Random.Range(5973600000000f, 1899604800000000f); // Remeber, these numbers are 12 digits smaller than they should be
-		planets[i].orbitVelocity = Mathf.Sqrt((0.0000000000667f*(StarMass*1000000000000000000000000000000f))/(planets[i].radius*149597870700f));
-		planets[i].orbitPeriod = ((2f*3.1415f*((planets[i].radius*149597870700f) * 1))/planets[i].orbitVelocity)/31536000;
-		planets[i].orbitSpeed= 0.036f/planets[i].orbitPeriod;
-	}
+		Planet planet = GameObject.FindGameObjectWithTag("GameController").AddComponent<Planet>() as Planet;
+		planets[i] = planet;
 
-	public void ConnectionDrawer () {
-		connections = connectionList.ToArray();
-		for(int i = 0; i < connections.Length; i++){
-			MeshLine.DrawLine(gameObject.transform.position, connections[i].transform.position, 0.2f);
-		}
-	}
+		//Type determination
+		if(i == 0){
+			if(RandomGenerator.getInt(0, 2) == 0){
+				//Terrestrial, close to star
+				planets[i].planetType = 0; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
+				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 
-	public void ConnectionSharer () {
-		for(int i = 0; i < connectionSelf.Length; i++){
-			Star starI = connectionSelf[i].GetComponent<Star>() as Star;
-			if(starI.connectionSelf[0] != gameObject && starI.connectionSelf[1]){
-				starI.connectionList.Add(gameObject);
+				count[0]++;
+
+			}else{
+				//Hot jupiter
+				planets[i].planetType = 1; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
+				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
+
+				count[1]++;
+			}
+		}else if(planets[i - 1].orbitRadius + 2 > 15){ //Ice giants introduced, depending on Luminosity of orbiting stars
+			int r = RandomGenerator.getInt(0, 5); //Weighted for ice giants
+			if(r == 0){
+				//Terrestrial, past first orbit
+				planets[i].planetType = 0; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
+
+				count[0]++;
+
+			}else if(r == 1){
+				//Regular jupiter, colder
+				planets[i].planetType = 1; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
+
+				count[1]++;
+
+			}else{
+				//Ice giant
+				planets[i].planetType = 2;
+				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].planet = PerlinStars.planetsIce[RandomGenerator.getInt(0, PerlinStars.planetsIce.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.neptuneToEarthMass(planets[i].mass), 2); //Set radius
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
+
+				count[2]++;
+
+			}
+		}else{
+			if(RandomGenerator.getInt(0, 2) == 0){
+				//Terrestrial, middle solar system
+				planets[i].planetType = 0; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
+
+				count[0]++;
+				
+			}else{
+				//Regular jupiter
+				planets[i].planetType = 1; //Set planet type
+				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
+				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
+				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
+
+				count[1]++;
 			}
 		}
-	}
 
-	public void ConnectionPruner () {
-		for(int i = 0; i < connectionList.Count; i++){
-			for(int x = 0; x < connectionList.Count; x++){
-				if(connectionList[i] != connectionList[x]){
-					/*float a = Vector3.Distance(transform.position, connectionList[i].transform.position);
-					float b = Vector3.Distance(transform.position, connectionList[x].transform.position);
-					float c = Vector3.Distance(connectionList[i].transform.position, connectionList[x].transform.position);
-					if((Mathf.Acos((a*a + b*b - c*c)/(2*a*b)) * Mathf.Rad2Deg) < 15.0f){
-						GameObject connRemove;
-						if(a > b){
-							connRemove = connectionList[i];
-						}else{
-							connRemove = connectionList[x];
-						}
-						Star star = connRemove.GetComponent<Star>() as Star;
-						star.connectionList.Remove(connRemove);
-						connectionList.Remove(connRemove);
-						Debug.Log("Removed connection " + (Mathf.Acos((((a*a) + (b*b) - (c*c))/(2*a*b)) * Mathf.Rad2Deg).ToString()));
-					}*/
+		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f); //Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 
-					Vector3 a = transform.position;
-					Vector3 b = connectionList[i].transform.position;
-					Vector3 c = connectionList[x].transform.position;
+		planets[i].angle = RandomGenerator.getFloat(0f, 360f);
 
-					float v1x = b.x - c.x;
-					float v1y = b.z - c.z;
-					float v2x = a.x - c.x;
-					float v2y = a.z - c.z;
-					
-					float angle = (Mathf.Atan2(v1x, v1y) - Mathf.Atan2(v2x, v2y) * Mathf.Rad2Deg);
-					if(angle > 0 && angle < 15.0f){
-						if(Vector3.Distance(a,b) > Vector3.Distance(a,c)){
-							connectionDestroy.Add(connectionList[i]);
-						}else{
-							connectionDestroy.Add(connectionList[x]);
-						}
-						Debug.Log("Small angle" + angle.ToString());
-					}
-					if(angle < 0  && angle > -15.0f){
-						if(Vector3.Distance(a,b) > Vector3.Distance(a,c)){
-							connectionDestroy.Add(connectionList[i]);
-						}else{
-							connectionDestroy.Add(connectionList[x]);
-						}
-						Debug.Log("Small angle" + angle.ToString());
-					}
-				}
+		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
+
+		if(planets.Length <= 5 && notSpaced){
+			if(RandomGenerator.getInt(0, 4) == 0){
+				auMod += RandomGenerator.getFloat(5.0f, 10.0f);
 			}
 		}
-		for(int i = 0; i < connectionDestroy.Count; i++){
-			Star star = connectionDestroy[i].GetComponent<Star>() as Star;
-			star.connectionList.Remove(connectionDestroy[i]);
-			connectionList.Remove(connectionDestroy[i]);
-			Debug.Log("Destroyed connection");
-		}
+
 	}
 }
