@@ -539,7 +539,7 @@ MonoBehaviour:
   frequency: .75
   persistence: .5
   octaves: 8
-  seed: 1
+  seed: 0
   xRange: 50
   yRange: 50
   spacing: .25

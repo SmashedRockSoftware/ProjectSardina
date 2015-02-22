@@ -11,13 +11,16 @@ public class Star : MonoBehaviour {
 	public float starMass; //solar masses
 	public float starRadius; //solar radii
 	public float starLuminosity; //solar luminosity
+	public float starTemperature; //kelvin
+	public string starClass; //stellar class O through M
 
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
-	private bool notSpaced = true;
+	private bool notSpaced = true; //Check if extra expansion for small systems has taken place
 
-	public static int[] count = new int[3];
+	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
+	//Give a camera reference to this star, called by PerlinStars
 	public void setCam (Camera cam){
 		mainCam = cam;
 	}
@@ -37,12 +40,14 @@ public class Star : MonoBehaviour {
 		//Starstuff
 		starMass = RandomGenerator.getStarMass(); //Star mass is measured in solar masses
 
+		//Simple mass-radius relationship
 		if(starMass > 1.0f){
 			starRadius = Mathf.Pow(starMass, 0.57f);
 		}else{
 			starRadius = Mathf.Pow(starMass, 0.8f);
 		}
 
+		//Luminosity-mass relationship for main sequence stars
 		if(starMass < 0.43f){
 			starLuminosity = 0.23f * Mathf.Pow(starMass, 2.3f);
 		}else if(starMass < 2.0f){
@@ -53,8 +58,28 @@ public class Star : MonoBehaviour {
 			starLuminosity = 3200 * starMass;
 		}
 
+		//Temerpature from luminosity and radius, using Stephen-Boltzmann Law
+		starTemperature = 5780 * Mathf.Pow(starLuminosity/starRadius, 0.25f);
 
-		//Planet stuff
+		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary
+		if(starTemperature < 3500){
+			starClass = "M";
+		}else if(starTemperature < 5000){
+			starClass = "K";
+		}else if(starTemperature < 6000){
+			starClass = "G";
+		}else if(starTemperature < 7500){
+			starClass = "F";
+		}else if(starTemperature < 10000){
+			starClass = "A";
+		}else if(starTemperature < 30000){
+			starClass = "B";
+		}else{
+			starClass = "O";
+		}
+
+
+		//Planet stuff, see planet generation script below
 		int planetNumber = RandomGenerator.getPlanetNumber();
 		planets = new Planet[planetNumber];
 		for(int i = 0; i < planets.Length; i++){
@@ -70,7 +95,6 @@ public class Star : MonoBehaviour {
 		listenerPlanet.enabled = true;
 		for(int i = 0; i < planets.Length; i++){
 			SystemStar.planets[i].transform.position = planets[i].getPos();
-			//SystemStar.planets[i].transform.position += new Vector3(1f * planets[i].radius, 0, 0);
 			SpriteRenderer sprite = SystemStar.planets[i].GetComponent<SpriteRenderer>() as SpriteRenderer;
 			SpriteRenderer spritePlanet = planets[i].planet.GetComponent<SpriteRenderer>() as SpriteRenderer;
 			sprite.sprite = spritePlanet.sprite;
@@ -91,7 +115,7 @@ public class Star : MonoBehaviour {
 	}
 
 	void GeneratePlanet (int i) {
-		Planet planet = GameObject.FindGameObjectWithTag("GameController").AddComponent<Planet>() as Planet;
+		Planet planet = GameObject.FindGameObjectWithTag("GameController").AddComponent<Planet>() as Planet; //Add a new planet script
 		planets[i] = planet;
 
 		//Type determination
@@ -181,10 +205,11 @@ public class Star : MonoBehaviour {
 
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f); //Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 
-		planets[i].angle = RandomGenerator.getFloat(0f, 360f);
+		planets[i].angle = RandomGenerator.getFloat(0f, 360f); //Get angle from horizontal for start of game
 
 		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
 
+		//Spaces out smaller systems, to get some father out planets in systems of 5 or less planets
 		if(planets.Length <= 5 && notSpaced){
 			if(RandomGenerator.getInt(0, 4) == 0){
 				auMod += RandomGenerator.getFloat(5.0f, 10.0f);
