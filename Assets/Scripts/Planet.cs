@@ -14,6 +14,7 @@ public class Planet : MonoBehaviour{
 	public float mass; //In earth/jupiter/neptune mass
 	public float radius; //In earth/jupiter/neptune radius
 	public float surfaceGrav; //In m/s^2
+	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant)
 	
 	private Vector3 position; //Position of planet
 

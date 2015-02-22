@@ -58,7 +58,7 @@ public class Star : MonoBehaviour {
 			starLuminosity = 3200 * starMass;
 		}
 
-		//Temerpature from luminosity and radius, using Stephen-Boltzmann Law
+		//Temerpature from luminosity and radius, using Stefan-Boltzmann Law
 		starTemperature = 5780 * Mathf.Pow(starLuminosity/starRadius, 0.25f);
 
 		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary
@@ -142,7 +142,7 @@ public class Star : MonoBehaviour {
 
 				count[1]++;
 			}
-		}else if(planets[i - 1].orbitRadius + 2 > 15){ //Ice giants introduced, depending on Luminosity of orbiting stars
+		}else if((27430000000 * Mathf.Pow(starTemperature, 4) * Mathf.Pow(starRadius, 2))/Mathf.Pow((planets[i - 1].orbitRadius + 2) * 149597876600, 2) < 4){ //Ice giants introduced, depending on flux of orbit
 			int r = RandomGenerator.getInt(0, 5); //Weighted for ice giants
 			if(r == 0){
 				//Terrestrial, past first orbit
@@ -203,7 +203,11 @@ public class Star : MonoBehaviour {
 			}
 		}
 
-		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f); //Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
+		//Using Stefan-Boltzmann Law, we can determine the amount of energy per second that reaches the surface. Uses Stefan-Boltzmann coef of 2.743* 10^10 W/(Solar radius^2 * Kelvin^4).
+		planets[i].flux = (27430000000 * Mathf.Pow(starTemperature, 4) * Mathf.Pow(starRadius, 2))/Mathf.Pow((planets[i].orbitRadius) * 149597876600, 2);
+
+		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
+		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
 
 		planets[i].angle = RandomGenerator.getFloat(0f, 360f); //Get angle from horizontal for start of game
 
