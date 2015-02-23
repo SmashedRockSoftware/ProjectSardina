@@ -61,7 +61,7 @@ public class Star : MonoBehaviour {
 		}
 
 		//Temerpature from luminosity and radius, using Stefan-Boltzmann Law
-		starTemperature = 5780 * Mathf.Pow(starLuminosity/starRadius, 0.25f);
+		starTemperature = 5780 * Mathf.Pow(starLuminosity/(starRadius * starRadius), 0.25f);
 
 		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary
 		if(starTemperature < 3500){
