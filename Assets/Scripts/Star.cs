@@ -13,6 +13,8 @@ public class Star : MonoBehaviour {
 	public float starLuminosity; //solar luminosity
 	public float starTemperature; //kelvin
 	public string starClass; //stellar class O through M
+	public string starName; //Name of the star
+	public Constellation starConstellation; //constellation this star is a part of
 
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit

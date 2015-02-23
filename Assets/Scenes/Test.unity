@@ -540,6 +540,7 @@ MonoBehaviour:
   persistence: .5
   octaves: 8
   seed: 0
+  constellationSize: 25
   xRange: 50
   yRange: 50
   spacing: .25
