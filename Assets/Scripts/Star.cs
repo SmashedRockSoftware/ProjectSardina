@@ -27,6 +27,7 @@ public class Star : MonoBehaviour {
 
 	//Star sprites, assigned in star controller
 	public static SpriteRenderer[] starSprites;
+	public Animator[] starAnimators;
 
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
@@ -72,15 +73,18 @@ public class Star : MonoBehaviour {
 		starTemperature = 5780 * Mathf.Pow(starLuminosity/(starRadius * starRadius), 0.25f);
 
 		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary. Sprite is also assigned here.
-		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+		SpriteRenderer	sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
+		Animation an = gameObject.AddComponent<Animation>() as Animation;
 		if(starTemperature < 3500){
-			gameObject.GetComponent<SpriteRenderer>().sprite = starSprites[6].sprite;
+			sr.sprite = starSprites[6].sprite;
 			starClass = "M";
 		}else if(starTemperature < 5000){
 			sr.sprite = starSprites[5].sprite;
 			starClass = "K";
 		}else if(starTemperature < 6000){
 			sr.sprite = starSprites[4].sprite;
+			an.clip = an["yellowdwarf"].clip;
+			an.animation.Play();
 			starClass = "G";
 		}else if(starTemperature < 7500){
 			sr.sprite = starSprites[3].sprite;

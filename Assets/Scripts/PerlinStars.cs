@@ -21,6 +21,7 @@ public class PerlinStars : MonoBehaviour {
 	public SpriteRenderer[] planetsTempTerrestrial;
 	public SpriteRenderer[] planetsTempIce;
 	public SpriteRenderer[] starsTemp;
+	public Animator[] animatorsTemp;
 
 	public static GameObject[] stars;
 	public static Constellation[,] constellations;
@@ -81,6 +82,7 @@ public class PerlinStars : MonoBehaviour {
 		for(int i = 0; i < stars.Length; i++){
 			Star star = stars[i].AddComponent("Star") as Star;
 			star.setCam(Camera.main);
+			star.starAnimators = animatorsTemp;
 
 			//Finding constellation of the star
 			int row = 0;
