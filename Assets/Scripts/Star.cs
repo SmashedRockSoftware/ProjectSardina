@@ -20,6 +20,14 @@ public class Star : MonoBehaviour {
 	private float auMod = 0; //For systems with less planets, expands system out a bit
 	private bool notSpaced = true; //Check if extra expansion for small systems has taken place
 
+	//Planet sprites, assigned on the star controller
+	public static SpriteRenderer[] planetsGas;
+	public static SpriteRenderer[] planetsTerrestrial;
+	public static SpriteRenderer[] planetsIce;
+
+	//Star sprites, assigned in star controller
+	public static SpriteRenderer[] starSprites;
+
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
 	//Give a camera reference to this star, called by PerlinStars
@@ -63,20 +71,28 @@ public class Star : MonoBehaviour {
 		//Temerpature from luminosity and radius, using Stefan-Boltzmann Law
 		starTemperature = 5780 * Mathf.Pow(starLuminosity/(starRadius * starRadius), 0.25f);
 
-		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary
+		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary. Sprite is also assigned here.
+		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
 		if(starTemperature < 3500){
+			gameObject.GetComponent<SpriteRenderer>().sprite = starSprites[6].sprite;
 			starClass = "M";
 		}else if(starTemperature < 5000){
+			sr.sprite = starSprites[5].sprite;
 			starClass = "K";
 		}else if(starTemperature < 6000){
+			sr.sprite = starSprites[4].sprite;
 			starClass = "G";
 		}else if(starTemperature < 7500){
+			sr.sprite = starSprites[3].sprite;
 			starClass = "F";
 		}else if(starTemperature < 10000){
+			sr.sprite = starSprites[2].sprite;
 			starClass = "A";
 		}else if(starTemperature < 30000){
+			sr.sprite = starSprites[1].sprite;
 			starClass = "B";
 		}else{
+			sr.sprite = starSprites[0].sprite;
 			starClass = "O";
 		}
 
@@ -113,6 +129,8 @@ public class Star : MonoBehaviour {
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = false;
 		SystemStar.planetCam.enabled = false;
+		SystemStar.planetCam.transform.position = new Vector3(1000, 10, 0);
+		SystemStar.planetCam.orthographicSize = 20;
 		SystemStar.HidePlanets();
 	}
 
@@ -126,7 +144,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, close to star
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
-				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -137,7 +155,7 @@ public class Star : MonoBehaviour {
 				//Hot jupiter
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
-				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
@@ -150,7 +168,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, past first orbit
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -161,7 +179,7 @@ public class Star : MonoBehaviour {
 				//Regular jupiter, colder
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
@@ -172,7 +190,7 @@ public class Star : MonoBehaviour {
 				//Ice giant
 				planets[i].planetType = 2;
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = PerlinStars.planetsIce[RandomGenerator.getInt(0, PerlinStars.planetsIce.Length)]; //Get planet sprite
+				planets[i].planet = planetsIce[RandomGenerator.getInt(0, planetsIce.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.neptuneToEarthMass(planets[i].mass), 2); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
@@ -185,7 +203,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, middle solar system
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = PerlinStars.planetsTerrestrial[RandomGenerator.getInt(0, PerlinStars.planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -196,7 +214,7 @@ public class Star : MonoBehaviour {
 				//Regular jupiter
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = PerlinStars.planetsGas[RandomGenerator.getInt(0, PerlinStars.planetsGas.Length)]; //Get planet sprite
+				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth

@@ -24,6 +24,11 @@ public class Planet : MonoBehaviour{
 		angle += (0.5f/orbitPeriod)/60f;
 		position = new Vector3(1000 + Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius, 0, Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius);
 
+		//Reset angle when planet goes a rotation
+		if(angle > 360){
+			angle -= 360;
+		}
+
 	}
 
 	public Vector3 getPos(){

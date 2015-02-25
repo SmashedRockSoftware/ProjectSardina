@@ -553,6 +553,14 @@ MonoBehaviour:
   - {fileID: 21200000, guid: 43aaf051c36202b44baaf44badc68d05, type: 2}
   planetsTempIce:
   - {fileID: 21200000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
+  starsTemp:
+  - {fileID: 21200000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
+  - {fileID: 21200000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}
+  - {fileID: 21200000, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
+  - {fileID: 21200000, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
+  - {fileID: 21200000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+  - {fileID: 21200000, guid: 3cdb306662018914d8496d13b1ee98f5, type: 2}
+  - {fileID: 21200000, guid: eee798d6fbd6bab44b20e9be0cf82423, type: 2}
 --- !u!4 &339947513
 Transform:
   m_ObjectHideFlags: 0
@@ -1158,7 +1166,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

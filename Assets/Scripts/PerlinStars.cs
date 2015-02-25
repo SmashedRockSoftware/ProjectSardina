@@ -20,20 +20,19 @@ public class PerlinStars : MonoBehaviour {
 	public SpriteRenderer[] planetsTempGas;
 	public SpriteRenderer[] planetsTempTerrestrial;
 	public SpriteRenderer[] planetsTempIce;
+	public SpriteRenderer[] starsTemp;
 
 	public static GameObject[] stars;
 	public static Constellation[,] constellations;
-	public static SpriteRenderer[] planetsGas;
-	public static SpriteRenderer[] planetsTerrestrial;
-	public static SpriteRenderer[] planetsIce;
 
 	private string[] constellationNames = new string[]{"Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu"};
 
 	// Use this for initialization
 	void Start () {
-		planetsIce = planetsTempIce;
-		planetsGas = planetsTempGas;
-		planetsTerrestrial = planetsTempTerrestrial;
+		Star.planetsIce = planetsTempIce;
+		Star.planetsGas = planetsTempGas;
+		Star.planetsTerrestrial = planetsTempTerrestrial;
+		Star.starSprites = starsTemp;
 		constellations = new Constellation[Mathf.RoundToInt((xRange + xRange * spacing)/constellationSize), Mathf.RoundToInt((yRange + yRange * spacing)/constellationSize)];
 
 		RandomGenerator.setSeed(seed);
