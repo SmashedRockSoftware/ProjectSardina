@@ -51,4 +51,8 @@ public static class RandomGenerator {
 	public static int getPlanetNumber(){
 		return planetNumber[getInt(0, planetNumber.Length)];
 	}
+	public static float getTerrestrialPressure(float min, float max){
+		float x = getFloat (min, max);
+		return Mathf.Pow (10, 12 * (x - .75));
+	}
 }
