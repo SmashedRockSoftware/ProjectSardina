@@ -51,7 +51,7 @@ public static class PlanetOperations {
 		return earthRadius/3.883f;
 	}
 
-	public void planetAtm(int type, Planet planet, float flux, float mass){
+	public void planetAtm(int type, Planet planet){
 		float oxygen, nitrogen, co2, hydrogen, methane, h2o, neon, helium, other;
 		float first, second, third, fourth, fifth, sixth, seventh, eighth, temp;
 		List<float> composition = new List<float> (first, second, third, fourth, fifth, sixth, seventh, eighth);
@@ -200,8 +200,5 @@ public static class PlanetOperations {
 			pressure=1000;
 		}
 		return pressure;
-	}
-
-	public static bool testHabilability(string dependGas, float dependGasAmount, float dependPressure, float dependTemperature, float dependGravity){
 	}
 }
