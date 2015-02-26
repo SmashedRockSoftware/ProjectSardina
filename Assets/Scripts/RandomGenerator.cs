@@ -31,7 +31,6 @@ public static class RandomGenerator {
 		return perlinGen.GetValue(x, y, 1);
 	}
 
-
 	public static float getStarMass(){
 		float x = getFloat(0, 1);
 		//return 1.53846f * Mathf.Log(1/(1-x)) + 0.1f; //Exponential Distribution
