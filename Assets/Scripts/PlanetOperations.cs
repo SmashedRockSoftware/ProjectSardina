@@ -51,101 +51,101 @@ public static class PlanetOperations {
 		return earthRadius/3.883f;
 	}
 
-	public void planetAtm(int type, Planet planet){
-		float oxygen, nitrogen, co2, hydrogen, methane, h2o, neon, helium, other;
-		float first, second, third, fourth, fifth, sixth, seventh, eighth, temp;
-		List<float> composition = new List<float> (first, second, third, fourth, fifth, sixth, seventh, eighth);
+	public static void planetAtm(int type, Planet planet){
+		float oxygen=0, nitrogen=0, co2=0, hydrogen=0, methane=0, h2o=0, neon=0, helium=0, other=0;
+		float first=0, second=0, third=0, fourth=0, fifth=0, sixth=0, seventh=0, eighth=0, temp=0;
+		List<float> composition = new List<float> (){first, second, third, fourth, fifth, sixth, seventh, eighth};
 		if (type == 0) {											//atmosphere for terrestrials=type 0
-			RandomGenerator.getFloat (20, 82) = first;			//picks a primary element first, an element that will make up (sometimes) most of atm
-			RandomGenerator.getFloat (0, 100 - first) = second;	//with every assignement, the numbers naturally get smaller, use that to your advantage
+			first=RandomGenerator.getFloat (20f, 82f);			//picks a primary element first, an element that will make up (sometimes) most of atm
+			second=RandomGenerator.getFloat (0f, 100f - first);	//with every assignement, the numbers naturally get smaller, use that to your advantage
 			temp = first + second;
-			if (temp != 100) {									//checks if the total number hasn't already reached 100%, if not, it keeps on going
-				RandomGenerator.getFloat (0, 100 - temp) = third;
+			if (temp != 100f) {									//checks if the total number hasn't already reached 100%, if not, it keeps on going
+				third=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += third;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fourth;
+			if (temp != 100f) {
+				fourth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fourth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fifth;
+			if (temp != 100f) {
+				fifth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fifth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = sixth;
+			if (temp != 100f) {
+				sixth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += sixth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = seventh;
+			if (temp != 100f) {
+				seventh=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += seventh;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = eighth;
+			if (temp != 100f) {
+				eighth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += eighth;
 			}
 		}
 		if (type == 1) {											//atm for gas giants
-			RandomGenerator.getFloat (82, 99) = first;			//higher chance for hydrogen to make up most of the atmosphere (as defined below)
-			RandomGenerator.getFloat (0, 100 - first) = second;
+			first=RandomGenerator.getFloat (82f, 99f);		//higher chance for hydrogen to make up most of the atmosphere (as defined below)
+			second=RandomGenerator.getFloat (0f, 100f - first);
 			temp = first + second;
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = third;
+			if (temp != 100f) {									//checks if the total number hasn't already reached 100%, if not, it keeps on going
+				third=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += third;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fourth;
+			if (temp != 100f) {
+				fourth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fourth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fifth;
+			if (temp != 100f) {
+				fifth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fifth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = sixth;
+			if (temp != 100f) {
+				sixth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += sixth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = seventh;
+			if (temp != 100f) {
+				seventh=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += seventh;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = eighth;
+			if (temp != 100f) {
+				eighth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += eighth;
 			}
 		}
 		if (type == 2) {											//atm for ice giants
-			RandomGenerator.getFloat (72, 92) = first;			//modified from gas giants to allow for higher amounts
-			RandomGenerator.getFloat (0, 100 - first) = second;
+			first=RandomGenerator.getFloat (72f, 92f);			//modified from gas giants to allow for higher amounts
+			second=RandomGenerator.getFloat (0f, 100f - first);
 			temp = first + second;
-			if (temp != 100) {
-				RandomGenerator.getFloat (0.0, 100 - temp) = third;
+			if (temp != 100f) {									//checks if the total number hasn't already reached 100%, if not, it keeps on going
+				third=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += third;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fourth;
+			if (temp != 100f) {
+				fourth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fourth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = fifth;
+			if (temp != 100f) {
+				fifth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += fifth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = sixth;
+			if (temp != 100f) {
+				sixth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += sixth;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100f - temp) = seventh;
+			if (temp != 100f) {
+				seventh=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += seventh;
 			}
-			if (temp != 100) {
-				RandomGenerator.getFloat (0, 100 - temp) = eighth;
+			if (temp != 100f) {
+				eighth=RandomGenerator.getFloat (0f, 100f - temp);
 				temp += eighth;
 			}			
 		}
 		other=100-temp;									//for any leftovers
 
 		if (type == 0) {										//normal likeliness of hydrogen for terrestrials	
-			hydrogen = RandomGenerator.getInt(composition.Count);
+			hydrogen = composition[RandomGenerator.getInt(0,composition.Count)];
 			composition.Remove (hydrogen);
 		}
 		if (type == 1|type == 2) {								//highest amounts of hydrogen in ice giants and gas giants
@@ -155,36 +155,40 @@ public static class PlanetOperations {
 			methane=second;
 		}
 		if (type == 1 | type == 0) {							//normal amounts of methane for gas giants and terrestrials
-			methane = RandomGenerator.getInt(composition.Count);
+			methane = composition[RandomGenerator.getInt(0,composition.Count)];
 			composition.Remove (methane);
 		}
-		oxygen = RandomGenerator.getInt(composition.Count);
+
+
+		oxygen = composition[RandomGenerator.getInt(0,composition.Count)];
 		composition.Remove (oxygen);
 
-		nitrogen = RandomGenerator.getInt(composition.Count);
+		nitrogen = composition[RandomGenerator.getInt(0,composition.Count)];
 		composition.Remove (nitrogen);
 
-		co2 = RandomGenerator.getInt(composition.Count);
+		co2 = composition[RandomGenerator.getInt(0,composition.Count)];
 		composition.Remove (co2);
 
-		h2o = RandomGenerator.getInt(composition.Count);
+		h2o = composition[RandomGenerator.getInt(0,composition.Count)];
 		composition.Remove (h2o);
 
-		neon = RandomGenerator.getInt(composition.Count);
+		neon = composition[RandomGenerator.getInt(0,composition.Count)];
         composition.Remove (neon);
 
-		helium = RandomGenerator.getInt(composition.Count);
+		helium = composition[RandomGenerator.getInt(0,composition.Count)];
 		composition.Remove (helium);
 
 		float[] planetComposition = new float[]{hydrogen, methane, oxygen, nitrogen, co2, h2o, neon, helium, other};
 		string[] elementNames = new string[] {"hydrogen","methane","oxygen","nitrogen","co2","h2o","neon","helium","other"};
 
-		Planet.atmComposition = planetComposition;
-		Planet.gasNames = elementNames;							//End atmospheric composition generator
+
+
+		planet.atmComposition = planetComposition;
+		planet.gasNames = elementNames;							//End atmospheric composition generator
 	}
 
 	public static float planetPressure(int type, float flux, float mass){	//get pressure
-		float pressure;
+		float pressure=0;
 		if (type == 0) {
 			if (flux > 6000) {
 				pressure = RandomGenerator.getTerrestrialPressure (-.3f, .45f);
