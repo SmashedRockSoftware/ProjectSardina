@@ -48,58 +48,7 @@ public class Star : MonoBehaviour {
 
 	void PlanetaryGenerator () {
 
-		//Starstuff
-		starMass = RandomGenerator.getStarMass(); //Star mass is measured in solar masses
-
-		//Simple mass-radius relationship
-		if(starMass > 1.0f){
-			starRadius = Mathf.Pow(starMass, 0.57f);
-		}else{
-			starRadius = Mathf.Pow(starMass, 0.8f);
-		}
-
-		//Luminosity-mass relationship for main sequence stars
-		if(starMass < 0.43f){
-			starLuminosity = 0.23f * Mathf.Pow(starMass, 2.3f);
-		}else if(starMass < 2.0f){
-			starLuminosity = Mathf.Pow(starMass, 4.0f);
-		}else if(starMass < 20.0f){
-			starLuminosity = 1.5f * Mathf.Pow(starMass, 3.5f);
-		}else{
-			starLuminosity = 3200 * starMass;
-		}
-
-		//Temerpature from luminosity and radius, using Stefan-Boltzmann Law
-		starTemperature = 5780 * Mathf.Pow(starLuminosity/(starRadius * starRadius), 0.25f);
-
-		//Stellar Classification on the Harvard scale. Since most (if not all) stars are main sequence, MK scale is unecessary. Sprite is also assigned here.
-		SpriteRenderer	sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-		Animation an = gameObject.AddComponent<Animation>() as Animation;
-		if(starTemperature < 3500){
-			sr.sprite = starSprites[6].sprite;
-			starClass = "M";
-		}else if(starTemperature < 5000){
-			sr.sprite = starSprites[5].sprite;
-			starClass = "K";
-		}else if(starTemperature < 6000){
-			sr.sprite = starSprites[4].sprite;
-			an.clip = an["yellowdwarf"].clip;
-			an.animation.Play();
-			starClass = "G";
-		}else if(starTemperature < 7500){
-			sr.sprite = starSprites[3].sprite;
-			starClass = "F";
-		}else if(starTemperature < 10000){
-			sr.sprite = starSprites[2].sprite;
-			starClass = "A";
-		}else if(starTemperature < 30000){
-			sr.sprite = starSprites[1].sprite;
-			starClass = "B";
-		}else{
-			sr.sprite = starSprites[0].sprite;
-			starClass = "O";
-		}
-
+		//Star generation has been moved to the StarGenerator
 
 		//Planet stuff, see planet generation script below
 		int planetNumber = RandomGenerator.getPlanetNumber();

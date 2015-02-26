@@ -287,6 +287,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3961f69d09bec4742bfa1488f6ab6f51, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3961f69d09bec4742bfa1488f6ab6f51, type: 2}
   m_RootGameObject: {fileID: 1596252856}
@@ -428,7 +432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!65 &316859390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -545,22 +549,21 @@ MonoBehaviour:
   yRange: 50
   spacing: .25
   offsetRange: 1
-  star: {fileID: 100000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
-  starList: []
+  starPositionsList: []
   planetsTempGas:
   - {fileID: 21200000, guid: cd759848830df404db5b54b9b8849aed, type: 2}
   planetsTempTerrestrial:
   - {fileID: 21200000, guid: 43aaf051c36202b44baaf44badc68d05, type: 2}
   planetsTempIce:
   - {fileID: 21200000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
-  starsTemp:
-  - {fileID: 21200000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
-  - {fileID: 21200000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}
-  - {fileID: 21200000, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
-  - {fileID: 21200000, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
-  - {fileID: 21200000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
-  - {fileID: 21200000, guid: 3cdb306662018914d8496d13b1ee98f5, type: 2}
-  - {fileID: 21200000, guid: eee798d6fbd6bab44b20e9be0cf82423, type: 2}
+  starObjects:
+  - {fileID: 100000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
+  - {fileID: 100000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}
+  - {fileID: 100000, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
+  - {fileID: 100000, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
+  - {fileID: 100000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+  - {fileID: 100000, guid: 3cdb306662018914d8496d13b1ee98f5, type: 2}
+  - {fileID: 100000, guid: 17848f2b555d215489a035af6797dffa, type: 2}
 --- !u!4 &339947513
 Transform:
   m_ObjectHideFlags: 0
@@ -1314,7 +1317,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!65 &1596252860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1428,6 +1431,10 @@ Prefab:
     - target: {fileID: 400000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
       propertyPath: m_LocalRotation.w
       value: .707106829
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

@@ -14,26 +14,25 @@ public class PerlinStars : MonoBehaviour {
 	public float yRange;
 	public float spacing;
 	public float offsetRange;
-	public GameObject star;
-	public List<GameObject> starList = new List<GameObject>();
+	public List<Vector3> starPositionsList = new List<Vector3>();
 
 	public SpriteRenderer[] planetsTempGas;
 	public SpriteRenderer[] planetsTempTerrestrial;
 	public SpriteRenderer[] planetsTempIce;
-	public SpriteRenderer[] starsTemp;
-	public Animator[] animatorsTemp;
+	public GameObject[] starObjects;
 
 	public static GameObject[] stars;
 	public static Constellation[,] constellations;
 
 	private string[] constellationNames = new string[]{"Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu"};
+	private Vector3[] starPositions;
+	private List<GameObject> starList = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
 		Star.planetsIce = planetsTempIce;
 		Star.planetsGas = planetsTempGas;
 		Star.planetsTerrestrial = planetsTempTerrestrial;
-		Star.starSprites = starsTemp;
 		constellations = new Constellation[Mathf.RoundToInt((xRange + xRange * spacing)/constellationSize), Mathf.RoundToInt((yRange + yRange * spacing)/constellationSize)];
 
 		RandomGenerator.setSeed(seed);
@@ -43,22 +42,18 @@ public class PerlinStars : MonoBehaviour {
 		for(int x = 0; x < xRange; x++){
 			for(int y = 0; y < yRange; y++){
 				if(RandomGenerator.get2DNoise(x, y) > threshold){
-					GameObject starI = Instantiate(star, new Vector3((x + spacing * x), 0, (y + spacing * y)), Quaternion.identity) as GameObject;
-					starI.transform.Rotate(90, 0, 0);
-					starI.transform.position = new Vector3(starI.transform.position.x + RandomGenerator.getFloat(0, offsetRange), 0, starI.transform.position.z + RandomGenerator.getFloat(0, offsetRange));
-					starList.Add(starI);
+					starPositionsList.Add(new Vector3((x + spacing * x) + RandomGenerator.getFloat(0, offsetRange), 0, (y + spacing * y) + RandomGenerator.getFloat(0, offsetRange)));
 				}
 			}
 		}
 
 		//Destroying stars on top of each other
-		for(int i = 0; i < starList.Count; i++){
-			for(int x = 0; x < starList.Count; x++){
-				if(starList[i] != starList[x]){
-					if(Vector3.Distance(starList[i].transform.position, starList[x].transform.position) < 1f){
-						GameObject star = starList[i];
-						starList.Remove(star);
-						Destroy(star);
+		for(int i = 0; i < starPositionsList.Count; i++){
+			for(int x = 0; x < starPositionsList.Count; x++){
+				if(starPositionsList[i] != starPositionsList[x]){
+					if(Vector3.Distance(starPositionsList[i], starPositionsList[x]) < 1f){
+						Vector3 star = starPositionsList[i];
+						starPositionsList.Remove(star);
 					}
 				}
 			}
@@ -78,11 +73,35 @@ public class PerlinStars : MonoBehaviour {
 		int luminSmall = 0;
 		float mass = 0;
 		int massSmall = 0;
-		stars = starList.ToArray();
-		for(int i = 0; i < stars.Length; i++){
-			Star star = stars[i].AddComponent("Star") as Star;
+		starPositions = starPositionsList.ToArray();
+		StarGenerator gen = new StarGenerator();
+		GameObject temp;
+		for(int i = 0; i < starPositions.Length; i++){
+			gen.GenerateStar();
+
+			if(gen.starClass.Equals("M")){
+				temp = starObjects[6];
+			}else if(gen.starClass.Equals("K")){
+				temp = starObjects[5];
+			}else if(gen.starClass.Equals("G")){
+				temp = starObjects[4];
+			}else if(gen.starClass.Equals("F")){
+				temp = starObjects[3];
+			}else if(gen.starClass.Equals("A")){
+				temp = starObjects[2];
+			}else if(gen.starClass.Equals("B")){
+				temp = starObjects[1];
+			}else{
+				temp = starObjects[0];
+			}
+
+			GameObject go = Instantiate(temp, starPositions[i], Quaternion.identity) as GameObject;
+			go.transform.eulerAngles = new Vector3(90, 0, 0);
+
+			Star star = go.AddComponent("Star") as Star;
+			gen.FillStar(star);
 			star.setCam(Camera.main);
-			star.starAnimators = animatorsTemp;
+			starList.Add(go);
 
 			//Finding constellation of the star
 			int row = 0;
@@ -113,6 +132,8 @@ public class PerlinStars : MonoBehaviour {
 			}
 		}
 
+		//Finalizing arrays from lists
+		stars = starList.ToArray();
 		for(int x = 0; x < constellations.GetLength(0); x++){
 			for(int y = 0; y < constellations.GetLength(1); y++){
 				constellations[x,y].finalizeStars();
