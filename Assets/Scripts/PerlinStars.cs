@@ -102,6 +102,7 @@ public class PerlinStars : MonoBehaviour {
 			gen.FillStar(star);
 			star.setCam(Camera.main);
 			starList.Add(go);
+			star.PlanetaryGenerator();
 
 			//Finding constellation of the star
 			int row = 0;

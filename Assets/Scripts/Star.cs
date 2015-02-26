@@ -38,15 +38,15 @@ public class Star : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		PlanetaryGenerator();
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-	void PlanetaryGenerator () {
+	public void PlanetaryGenerator () {
 
 		//Star generation has been moved to the StarGenerator
 
