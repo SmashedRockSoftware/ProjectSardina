@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Planet : MonoBehaviour{
@@ -15,8 +15,7 @@ public class Planet : MonoBehaviour{
 	public float radius; //In earth/jupiter/neptune radius
 	public float surfaceGrav; //In m/s^2
 	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant)
-	public float[] atmComposition = new float[]{}; //In percent of atmosphere
-	public string[] gasNames = new string[]{}; //In letters
+	public Gas[] atmosphericComposition;
 	public float atmPressure; //In bars
 
 	private Vector3 position; //Position of planet

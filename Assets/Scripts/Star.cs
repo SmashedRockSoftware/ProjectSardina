@@ -7,6 +7,16 @@ public class Star : MonoBehaviour {
 	//Planet vars
 	public Planet[] planets;
 
+	//~Planet atmosphere vars~
+	//Assign an element a specific number if you want it to be more or less abundant
+	//If you want an element to not be spawned, then set it to -10
+	//If an element is 0, then the generator will pick a number between 0 and 100
+	static float hydrogen, helium, methane, oxygen, nitrogen, co2, h2o, neon, other;
+	public float[] gasElements = new float[]{hydrogen=300, helium=250, methane=100, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for gas giants
+	public float[] terrestrialElements = new float[]{hydrogen=40, helium=40, methane=0, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for terrestrials
+	public float[] iceElements = new float[]{hydrogen=300, helium=250, methane=200, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for ice giants
+	public string[] elementNames = new string[]{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "neon", "other"};//Must be in respective order as above
+
 	//Star vars
 	public float starMass; //solar masses
 	public float starRadius; //solar radii
@@ -102,7 +112,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
@@ -116,7 +126,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
@@ -132,7 +142,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);											//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
@@ -146,7 +156,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
@@ -160,7 +170,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.neptuneToEarthMass(planets[i].mass), 2); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], iceElements, elementNames);													//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[2]++;
@@ -176,7 +186,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);											//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
@@ -190,7 +200,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				PlanetOperations.planetAtm(planets[i].planetType, planets[i]);														//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
