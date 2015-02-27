@@ -57,12 +57,10 @@ public static class PlanetOperations {
 			if (element[i]==0){
 				element[i]=RandomGenerator.getFloat (-50,100);		//change this to distribution later maybe
 			}else{
-				float min=element[i]-10f;
-				float max=element[i]+10f;
-				element[i]=RandomGenerator.getFloat (min,max);
-				if (element[i]<=0){
-					element[i]=0;
-				}
+				element[i]=RandomGenerator.getFloat (element[i]-10,element[i]+10);
+			}
+			if (element[i]<=0){
+				element[i]=0;
 			}
 			total+=element[i];
 		}
@@ -72,6 +70,7 @@ public static class PlanetOperations {
 				element[i]=(element[i]/total)*100f;
  				Gas gas = new Gas(element[i], elementNames[i]);
 				atmosphere.Add (gas);
+//  			Debug.Log (element[0]+" "+elementNames[0]+" "+element[1]+" "+elementNames[1]+" "+element[2]+" "+elementNames[2]+" "+element[3]+" "+elementNames[3]+" "+element[4]+" "+elementNames[4]+" "+element[5]+" "+elementNames[5]+" "+element[6]+" "+elementNames[6]+" "+element[7]+" "+elementNames[7]+" "+element[8]+" "+elementNames[8]);
 			}
 		}
 		Gas[] gases = atmosphere.ToArray();

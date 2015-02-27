@@ -71,7 +71,7 @@ public class Star : MonoBehaviour {
 		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
 		mainCam.enabled = false;
 		listenerMain.enabled = false;
-		SystemStar.planetCam.enabled = true;
+		SystemStar.planetCam.enabled = true;					//This line sometimes returns a NRE "Object reference not set to an instance of an object"
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = true;
 		for(int i = 0; i < planets.Length; i++){
@@ -126,7 +126,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
@@ -142,7 +142,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);											//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
@@ -156,7 +156,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
@@ -170,7 +170,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.neptuneToEarthMass(planets[i].mass), 2); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], iceElements, elementNames);													//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], iceElements, elementNames);				//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[2]++;
@@ -186,7 +186,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);											//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
@@ -200,7 +200,7 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
-				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);													//set atmospheric composition
+				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
@@ -214,7 +214,7 @@ public class Star : MonoBehaviour {
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
 
 		planets[i].angle = RandomGenerator.getFloat(0f, 360f); //Get angle from horizontal for start of game
-
+//		Debug.Log (planets [0].atmosphericComposition);
 		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
 
 		//Spaces out smaller systems, to get some father out planets in systems of 5 or less planets
