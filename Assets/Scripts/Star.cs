@@ -214,7 +214,7 @@ public class Star : MonoBehaviour {
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
 
 		planets[i].angle = RandomGenerator.getFloat(0f, 360f); //Get angle from horizontal for start of game
-//		Debug.Log (planets [0].atmosphericComposition);
+
 		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
 
 		//Spaces out smaller systems, to get some father out planets in systems of 5 or less planets
@@ -222,6 +222,10 @@ public class Star : MonoBehaviour {
 			if(RandomGenerator.getInt(0, 4) == 0){
 				auMod += RandomGenerator.getFloat(5.0f, 10.0f);
 			}
+		}
+
+		for(int j = 0; j < planets[i].atmosphericComposition.Length; j++){
+			Debug.Log(planets[i].planetType + " " + i + ": " + planets[i].atmosphericComposition[j].ToString());
 		}
 
 	}

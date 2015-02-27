@@ -9,4 +9,9 @@ public class Gas{
 		gasAmount = amount;
 		gasName = name;
 	}
+
+
+	public override string ToString(){
+		return gasName + ": " + gasAmount;
+	}
 }

@@ -14,6 +14,50 @@ public static class PlanetOperations {
 			return earth;
 		}
 	}
+	
+	public static Gas[] planetAtm(Planet planet, float[] element, string[] elementNames){
+		float total = 0;
+		for (int i = 0; i < element.Length; i++) {			
+			if (element[i] == 0){
+				element[i] = RandomGenerator.getFloat (-50, 100);		//change this to distribution later maybe
+			}else{
+				element[i] = RandomGenerator.getFloat (element[i]-10, element[i]+10);
+			}
+			if (element[i] <= 0){
+				element[i] = 0;
+			}
+			total += element[i];
+		}
+		List<Gas> atmosphere = new List<Gas>();
+		for (int i = 0; i < element.Length; i++) {
+			if (element[i] >= 1){
+				element[i] = (element[i]/total) * 100f;
+				Gas gas = new Gas(element[i], elementNames[i]);
+				atmosphere.Add (gas);
+
+			}
+		}
+		return atmosphere.ToArray(); 
+	}
+	
+	public static float planetPressure(int type, float flux, float mass){	//get pressure
+		float pressure=0;
+		if (type == 0) {
+			if (flux > 6000) {
+				pressure = RandomGenerator.getTerrestrialPressure (-.3f, .45f);
+			} else if (flux > 7000 && mass > 2.5) {
+				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
+			} else if (mass < .2){
+				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
+			}else{
+				pressure = RandomGenerator.getTerrestrialPressure (0, 1);
+			}
+		}
+		if (type == 1 | type == 2) {
+			pressure=1000;
+		}
+		return pressure;
+	}
 
 	public static float getSurfaceGrav(float massInEarths, float radiusInEarths){
 		return 9.807f * (massInEarths/Mathf.Pow(radiusInEarths, 2f));
@@ -51,48 +95,4 @@ public static class PlanetOperations {
 		return earthRadius/3.883f;
 	}
 
-	public static Gas[] planetAtm(Planet planet, float[] element, string[] elementNames){
-		float total = 0;
-		for (int i = 0; i<element.Length; i++) {			
-			if (element[i]==0){
-				element[i]=RandomGenerator.getFloat (-50,100);		//change this to distribution later maybe
-			}else{
-				element[i]=RandomGenerator.getFloat (element[i]-10,element[i]+10);
-			}
-			if (element[i]<=0){
-				element[i]=0;
-			}
-			total+=element[i];
-		}
-		List<Gas> atmosphere = new List<Gas> ();
-		for (int i = 0; i<element.Length; i++) {
-			if (element[i]>=1){
-				element[i]=(element[i]/total)*100f;
- 				Gas gas = new Gas(element[i], elementNames[i]);
-				atmosphere.Add (gas);
-//  			Debug.Log (element[0]+" "+elementNames[0]+" "+element[1]+" "+elementNames[1]+" "+element[2]+" "+elementNames[2]+" "+element[3]+" "+elementNames[3]+" "+element[4]+" "+elementNames[4]+" "+element[5]+" "+elementNames[5]+" "+element[6]+" "+elementNames[6]+" "+element[7]+" "+elementNames[7]+" "+element[8]+" "+elementNames[8]);
-			}
-		}
-		Gas[] gases = atmosphere.ToArray();
-		return gases;
-	}
-
-	public static float planetPressure(int type, float flux, float mass){	//get pressure
-		float pressure=0;
-		if (type == 0) {
-			if (flux > 6000) {
-				pressure = RandomGenerator.getTerrestrialPressure (-.3f, .45f);
-			} else if (flux > 7000 && mass > 2.5) {
-				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
-			} else if (mass<.2){
-				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
-			}else{
-				pressure = RandomGenerator.getTerrestrialPressure (0, 1);
-			}
-		}
-		if (type == 1 | type == 2) {
-			pressure=1000;
-		}
-		return pressure;
-	}
 }
