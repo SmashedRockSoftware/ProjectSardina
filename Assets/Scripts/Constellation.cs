@@ -26,17 +26,12 @@ public class Constellation {
 	}
 
 	public string getNextName (){
-		string next = name + " " + count;
+		string next = name + "-" + count;
 		count++;
 		return next;
 	}
 
 	public void finalizeStars (){
 		stars = starList.ToArray();
-
-		//Name the stars. This is done here because references to the constellation do not exist at star creation.
-		foreach(Star star in stars){
-			star.starName = getNextName();
-		}
 	}
 }

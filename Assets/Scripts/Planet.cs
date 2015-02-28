@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Planet : MonoBehaviour{
 
+	public string planetName;
+
 	//Orbit characteristics
 	public float orbitRadius; //orbitRadius of orbit, in AU. Planets go in perfect circles currently
 	public SpriteRenderer planet; //Sprite for planet

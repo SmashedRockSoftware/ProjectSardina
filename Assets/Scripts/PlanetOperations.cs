@@ -16,25 +16,25 @@ public static class PlanetOperations {
 	}
 	
 	public static Gas[] planetAtm(Planet planet, float[] gasArray, string[] elementNames){
-		float[] element = new float[]{};
-		element = gasArray;
+		float[] element = new float[gasArray.Length];
+		System.Array.Copy(gasArray, element, 9);
 		bool primary = true;		//For more realistic figures, this boolean determines a specific element that is (most of the time) majority composition
 		float total = 0;			//For the percent calculation later. Stores the total value of elements
 		for (int i = 0; i < element.Length; i++) {			
 			if (element[i] == 0){	//Calculates values not already set in Star class
-				if ((RandomGenerator.getInt (0,6)==1)&&primary&&element[i]!=11){		//Random chance that an element is picked as primary element (currently, the first ones in the list are technically more likely)
-					element[i] = RandomGenerator.getFloat (500, 1400);	//High value for primary elements
-					primary=false;	//So there is only one primary
+				if (((RandomGenerator.getInt(0,6) == 1) && primary && !Mathf.Approximately(element[i], 11f))){		//Random chance that an element is picked as primary element (currently, the first ones in the list are technically more likely)
+					element[i] = RandomGenerator.getFloat(500, 1400);	//High value for primary elements
+					primary = false;	//So there is only one primary
 				}else{
-					element[i] = RandomGenerator.getFloat (-700, 300);	//Normal values
+					element[i] = RandomGenerator.getFloat(-700, 300);	//Normal values
 				}
 			}else{
-				element[i] = RandomGenerator.getFloat (element[i]-10, element[i]+10);	//Variance for pre set values in Star
-				if (element[i]>1500){	//Makes assigning values in Star worthwhile, or else there's a big chance your assigned value never gets used
+				element[i] = RandomGenerator.getFloat(element[i]-10, element[i]+10);	//Variance for pre set values in Star
+				if (element[i] > 1500){	//Makes assigning values in Star worthwhile, or else there's a big chance your assigned value never gets used
 					primary = false;
 				}
 			}
-			if (element[i] <=0){	//Remove some elements
+			if (element[i] <= 0){	//Remove some elements
 				element[i] = 0;
 			}
 			total += element[i];
@@ -55,7 +55,7 @@ public static class PlanetOperations {
 		if (type == 0) {
 			if (flux > 6000) {
 				pressure = RandomGenerator.getTerrestrialPressure (-.3f, .45f);
-			} else if (flux > 7000 && mass > 2.5) {
+			} else if (flux > 6000 && mass > 2.5) {
 				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
 			} else if (mass < .2){
 				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
@@ -63,8 +63,8 @@ public static class PlanetOperations {
 				pressure = RandomGenerator.getTerrestrialPressure (0, 1);
 			}
 		}
-		if (type == 1 | type == 2) {
-			pressure=1000;
+		if (type == 1 || type == 2) {
+			pressure = 1000;
 		}
 		return pressure;
 	}

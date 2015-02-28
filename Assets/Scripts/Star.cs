@@ -7,16 +7,15 @@ public class Star : MonoBehaviour {
 	//Planet vars
 	public Planet[] planets;
 
-	//~Planet atmosphere vars~
+	//Planet atmosphere vars
 	//Assign an element a specific number if you want it to be more or less abundant
 	//If you want an element to not be spawned, then set it to -10
 	//If an element is 0, then the generator will pick a number between -700 and 300, or it will make it a primary element
-	//Elements assigned to 11 will never be a primary element
-	static float hydrogen, helium, methane, oxygen, nitrogen, co2, h2o, neon, other;
-	public float[] gasElements = new float[]{hydrogen=5000, helium=400, methane=200, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for gas giants
-	public float[] terrestrialElements = new float[]{hydrogen=0, helium=0, methane=0, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for terrestrials
-	public float[] iceElements = new float[]{hydrogen=5000, helium=400, methane=700, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for ice giants
-	public string[] elementNames = new string[]{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "neon", "other"};//Must be in respective order as above
+	//Elements assigned to 11 will never be a primary elemen
+	public float[] gasElements = new float[]		{5000,       400,      100,       11,       11,         11,    11,    11,      11};//Atmospheric composition for gas giants
+	public float[] terrestrialElements = new float[]{11,         11,       0,         0,        0,          0,     11,    11,      11};//Atmospheric composition for terrestrials
+	public float[] iceElements = new float[]		{5000,       400,      500,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
+	public string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
 	//Star vars
 	public float starMass; //solar masses
@@ -30,6 +29,7 @@ public class Star : MonoBehaviour {
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
 	private bool notSpaced = true; //Check if extra expansion for small systems has taken place
+	private string[] planetNames = new string[]{"a","b","c","d","e","f","g","h","i","j"}; //For getting letter of planet
 
 	//Planet sprites, assigned on the star controller
 	public static SpriteRenderer[] planetsGas;
@@ -59,7 +59,8 @@ public class Star : MonoBehaviour {
 
 	public void PlanetaryGenerator () {
 
-		//Star generation has been moved to the StarGenerator
+		//Star generation has been moved to the StarGenerator, name is done here
+		starName = starConstellation.getNextName();
 
 		//Planet stuff, see planet generation script below
 		int planetNumber = RandomGenerator.getPlanetNumber();
@@ -99,7 +100,7 @@ public class Star : MonoBehaviour {
 	}
 
 	void GeneratePlanet (int i) {
-		Planet planet = GameObject.FindGameObjectWithTag("GameController").AddComponent<Planet>() as Planet; //Add a new planet script
+		Planet planet = gameObject.AddComponent<Planet>(); //Add a new planet script
 		planets[i] = planet;
 
 		//Type determination
@@ -114,7 +115,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
 
@@ -128,7 +128,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
 			}
@@ -144,7 +143,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
 
@@ -158,7 +156,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
 
@@ -172,7 +169,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], iceElements, elementNames);				//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[2]++;
 
@@ -188,7 +184,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[0]++;
 				
@@ -202,14 +197,18 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
 				
 				planets[i].atmosphericComposition = PlanetOperations.planetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
-				planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType,planets[i].flux,planets[i].mass);	//set atmospheric pressure
 
 				count[1]++;
 			}
 		}
 
+		planets[i].planetName = starName + planetNames[i];
+
 		//Using Stefan-Boltzmann Law, we can determine the amount of energy per second that reaches the surface. Uses Stefan-Boltzmann coef of 2.743* 10^10 W/(Solar radius^2 * Kelvin^4).
 		planets[i].flux = (27430000000 * Mathf.Pow(starTemperature, 4) * Mathf.Pow(starRadius, 2))/Mathf.Pow((planets[i].orbitRadius) * 149597876600, 2);
+
+		//Set planet atm pressure. Done here because planet flux doesn't exist before now.
+		planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType, planets[i].flux, planets[i].mass);
 
 		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
@@ -225,9 +224,8 @@ public class Star : MonoBehaviour {
 			}
 		}
 
-		for(int j = 0; j < planets[i].atmosphericComposition.Length; j++){
-			Debug.Log(planets[i].planetType + " " + i + ": " + planets[i].atmosphericComposition[j].ToString());
-		}
-
+		/*for(int j = 0; j < planets[i].atmosphericComposition.Length; j++){
+			Debug.Log(planets[i].planetName + " " + planets[i].planetType + ": " + planets[i].atmosphericComposition[j].ToString());
+		}*/
 	}
 }

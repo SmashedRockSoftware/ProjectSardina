@@ -102,7 +102,6 @@ public class PerlinStars : MonoBehaviour {
 			gen.FillStar(star);
 			star.setCam(Camera.main);
 			starList.Add(go);
-			star.PlanetaryGenerator();
 
 			//Finding constellation of the star
 			int row = 0;
@@ -121,6 +120,7 @@ public class PerlinStars : MonoBehaviour {
 
 			constellations[row,column].starList.Add(star);
 			star.starConstellation = constellations[row,column];
+			star.PlanetaryGenerator(); //Done now so planets can be named
 			
 			//Debug stats
 			lumin += star.starLuminosity;
