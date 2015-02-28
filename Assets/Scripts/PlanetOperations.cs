@@ -15,15 +15,26 @@ public static class PlanetOperations {
 		}
 	}
 	
-	public static Gas[] planetAtm(Planet planet, float[] element, string[] elementNames){
-		float total = 0;
+	public static Gas[] planetAtm(Planet planet, float[] gasArray, string[] elementNames){
+		float[] element = new float[]{};
+		element = gasArray;
+		bool primary = true;		//For more realistic figures, this boolean determines a specific element that is (most of the time) majority composition
+		float total = 0;			//For the percent calculation later. Stores the total value of elements
 		for (int i = 0; i < element.Length; i++) {			
-			if (element[i] == 0){
-				element[i] = RandomGenerator.getFloat (-50, 100);		//change this to distribution later maybe
+			if (element[i] == 0){	//Calculates values not already set in Star class
+				if ((RandomGenerator.getInt (0,6)==1)&&primary&&element[i]!=11){		//Random chance that an element is picked as primary element (currently, the first ones in the list are technically more likely)
+					element[i] = RandomGenerator.getFloat (500, 1400);	//High value for primary elements
+					primary=false;	//So there is only one primary
+				}else{
+					element[i] = RandomGenerator.getFloat (-700, 300);	//Normal values
+				}
 			}else{
-				element[i] = RandomGenerator.getFloat (element[i]-10, element[i]+10);
+				element[i] = RandomGenerator.getFloat (element[i]-10, element[i]+10);	//Variance for pre set values in Star
+				if (element[i]>1500){	//Makes assigning values in Star worthwhile, or else there's a big chance your assigned value never gets used
+					primary = false;
+				}
 			}
-			if (element[i] <= 0){
+			if (element[i] <=0){	//Remove some elements
 				element[i] = 0;
 			}
 			total += element[i];
@@ -31,10 +42,9 @@ public static class PlanetOperations {
 		List<Gas> atmosphere = new List<Gas>();
 		for (int i = 0; i < element.Length; i++) {
 			if (element[i] >= 1){
-				element[i] = (element[i]/total) * 100f;
+				element[i] = (element[i]/total) * 100f;	//Calculates percentages
 				Gas gas = new Gas(element[i], elementNames[i]);
 				atmosphere.Add (gas);
-
 			}
 		}
 		return atmosphere.ToArray(); 

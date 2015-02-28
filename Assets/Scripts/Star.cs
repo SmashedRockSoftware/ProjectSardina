@@ -10,11 +10,12 @@ public class Star : MonoBehaviour {
 	//~Planet atmosphere vars~
 	//Assign an element a specific number if you want it to be more or less abundant
 	//If you want an element to not be spawned, then set it to -10
-	//If an element is 0, then the generator will pick a number between 0 and 100
+	//If an element is 0, then the generator will pick a number between -700 and 300, or it will make it a primary element
+	//Elements assigned to 11 will never be a primary element
 	static float hydrogen, helium, methane, oxygen, nitrogen, co2, h2o, neon, other;
-	public float[] gasElements = new float[]{hydrogen=300, helium=250, methane=100, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for gas giants
-	public float[] terrestrialElements = new float[]{hydrogen=40, helium=40, methane=0, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for terrestrials
-	public float[] iceElements = new float[]{hydrogen=300, helium=250, methane=200, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=30};//Atmospheric composition for ice giants
+	public float[] gasElements = new float[]{hydrogen=5000, helium=400, methane=200, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for gas giants
+	public float[] terrestrialElements = new float[]{hydrogen=0, helium=0, methane=0, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for terrestrials
+	public float[] iceElements = new float[]{hydrogen=5000, helium=400, methane=700, oxygen=0, nitrogen=0, co2=0, h2o=0, neon=0, other=11};//Atmospheric composition for ice giants
 	public string[] elementNames = new string[]{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "neon", "other"};//Must be in respective order as above
 
 	//Star vars
