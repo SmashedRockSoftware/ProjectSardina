@@ -98,7 +98,7 @@ public class PerlinStars : MonoBehaviour {
 			GameObject go = Instantiate(temp, starPositions[i], Quaternion.identity) as GameObject;
 			go.transform.eulerAngles = new Vector3(90, 0, 0);
 
-			Star star = go.AddComponent("Star") as Star;
+			Star star = go.AddComponent<Star>() as Star;
 			gen.FillStar(star);
 			star.setCam(Camera.main);
 			starList.Add(go);

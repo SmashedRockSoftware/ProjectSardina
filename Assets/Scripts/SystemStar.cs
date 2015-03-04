@@ -23,11 +23,11 @@ public class SystemStar : MonoBehaviour {
 
 	public static void HidePlanets () {
 		for(int i = 0; i < planets.Length; i++){
-			planets[i].renderer.enabled = false;
+			planets[i].GetComponent<Renderer>().enabled = false;
 		}
 	}
 
 	public static void ShowPlanet (int i) {
-		planets[i].renderer.enabled = true;
+		planets[i].GetComponent<Renderer>().enabled = true;
 	}
 }
