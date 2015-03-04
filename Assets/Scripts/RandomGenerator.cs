@@ -50,8 +50,29 @@ public static class RandomGenerator {
 	public static int getPlanetNumber(){
 		return planetNumber[getInt(0, planetNumber.Length)];
 	}
+
 	public static float getTerrestrialPressure(float min, float max){
 		float x = getFloat (min, max);
 		return Mathf.Pow (10f, 12f * (x - .75f));
+	}
+
+	public static float getAlbedo(Planet planet){
+		float albedo = 0;
+		if(planet.planetType == 1){
+			albedo = getFloat(0.3f, 0.4f);
+		}else if(planet.planetType == 2){
+			albedo = getFloat(0.25f, 0.35f);
+		}else{
+			if(planet.flux < 5f){
+				albedo = getFloat(0.4f, 0.99f);
+			}else if(planet.flux > 6000f){
+				albedo = getFloat(0.0f, 0.1f);
+			}else if(planet.atmPressure > 50f){
+				albedo = getFloat(0.85f, 0.95f);
+			}else{
+				albedo = getFloat(0.2f, 0.4f);
+			}
+		}
+		return albedo;
 	}
 }

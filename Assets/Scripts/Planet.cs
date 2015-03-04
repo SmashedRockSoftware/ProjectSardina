@@ -19,6 +19,7 @@ public class Planet : MonoBehaviour{
 	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant)
 	public Gas[] atmosphericComposition;
 	public float atmPressure; //In bars
+	public float albedo; //Percentage of energy reflected
 
 	private Vector3 position; //Position of planet
 

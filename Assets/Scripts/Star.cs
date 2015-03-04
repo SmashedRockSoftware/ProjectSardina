@@ -208,7 +208,10 @@ public class Star : MonoBehaviour {
 		planets[i].flux = (27430000000 * Mathf.Pow(starTemperature, 4) * Mathf.Pow(starRadius, 2))/Mathf.Pow((planets[i].orbitRadius) * 149597876600, 2);
 
 		//Set planet atm pressure. Done here because planet flux doesn't exist before now.
-		planets[i].atmPressure = PlanetOperations.planetPressure (planets[i].planetType, planets[i].flux, planets[i].mass);
+		planets[i].atmPressure = PlanetOperations.planetPressure(planets[i].planetType, planets[i].flux, planets[i].mass);
+
+		//Albedo
+		planets[i].albedo = RandomGenerator.getAlbedo(planets[i]);
 
 		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
