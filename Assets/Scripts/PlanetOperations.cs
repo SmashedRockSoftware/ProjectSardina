@@ -69,9 +69,48 @@ public static class PlanetOperations {
 		return pressure;
 	}
 
-	public static float planetTemperature (Planet planet) {
+	public static float planetTemperature (Planet planet, Gas gas) {
 		float temperature;
-		temperature = Mathf.Pow(((planet.star.starLuminosity * (1f - planet.albedo))/(16f * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius)), 0.25f);
+
+		//unknown variables
+			//Optical density
+		float As=1f;	//Surface albedo
+
+		//variables
+		float S = planet.flux;
+		float A = planet.albedo;
+		float sigma = 0.00000000000332f;
+
+		//Calculations begin
+
+		float Pn = (gas.gasAmount[2]/100f) * planet.atmPressure;	//Methane partial pressure:
+
+		float Pc = (gas.gasAmount[5]/100f) * planet.atmPressure;	//CO2 partial pressure:
+
+		float Ph = (gas.gasAmount[6]/100f) * planet.atmPressure;	//H2O partial pressure:
+
+		float t = 0.025f * Mathf.Pow (Pc, 0.53f) + 0.277 * Mathf.Pow (Ph, 0.3f);	//tau=0.025 Pc^0.53 + 0.277 Ph^0.3
+
+		float tvis = .36f * Mathf.Pow ((t - 0.0723f), 0.411f);	//tvis = 0.36(t - 0.723)^0.411
+
+		float F = (S / 4f) (1 - A);	//F = (S/4)(1-A)
+
+		float Te = Mathf.Pow ((F / sigma), 0.25f);	//Te = (F/σ)^0.25
+
+		float T0 = Te * Mathf.Pow ((1f + 0.75f * t), 0.25f);	//T0 = Te(1 + 0.75t)^0.25
+
+		float F0 = sigma * Mathf.Pow (T0, 4f);	//F0 = σT0^4
+
+		float Labs = F-Mathf.Pow (F, -tvis);	//Labs = F-F^-tvis
+
+		float Fsi = F - Labs;	//Fsi = F - Labs
+
+		float Fabs = (1f - As) * Fsi + (F0 - F);	//Fabs = (1 - As)Fsi + (F0 - F)
+
+		float Fc = 0.369f * Fabs * t / (-0.6f + 2f * t);	//Fc = 0.369Fabs * t/(-0.6 + 2t)
+
+		temperature = Mathf.Pow (((F0 - Labs - Fc) / sigma), 0.25f);//((F0 - Labs - Fc)/σ)^0.25
+
 		return temperature;
 	}
 
