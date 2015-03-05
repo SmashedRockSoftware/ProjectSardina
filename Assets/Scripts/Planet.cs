@@ -4,7 +4,7 @@ using System.Collections;
 public class Planet : MonoBehaviour{
 
 	public string planetName;
-	public Star star;
+	public Star star; //Star this planet orbits
 
 	//Orbit characteristics
 	public float orbitRadius; //orbitRadius of orbit, in AU. Planets go in perfect circles currently
@@ -17,10 +17,11 @@ public class Planet : MonoBehaviour{
 	public float mass; //In earth/jupiter/neptune mass
 	public float radius; //In earth/jupiter/neptune radius
 	public float surfaceGrav; //In m/s^2
-	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant)
+	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant) per second
 	public Gas[] atmosphericComposition;
 	public float atmPressure; //In bars
 	public float albedo; //Percentage of energy reflected
+	public float temperature; //In celsius
 
 	private Vector3 position; //Position of planet
 

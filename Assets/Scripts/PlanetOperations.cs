@@ -69,6 +69,12 @@ public static class PlanetOperations {
 		return pressure;
 	}
 
+	public static float planetTemperature (Planet planet) {
+		float temperature;
+		temperature = Mathf.Pow(((planet.star.starLuminosity * (1f - planet.albedo))/(16f * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius)), 0.25f);
+		return temperature;
+	}
+
 	public static float getSurfaceGrav(float massInEarths, float radiusInEarths){
 		return 9.807f * (massInEarths/(radiusInEarths * radiusInEarths));
 	}

@@ -36,10 +36,6 @@ public class Star : MonoBehaviour {
 	public static SpriteRenderer[] planetsTerrestrial;
 	public static SpriteRenderer[] planetsIce;
 
-	//Star sprites, assigned in star controller
-	public static SpriteRenderer[] starSprites;
-	public Animator[] starAnimators;
-
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
 	//Give a camera reference to this star, called by PerlinStars
@@ -102,6 +98,7 @@ public class Star : MonoBehaviour {
 	void GeneratePlanet (int i) {
 		Planet planet = gameObject.AddComponent<Planet>(); //Add a new planet script
 		planets[i] = planet;
+		planets[i].star = this;
 
 		//Type determination
 		if(i == 0){
@@ -212,6 +209,9 @@ public class Star : MonoBehaviour {
 
 		//Albedo
 		planets[i].albedo = RandomGenerator.getAlbedo(planets[i]);
+
+		//Temperature
+		planets[i].temperature = PlanetOperations.planetTemperature(planets[i]) - 273.2f;
 
 		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
