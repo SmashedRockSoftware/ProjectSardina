@@ -23,26 +23,11 @@ public class Planet : MonoBehaviour{
 	public float albedo; //Percentage of energy reflected
 	public float temperature; //In celsius
 
-	private Vector3 position; //Position of planet
-
 	void FixedUpdate(){
 
-		//Movement
-		angle += (0.5f/orbitPeriod)/60f;
-		position = new Vector3(1000 + Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius, 0, Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius);
-
-		//Reset angle when planet goes a rotation
-		if(angle > 360){
-			angle -= 360;
-		}
-
-	}
-
-	public Vector3 getPos(){
-		return position;
 	}
 
 	public override string ToString (){
-		return "Planet: " + position;
+		return planetName;
 	}
 }

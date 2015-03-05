@@ -8,10 +8,12 @@ public class SystemStar : MonoBehaviour {
 	public static Camera planetCam;
 	public Camera planetCamTemp;
 
+	public static float nextPlanetLoc = 4f; //For setting up system
+
 	// Use this for initialization
 	void Start () {
 		for(int i = 0; i < planetTemp.Length; i++){
-		planets[i] = planetTemp[i];
+			planets[i] = planetTemp[i];
 		}
 		planetCam = planetCamTemp;
 	}
