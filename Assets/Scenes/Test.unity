@@ -195,7 +195,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1034334675}
   m_GameObject: {fileID: 97620026}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -222,7 +222,7 @@ Transform:
   m_PrefabInternal: {fileID: 1034334675}
   m_GameObject: {fileID: 97620026}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 988, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -239,8 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 97620027}
 --- !u!1001 &181183055
 Prefab:
   m_ObjectHideFlags: 0
@@ -404,7 +403,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1406617805}
   m_GameObject: {fileID: 327444505}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -431,7 +430,7 @@ Transform:
   m_PrefabInternal: {fileID: 1406617805}
   m_GameObject: {fileID: 327444505}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 980, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -448,8 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 327444506}
 --- !u!1 &339947511
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +536,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 768971344}
   m_GameObject: {fileID: 440594527}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -565,7 +563,7 @@ Transform:
   m_PrefabInternal: {fileID: 768971344}
   m_GameObject: {fileID: 440594527}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 986, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -582,8 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 440594528}
 --- !u!1 &556184773
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +605,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 84975358}
   m_GameObject: {fileID: 556184773}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -635,7 +632,7 @@ Transform:
   m_PrefabInternal: {fileID: 84975358}
   m_GameObject: {fileID: 556184773}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 982, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -652,8 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 556184774}
 --- !u!1001 &579031470
 Prefab:
   m_ObjectHideFlags: 0
@@ -1002,7 +998,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 43194476}
   m_GameObject: {fileID: 1300975642}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1029,7 +1025,7 @@ Transform:
   m_PrefabInternal: {fileID: 43194476}
   m_GameObject: {fileID: 1300975642}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 994, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1046,8 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 1300975643}
 --- !u!1 &1324563888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1104,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1128,7 +1123,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1324563888}
   m_LocalRotation: {x: -3.09086232e-08, y: .707106829, z: -.707106829, w: -3.09086232e-08}
-  m_LocalPosition: {x: 1000, y: 10, z: 0}
+  m_LocalPosition: {x: 990, y: 10, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1145,10 +1140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  ZLimit: 50
-  NegZLimit: -50
-  XLimit: 1050
-  NegXLimit: 950
+  XLimit: 995
+  NegXLimit: 980
 --- !u!1001 &1406617805
 Prefab:
   m_ObjectHideFlags: 0
@@ -1215,7 +1208,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 952724970}
   m_GameObject: {fileID: 1649845787}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1242,7 +1235,7 @@ Transform:
   m_PrefabInternal: {fileID: 952724970}
   m_GameObject: {fileID: 1649845787}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 996, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1259,8 +1252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 1649845788}
 --- !u!1001 &1693811320
 Prefab:
   m_ObjectHideFlags: 0
@@ -1300,6 +1292,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_Size.x
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_Size.y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
+      propertyPath: m_Size.z
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -1329,7 +1345,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 249200129}
   m_GameObject: {fileID: 1715802366}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1356,7 +1372,7 @@ Transform:
   m_PrefabInternal: {fileID: 249200129}
   m_GameObject: {fileID: 1715802366}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 984, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1373,8 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 1715802367}
 --- !u!1001 &1810610643
 Prefab:
   m_ObjectHideFlags: 0
@@ -1441,7 +1456,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 579031470}
   m_GameObject: {fileID: 1976181560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1468,7 +1483,7 @@ Transform:
   m_PrefabInternal: {fileID: 579031470}
   m_GameObject: {fileID: 1976181560}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 998, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1485,8 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 1976181561}
 --- !u!1 &2013783151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,7 +1525,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 600117396}
   m_GameObject: {fileID: 2013783151}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1538,7 +1552,7 @@ Transform:
   m_PrefabInternal: {fileID: 600117396}
   m_GameObject: {fileID: 2013783151}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 990, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1555,8 +1569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 2013783152}
 --- !u!1 &2105486610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1594,7 @@ SpriteRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1810610643}
   m_GameObject: {fileID: 2105486610}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -1608,7 +1621,7 @@ Transform:
   m_PrefabInternal: {fileID: 1810610643}
   m_GameObject: {fileID: 2105486610}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 992, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1625,5 +1638,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8039a8c086f270e4b984ae87801e8b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 316859389}
-  planet: {fileID: 0}
+  sr: {fileID: 2105486611}

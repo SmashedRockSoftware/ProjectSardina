@@ -73,12 +73,8 @@ public class Star : MonoBehaviour {
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = true;
 		for(int i = 0; i < planets.Length; i++){
-			SystemStar.planets[i].transform.position = planets[i].getPos();
-			SpriteRenderer sprite = SystemStar.planets[i].GetComponent<SpriteRenderer>() as SpriteRenderer;
-			SpriteRenderer spritePlanet = planets[i].planet.GetComponent<SpriteRenderer>() as SpriteRenderer;
-			sprite.sprite = spritePlanet.sprite;
 			SystemPlanet planetScript = SystemStar.planets[i].GetComponent<SystemPlanet>() as SystemPlanet;
-			planetScript.planet = planets[i];
+			planetScript.setUpPlanet(planets[i]);
 			SystemStar.ShowPlanet(i);
 		}
 	}
@@ -90,9 +86,8 @@ public class Star : MonoBehaviour {
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = false;
 		SystemStar.planetCam.enabled = false;
-		SystemStar.planetCam.transform.position = new Vector3(1000, 10, 0);
-		SystemStar.planetCam.orthographicSize = 20;
 		SystemStar.HidePlanets();
+		SystemStar.nextPlanetLoc = 4;
 	}
 
 	void GeneratePlanet (int i) {
@@ -105,7 +100,7 @@ public class Star : MonoBehaviour {
 			if(RandomGenerator.getInt(0, 2) == 0){
 				//Terrestrial, close to star
 				planets[i].planetType = 0; //Set planet type
-				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 20.0f)/planets.Length + auMod; //AU
 				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
