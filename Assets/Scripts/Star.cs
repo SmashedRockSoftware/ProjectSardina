@@ -17,7 +17,7 @@ public class Star : MonoBehaviour {
 	public float[] iceElements = new float[]		{5000,       400,      500,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
 	public string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
-	//Star vars
+	//Star vars, units listed
 	public float starMass; //solar masses
 	public float starRadius; //solar radii
 	public float starLuminosity; //solar luminosity
