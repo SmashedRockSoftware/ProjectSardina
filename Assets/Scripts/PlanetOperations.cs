@@ -108,17 +108,17 @@ public static class PlanetOperations {
 
 			float F0 = sigma * 0.95f * Mathf.Pow (T0, 4f);	//F0 = σT0^4
 
-			float Labs = F - Mathf.Pow(F, -tvis);	//Labs = F-F^-tvis
+			float Labs = F - F*Mathf.Exp(-tvis);	//Labs = F-Fe^-tvis
 
 			float Fsi = F - Labs;	//Fsi = F - Labs
 
 			float Fabs = (1f - As) * Fsi + 0.95f * (F0 - F);	//Fabs = (1 - As)Fsi + (F0 - F)
 
-			float Fc = (0.369f * Fabs * t)/(-0.6f + 2f * t);	//Fc = 0.369Fabs * t/(-0.6 + 2t)
+			float Fc = 0.369f * Fabs * t/(-0.6f + 2f * t);	//Fc = 0.369Fabs * t/(-0.6 + 2t)
 
 			temperature = Mathf.Pow(((F0 - Labs - Fc)/sigma), 0.25f);//((F0 - Labs - Fc)/σ)^0.25
 
-			//Debug.Log(planet.orbitRadius + "AU " + planet.atmPressure + "P " + S + "S " + A + "A " + Pm + "m " + Pc + "c " + Ph + "h " + t + "t " + tvis + "tv " + F + "F " + Te + "Te " + T0 + "R0 " + F0 + "F0 " + Labs + "Labs " + Fsi + "Fsi " + Fabs + "Fabs " + Fc + "Fc " + temperature + "K " + planet.planetName);
+			Debug.Log(planet.orbitRadius + "AU " + planet.atmPressure + "P " + S + "S " + A + "A " + Pm + "m " + Pc + "c " + Ph + "h " + t + "t " + tvis + "tv " + F + "F " + Te + "Te " + T0 + "R0 " + F0 + "F0 " + Labs + "Labs " + Fsi + "Fsi " + Fabs + "Fabs " + Fc + "Fc " + temperature + "K " + planet.planetName);
 		}else if(planet.planetType == 1){
 			//Effective Temp + Simulated Core heating. At 1 bar. Using Solar Luminosities/AU^2K^4 S-B Constant
 			temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(50f, 60f);
