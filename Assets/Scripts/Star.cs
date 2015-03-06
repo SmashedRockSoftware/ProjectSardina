@@ -101,7 +101,7 @@ public class Star : MonoBehaviour {
 			if(RandomGenerator.getInt(0, 2) == 0){
 				//Terrestrial, close to star
 				planets[i].planetType = 0; //Set planet type
-				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 20.0f)/planets.Length + auMod; //AU
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 1.0f) + auMod; //AU
 				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
@@ -114,7 +114,7 @@ public class Star : MonoBehaviour {
 			}else{
 				//Hot jupiter
 				planets[i].planetType = 1; //Set planet type
-				planets[i].orbitRadius = RandomGenerator.getFloat(0.5f, 20.0f)/planets.Length + auMod; //AU
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 1.0f) + auMod; //AU
 				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
@@ -170,7 +170,7 @@ public class Star : MonoBehaviour {
 			if(RandomGenerator.getInt(0, 2) == 0){
 				//Terrestrial, middle solar system
 				planets[i].planetType = 0; //Set planet type
-				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.25f, 1.0f) + planets[i - 1].orbitRadius + auMod; //AU
 				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
@@ -183,7 +183,7 @@ public class Star : MonoBehaviour {
 			}else{
 				//Regular jupiter
 				planets[i].planetType = 1; //Set planet type
-				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 4.0f) + planets[i - 1].orbitRadius + auMod; //AU
+				planets[i].orbitRadius = RandomGenerator.getFloat(0.25f, 1.0f) + planets[i - 1].orbitRadius + auMod; //AU
 				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
@@ -212,7 +212,9 @@ public class Star : MonoBehaviour {
 		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
 
-		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
+		if(i > 4){
+			auMod = RandomGenerator.getFloat(2f, 4f); //Change AU mod for next system
+		}
 
 		//Spaces out smaller systems, to get some father out planets in systems of 5 or less planets
 		if(planets.Length <= 5 && notSpaced){

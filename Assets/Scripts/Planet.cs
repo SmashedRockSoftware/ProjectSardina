@@ -16,7 +16,7 @@ public class Planet : MonoBehaviour{
 	public float mass; //In earth/jupiter/neptune mass
 	public float radius; //In earth/jupiter/neptune radius
 	public float surfaceGrav; //In m/s^2
-	public float flux; //In W/m^2, amount of energy reaching the surface (for earth this is the solar constant) per second
+	public float flux; //In W/m^2, amount of energy reaching the atmosphere (for earth this is the solar constant) per second
 	public Gas[] atmosphericComposition;
 	public float atmPressure; //In bars
 	public float albedo; //Percentage of energy reflected
