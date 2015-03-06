@@ -42,7 +42,7 @@ public static class PlanetOperations {
 		List<Gas> atmosphere = new List<Gas>();
 		for (int i = 0; i < element.Length; i++) {
 			if (element[i] >= 1){
-				element[i] = (element[i]/total) * 100f;	//Calculates percentages
+				element[i] = (element[i]/total);	//Calculates percentages
 				Gas gas = new Gas(element[i], elementNames[i]);
 				atmosphere.Add (gas);
 			}
@@ -69,12 +69,12 @@ public static class PlanetOperations {
 		return pressure;
 	}
 
-	public static float planetTemperature (Planet planet, Gas gas) {
+	public static float planetTemperature (Planet planet) {
 		float temperature;
 
 		//unknown variables
 			//Optical density
-		float As=1f;	//Surface albedo
+		float As = 0f;	//Surface albedo
 
 		//variables
 		float S = planet.flux;
@@ -82,35 +82,53 @@ public static class PlanetOperations {
 		float sigma = 0.00000000000332f;
 
 		//Calculations begin
+		if(planet.planetType == 0){
+			float Pm = 0, Pc = 0, Ph = 0; //Methane, CO2, and H2O declared
 
-		float Pn = (gas.gasAmount[2]/100f) * planet.atmPressure;	//Methane partial pressure:
+			for(int i = 0; i < planet.atmosphericComposition.Length; i++){
+				if(planet.atmosphericComposition[i].gasName.Equals("methane")){
+					Pm = planet.atmosphericComposition[i].gasAmount * planet.atmPressure;
+				}else if(planet.atmosphericComposition[i].gasName.Equals("co2")){
+					Pc = planet.atmosphericComposition[i].gasAmount * planet.atmPressure;
+				}else if(planet.atmosphericComposition[i].gasName.Equals("h2o")){
+					Ph = planet.atmosphericComposition[i].gasAmount * planet.atmPressure;
+				}
+			}
 
-		float Pc = (gas.gasAmount[5]/100f) * planet.atmPressure;	//CO2 partial pressure:
+			float t = 0.0600f * Mathf.Pow (Pc, 0.53f) + 0.0728f * Mathf.Pow(Ph, 0.3f) + 0.325f * Mathf.Pow(Pm, 0.5f);	//tau=0.025 Pc^0.53 + 0.277 Ph^0.3
 
-		float Ph = (gas.gasAmount[6]/100f) * planet.atmPressure;	//H2O partial pressure:
+			float tvis = 0;
+			if(t > 0.723){
+				tvis = 0.36f * Mathf.Pow ((t - 0.723f), 0.411f);	//tvis = 0.36(t - 0.723)^0.411
+			}
 
-		float t = 0.025f * Mathf.Pow (Pc, 0.53f) + 0.277 * Mathf.Pow (Ph, 0.3f);	//tau=0.025 Pc^0.53 + 0.277 Ph^0.3
+			float F = (S / 4f) * (1f - A);	//F = (S/4)(1-A)
 
-		float tvis = .36f * Mathf.Pow ((t - 0.0723f), 0.411f);	//tvis = 0.36(t - 0.723)^0.411
+			float Te = Mathf.Pow ((F / sigma), 0.25f);	//Te = (F/σ)^0.25
 
-		float F = (S / 4f) (1 - A);	//F = (S/4)(1-A)
+			float T0 = Te * Mathf.Pow ((1f + 0.75f * t), 0.25f);	//T0 = Te(1 + 0.75t)^0.25
 
-		float Te = Mathf.Pow ((F / sigma), 0.25f);	//Te = (F/σ)^0.25
+			float F0 = sigma * Mathf.Pow (T0, 4f);	//F0 = σT0^4
 
-		float T0 = Te * Mathf.Pow ((1f + 0.75f * t), 0.25f);	//T0 = Te(1 + 0.75t)^0.25
+			float Labs = F - Mathf.Pow(F, -tvis);	//Labs = F-F^-tvis
 
-		float F0 = sigma * Mathf.Pow (T0, 4f);	//F0 = σT0^4
+			float Fsi = F - Labs;	//Fsi = F - Labs
 
-		float Labs = F-Mathf.Pow (F, -tvis);	//Labs = F-F^-tvis
+			float Fabs = (1f - As) * Fsi + (F0 - F);	//Fabs = (1 - As)Fsi + (F0 - F)
 
-		float Fsi = F - Labs;	//Fsi = F - Labs
+			float Fc = (0.369f * Fabs * t)/(-0.6f + 2f * t);	//Fc = 0.369Fabs * t/(-0.6 + 2t)
 
-		float Fabs = (1f - As) * Fsi + (F0 - F);	//Fabs = (1 - As)Fsi + (F0 - F)
+			temperature = Mathf.Pow(((F0 - Labs - Fc)/sigma), 0.25f);//((F0 - Labs - Fc)/σ)^0.25
 
-		float Fc = 0.369f * Fabs * t / (-0.6f + 2f * t);	//Fc = 0.369Fabs * t/(-0.6 + 2t)
-
-		temperature = Mathf.Pow (((F0 - Labs - Fc) / sigma), 0.25f);//((F0 - Labs - Fc)/σ)^0.25
-
+			Debug.Log(planet.atmPressure + "P " + S + "S " + A + "A " + Pm + "m " + Pc + "c " + Ph + "h " + t + "t " + tvis + "tv " + F + "F " + Te + "Te " + T0 + "R0 " + F0 + "F0 " + Labs + "Labs " + Fsi + "Fsi " + Fabs + "Fabs " + Fc + "Fc " + temperature + "K " + planet.planetName);
+		}else if(planet.planetType == 1){
+			//Effective Temp + Simulated Core heating. At 1 bar
+			temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * sigma * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(50f, 60f);
+		}else{
+			//Effective Temp + Simulated Core heating. At 1 bar
+			temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * sigma * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(15f, 30f);
+		}
+		
 		return temperature;
 	}
 

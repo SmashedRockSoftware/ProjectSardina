@@ -10,7 +10,6 @@ public class Planet : MonoBehaviour{
 	public float orbitRadius; //orbitRadius of orbit, in AU. Planets go in perfect circles currently
 	public SpriteRenderer planet; //Sprite for planet
 	public float orbitPeriod; //Period of orbit in years
-	public float angle; //Angle of the planet from the horizontal (pos x axis)
 
 	//Planetary characteristics
 	public int planetType; //0 = terrestrial, 1 = gas giant, 2 = ice giant

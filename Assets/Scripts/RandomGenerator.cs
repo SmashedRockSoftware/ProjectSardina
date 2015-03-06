@@ -52,7 +52,7 @@ public static class RandomGenerator {
 	}
 
 	public static float getTerrestrialPressure(float min, float max){
-		float x = getFloat (min, max);
+		float x = getFloat(min, max);
 		return Mathf.Pow (10f, 12f * (x - .75f));
 	}
 

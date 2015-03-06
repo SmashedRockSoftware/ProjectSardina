@@ -57,6 +57,7 @@ public class Star : MonoBehaviour {
 
 		//Star generation has been moved to the StarGenerator, name is done here
 		starName = starConstellation.getNextName();
+		gameObject.name = starName;
 
 		//Planet stuff, see planet generation script below
 		int planetNumber = RandomGenerator.getPlanetNumber();
@@ -210,8 +211,6 @@ public class Star : MonoBehaviour {
 
 		//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year
 		planets[i].orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(planets[i].orbitRadius, 3f)/(starMass * 39.42f)) * (360f/365.24f);
-
-		planets[i].angle = RandomGenerator.getFloat(0f, 360f); //Get angle from horizontal for start of game
 
 		auMod = RandomGenerator.getFloat(2f, 4f)/planets.Length; //Change AU mod for next system
 
