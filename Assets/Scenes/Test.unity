@@ -492,6 +492,8 @@ MonoBehaviour:
   - {fileID: 21200000, guid: 43aaf051c36202b44baaf44badc68d05, type: 2}
   planetsTempIce:
   - {fileID: 21200000, guid: d38fbc80d3741dd459e817b5b136e5ba, type: 2}
+  moonsTemp:
+  - {fileID: 21216696, guid: 996be1f9f68e40e45b4d848469e6ef7b, type: 2}
   starObjects:
   - {fileID: 100000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
   - {fileID: 100000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}

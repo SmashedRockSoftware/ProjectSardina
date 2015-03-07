@@ -6,7 +6,7 @@ public class SystemPlanet : MonoBehaviour {
 	public SpriteRenderer sr;
 
 	public void setUpPlanet(Planet planet){
-		sr.sprite = planet.planet.sprite;
+		sr.sprite = planet.sprite.sprite;
 		if(planet.planetType == 0){
 			transform.localScale = new Vector3(1f, 1f, 1f);
 		}else if(planet.planetType == 1){

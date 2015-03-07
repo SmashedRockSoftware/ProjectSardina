@@ -14,6 +14,11 @@ public static class PlanetOperations {
 			return earth;
 		}
 	}
+
+	public static float getRadiusMassMoon(float massInMoons){
+		float moon = 0.671f * Mathf.Exp(0.4241f * massInMoons);
+		return moon;
+	}
 	
 	public static Gas[] planetAtm(Planet planet, float[] gasArray, string[] elementNames){
 		float[] element = new float[gasArray.Length];
@@ -147,12 +152,20 @@ public static class PlanetOperations {
 		return 17.147f * neptuneMass;
 	}
 
+	public static float moonToEarthMass(float moonMass){
+		return 0.012300f * moonMass;
+	}
+
 	public static float earthToJupiterMass(float earthMass){
 		return earthMass/317.8f;
 	}
 	
 	public static float earthToNeptuneMass(float earthMass){
 		return earthMass/17.147f;
+	}
+
+	public static float earthToMoonMass(float earthMass){
+		return earthMass/0.012300f; 
 	}
 
 	public static float jupiterToEarthRadius(float jupiterRadius){
@@ -162,6 +175,10 @@ public static class PlanetOperations {
 	public static float neptuneToEarthRadius(float neptuneRadius){
 		return 3.883f * neptuneRadius;
 	}
+
+	public static float moonToEarthRadius(float moonRadius){
+		return 0.273f * moonRadius;
+	}
 	
 	public static float earthToJupierRadius(float earthRadius){
 		return earthRadius/11.209f;
@@ -169,6 +186,22 @@ public static class PlanetOperations {
 	
 	public static float earthToNeptuneRadius(float earthRadius){
 		return earthRadius/3.883f;
+	}
+
+	public static float earthToMoonRadius(float earthRadius){
+		return earthRadius/0.273f;
+	}
+
+	public static float LUtoAU(float LU){
+		return 0.00257f * LU;
+	}
+
+	public static float AUtoLU(float AU){
+		return AU/0.00257f;
+	}
+
+	public static float earthRadiusToAU(float earthRadius){
+		return earthRadius * 0.000042563739f;
 	}
 
 }

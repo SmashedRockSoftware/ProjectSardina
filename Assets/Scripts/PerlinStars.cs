@@ -19,6 +19,7 @@ public class PerlinStars : MonoBehaviour {
 	public SpriteRenderer[] planetsTempGas;
 	public SpriteRenderer[] planetsTempTerrestrial;
 	public SpriteRenderer[] planetsTempIce;
+	public SpriteRenderer[] moonsTemp;
 	public GameObject[] starObjects;
 
 	public static GameObject[] stars;
@@ -30,9 +31,11 @@ public class PerlinStars : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Planet.moonSprites = moonsTemp;
 		Star.planetsIce = planetsTempIce;
 		Star.planetsGas = planetsTempGas;
 		Star.planetsTerrestrial = planetsTempTerrestrial;
+		
 		constellations = new Constellation[Mathf.RoundToInt((xRange + xRange * spacing)/constellationSize), Mathf.RoundToInt((yRange + yRange * spacing)/constellationSize)];
 
 		RandomGenerator.setSeed(seed);

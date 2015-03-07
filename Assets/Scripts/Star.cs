@@ -102,7 +102,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, close to star
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 1.0f) + auMod; //AU
-				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].sprite = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -115,7 +115,7 @@ public class Star : MonoBehaviour {
 				//Hot jupiter
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.1f, 1.0f) + auMod; //AU
-				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
+				planets[i].sprite = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));
@@ -130,7 +130,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, past first orbit
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].sprite = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -143,7 +143,7 @@ public class Star : MonoBehaviour {
 				//Regular jupiter, colder
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
+				planets[i].sprite = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
@@ -156,7 +156,7 @@ public class Star : MonoBehaviour {
 				//Ice giant
 				planets[i].planetType = 2;
 				planets[i].orbitRadius = RandomGenerator.getFloat(2f, 8.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = planetsIce[RandomGenerator.getInt(0, planetsIce.Length)]; //Get planet sprite
+				planets[i].sprite = planetsIce[RandomGenerator.getInt(0, planetsIce.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.neptuneToEarthMass(planets[i].mass), 2); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.neptuneToEarthMass(planets[i].mass), PlanetOperations.neptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
@@ -171,7 +171,7 @@ public class Star : MonoBehaviour {
 				//Terrestrial, middle solar system
 				planets[i].planetType = 0; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.25f, 1.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
+				planets[i].sprite = planetsTerrestrial[RandomGenerator.getInt(0, planetsTerrestrial.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
@@ -184,7 +184,7 @@ public class Star : MonoBehaviour {
 				//Regular jupiter
 				planets[i].planetType = 1; //Set planet type
 				planets[i].orbitRadius = RandomGenerator.getFloat(0.25f, 1.0f) + planets[i - 1].orbitRadius + auMod; //AU
-				planets[i].planet = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
+				planets[i].sprite = planetsGas[RandomGenerator.getInt(0, planetsGas.Length)]; //Get planet sprite
 				planets[i].mass = RandomGenerator.getGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.getRadiusMass(PlanetOperations.jupiterToEarthMass(planets[i].mass), 1); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.jupiterToEarthMass(planets[i].mass), PlanetOperations.jupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
@@ -222,6 +222,8 @@ public class Star : MonoBehaviour {
 				auMod += RandomGenerator.getFloat(5.0f, 10.0f);
 			}
 		}
+
+		planets[i].MoonGenerator();
 
 		/*for(int j = 0; j < planets[i].atmosphericComposition.Length; j++){
 			Debug.Log(planets[i].planetName + " " + planets[i].planetType + ": " + planets[i].atmosphericComposition[j].ToString());
