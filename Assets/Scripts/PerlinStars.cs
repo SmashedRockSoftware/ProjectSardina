@@ -63,8 +63,9 @@ public class PerlinStars : MonoBehaviour {
 		int count = 0;
 		for(int x = 0; x < constellations.GetLength(0); x++){
 			for(int y = 0; y < constellations.GetLength(1); y++){
-				constellations[x,y] = new Constellation(constellationNames[count], x * constellationSize, (x + 1) * constellationSize, y * constellationSize, (y + 1) * constellationSize);
+				constellations[x,y] = new Constellation(constellationNames[count], x * constellationSize, (x + 1) * (constellationSize + spacing), y * constellationSize, (y + 1) * constellationSize);
 				count++;
+				Debug.Log(constellations[x,y]);
 			}
 		}
 

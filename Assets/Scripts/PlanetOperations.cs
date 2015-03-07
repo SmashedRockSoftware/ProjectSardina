@@ -71,13 +71,13 @@ public static class PlanetOperations {
 	public static float planetTemperature (Planet planet) {
 		float temperature;
 
-		float As = 0.3f;	//Surface albedo, the effect of this is very small
+		float As = 0.2f;	//Surface albedo, the effect of this is very small
 
 		//variables
 		float S = planet.flux; 
 		float A = planet.albedo; 
 		float pressure = planet.atmPressure * 100000; //From bars to pascals
-		float sigma = 0.000000056704f; //In W/m^2
+		float sigma = 0.000000056704f; //In W/m^2K^4
 
 		//Calculations begin
 		if(planet.planetType == 0){
@@ -118,7 +118,12 @@ public static class PlanetOperations {
 
 			temperature = Mathf.Pow(((F0 - Labs - Fc)/sigma), 0.25f);//((F0 - Labs - Fc)/σ)^0.25
 
-			Debug.Log(planet.orbitRadius + "AU " + planet.atmPressure + "P " + S + "S " + A + "A " + Pm + "m " + Pc + "c " + Ph + "h " + t + "t " + tvis + "tv " + F + "F " + Te + "Te " + T0 + "R0 " + F0 + "F0 " + Labs + "Labs " + Fsi + "Fsi " + Fabs + "Fabs " + Fc + "Fc " + temperature + "K " + planet.planetName);
+			//Debug.Log(planet.orbitRadius + "AU " + planet.atmPressure + "P " + S + "S " + A + "A " + Pm + "m " + Pc + "c " + Ph + "h " + t + "t " + tvis + "tv " + F + "F " + Te + "Te " + T0 + "T0 " + F0 + "F0 " + Labs + "Labs " + Fsi + "Fsi " + Fabs + "Fabs " + Fc + "Fc " + temperature + "K " + planet.planetName);
+
+			if(float.IsNaN(temperature)){
+				//In case of NaN temps, use effective temp
+				temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f);
+			}
 		}else if(planet.planetType == 1){
 			//Effective Temp + Simulated Core heating. At 1 bar. Using Solar Luminosities/AU^2K^4 S-B Constant
 			temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(50f, 60f);

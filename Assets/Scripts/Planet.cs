@@ -7,7 +7,7 @@ public class Planet : MonoBehaviour{
 	public Star star; //Star this planet orbits
 
 	//Orbit characteristics
-	public float orbitRadius; //orbitRadius of orbit, in AU. Planets go in perfect circles currently
+	public float orbitRadius; //Radius of orbit, in AU.
 	public SpriteRenderer planet; //Sprite for planet
 	public float orbitPeriod; //Period of orbit in years
 

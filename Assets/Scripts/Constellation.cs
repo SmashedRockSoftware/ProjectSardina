@@ -6,10 +6,10 @@ public class Constellation {
 
 
 	public string name;
-	public int xStart;
-	public int xEnd;
-	public int yStart;
-	public int yEnd;
+	public float xStart;
+	public float xEnd;
+	public float yStart;
+	public float yEnd;
 
 	public List<Star> starList = new List<Star>();
 
@@ -17,7 +17,7 @@ public class Constellation {
 
 	private int count = 1;
 
-	public Constellation (string constellationName, int startX, int endX, int startY, int endY){
+	public Constellation (string constellationName, float startX, float endX, float startY, float endY){
 		name = constellationName;
 		xStart = startX;
 		xEnd = endX;
@@ -33,5 +33,10 @@ public class Constellation {
 
 	public void finalizeStars (){
 		stars = starList.ToArray();
+	}
+
+	public override string ToString ()
+	{
+		return name + ": (" + xStart + "-" + xEnd + ", " + yStart + "-" + yEnd + ")";
 	}
 }
