@@ -31,7 +31,7 @@ public class PerlinStars : MonoBehaviour {
 	private List<GameObject> starList = new List<GameObject>();
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 		Planet.moonSprites = moonsTemp;
 		Star.planetsIce = planetsTempIce;
 		Star.planetsGas = planetsTempGas;
@@ -154,6 +154,17 @@ public class PerlinStars : MonoBehaviour {
 			}
 		}
 
+		Animator anim;
+		for(int i = 0; i < stars.Length; i++){
+			anim = stars[i].GetComponent<Animator>() as Animator;
+			anim.speed = Random.Range(1, 10000f);
+		}
+		yield return new WaitForSeconds(0.1f);
+		for(int i = 0; i < stars.Length; i++){
+			anim = stars[i].GetComponent<Animator>() as Animator;
+			anim.speed = 1;
+		}
+
 		//Outputting debug stats
 		Debug.Log(mass/stars.Length + " Avg Mass, " + massSmall + " small mass, " + (stars.Length - massSmall) + " large mass.");
 		Debug.Log(lumin/stars.Length + " Avg Luminosity, " + luminSmall + " small lumin, " + (stars.Length - luminSmall) + " large lumin.");
@@ -165,5 +176,6 @@ public class PerlinStars : MonoBehaviour {
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;
 		cam.XLimit = Mathf.RoundToInt(xRange + xRange * spacing);
 		cam.ZLimit = Mathf.RoundToInt(yRange + yRange * spacing);
+
 	}
 }

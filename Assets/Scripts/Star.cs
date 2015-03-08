@@ -26,6 +26,7 @@ public class Star : MonoBehaviour {
 	public string starName; //Name of the star
 	public Constellation starConstellation; //constellation this star is a part of
 	public GameObject sprite;
+	public Animator anim;
 
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
@@ -51,7 +52,7 @@ public class Star : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	public void PlanetaryGenerator () {

@@ -205,8 +205,8 @@ MonoBehaviour:
   - {fileID: 168086, guid: 80fd904150cbf0c4c9da00e23b145de5, type: 2}
   - {fileID: 111796, guid: 80fae8e549aaeb2488f56336b3fafc3b, type: 2}
   - {fileID: 164258, guid: e744d13c5f2540a4a8fc98a0469effed, type: 2}
-  - {fileID: 138922, guid: 6e3858c44f2c75e40babf33739075d71, type: 2}
   - {fileID: 182544, guid: 91e930e7d7c68b949816958c379c6314, type: 2}
+  - {fileID: 138922, guid: 6e3858c44f2c75e40babf33739075d71, type: 2}
   - {fileID: 128012, guid: 17848f2b555d215489a035af6797dffa, type: 2}
   systemStarObjects:
   - {fileID: 100000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
