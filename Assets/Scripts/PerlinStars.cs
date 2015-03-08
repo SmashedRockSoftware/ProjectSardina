@@ -16,11 +16,12 @@ public class PerlinStars : MonoBehaviour {
 	public float offsetRange;
 	public List<Vector3> starPositionsList = new List<Vector3>();
 
-	public SpriteRenderer[] planetsTempGas;
-	public SpriteRenderer[] planetsTempTerrestrial;
-	public SpriteRenderer[] planetsTempIce;
-	public SpriteRenderer[] moonsTemp;
+	public GameObject[] planetsTempGas;
+	public GameObject[] planetsTempTerrestrial;
+	public GameObject[] planetsTempIce;
+	public GameObject[] moonsTemp;
 	public GameObject[] starObjects;
+	public GameObject[] systemStarObjects;
 
 	public static GameObject[] stars;
 	public static Constellation[,] constellations;
@@ -79,24 +80,31 @@ public class PerlinStars : MonoBehaviour {
 		int massSmall = 0;
 		starPositions = starPositionsList.ToArray();
 		StarGenerator gen = new StarGenerator();
-		GameObject temp;
+		GameObject temp, sprite;
 		for(int i = 0; i < starPositions.Length; i++){
 			gen.GenerateStar();
 
 			if(gen.starClass.Equals("M")){
 				temp = starObjects[6];
+				sprite = systemStarObjects[6];
 			}else if(gen.starClass.Equals("K")){
 				temp = starObjects[5];
+				sprite = systemStarObjects[5];
 			}else if(gen.starClass.Equals("G")){
 				temp = starObjects[4];
+				sprite = systemStarObjects[4];
 			}else if(gen.starClass.Equals("F")){
 				temp = starObjects[3];
+				sprite = systemStarObjects[3];
 			}else if(gen.starClass.Equals("A")){
 				temp = starObjects[2];
+				sprite = systemStarObjects[2];
 			}else if(gen.starClass.Equals("B")){
 				temp = starObjects[1];
+				sprite = systemStarObjects[1];
 			}else{
 				temp = starObjects[0];
+				sprite = systemStarObjects[0];
 			}
 
 			GameObject go = Instantiate(temp, starPositions[i], Quaternion.identity) as GameObject;
@@ -104,6 +112,7 @@ public class PerlinStars : MonoBehaviour {
 
 			Star star = go.AddComponent<Star>() as Star;
 			gen.FillStar(star);
+			star.sprite = sprite;
 			star.setCam(Camera.main);
 			starList.Add(go);
 
@@ -149,7 +158,8 @@ public class PerlinStars : MonoBehaviour {
 		Debug.Log(mass/stars.Length + " Avg Mass, " + massSmall + " small mass, " + (stars.Length - massSmall) + " large mass.");
 		Debug.Log(lumin/stars.Length + " Avg Luminosity, " + luminSmall + " small lumin, " + (stars.Length - luminSmall) + " large lumin.");
 		float total = Star.count[0] + Star.count[1] + Star.count[2];
-		Debug.Log(Star.count[0] + "T " + Star.count[1] + "G " + Star.count[2] + "I, " + Star.count[0]/total + "T " + Star.count[1]/total + "G " + Star.count[2]/total + "I");
+		Debug.Log(total + " Planets " + Star.count[0] + "T " + Star.count[1] + "G " + Star.count[2] + "I, " + Star.count[0]/total + "T " + Star.count[1]/total + "G " + Star.count[2]/total + "I");
+		Debug.Log((Planet.count[0] + Planet.count[1]) + " Moons " + Planet.count[0] + " No air " + Planet.count[1] + " Air");
 
 		//Setting up the camera
 		BasicCamera cam = Camera.main.GetComponent<BasicCamera>() as BasicCamera;

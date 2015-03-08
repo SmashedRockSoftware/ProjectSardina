@@ -11,7 +11,7 @@ public class Planet : MonoBehaviour{
 
 	//Orbit characteristics
 	public float orbitRadius; //Radius of orbit, in AU/LU (Lunar units, distance from moon to earth)
-	public SpriteRenderer sprite; //Sprite for planet
+	public GameObject sprite; //Sprite for planet
 	public float orbitPeriod; //Period of orbit in years/days
 
 	//Planetary characteristics
@@ -25,7 +25,7 @@ public class Planet : MonoBehaviour{
 	public float albedo; //Percentage of energy reflected
 	public float temperature; //In celsius
 	
-	public static SpriteRenderer[] moonSprites; //Sprites assigned in star controller
+	public static GameObject[] moonSprites; //Sprites assigned in star controller
 
 	//For generation of moons
 	private string[] moonNames = new string[]{"I","II","III","IV"};
@@ -66,6 +66,8 @@ public class Planet : MonoBehaviour{
 			moon.radius = PlanetOperations.getRadiusMass(moon.mass, 0); //Set radius 
 			moon.surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.moonToEarthMass(moon.mass), PlanetOperations.moonToEarthRadius(moon.radius));//Surface gravity by proportion to earth
 
+			moon.flux = flux; //This should be changed sometime
+
 			if(i == 0){
 				
 				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + pRadius; //LU
@@ -81,17 +83,33 @@ public class Planet : MonoBehaviour{
 					moon.planetType = 1; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
+					moon.atmPressure = 0;
+
+					count[1]++;
 				}
 			}else{
 				
 				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + moons[i - 1].orbitRadius; //LU
+
+				if(RandomGenerator.getInt(0, 2) == 0){
+					moon.planetType = 0; //Set planet type
+					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.atmosphericComposition = null;	//No atmosphere on airless moons
+					moon.atmPressure = 0;
 					
+					count[0]++;
+				}else{
+					moon.planetType = 1; //Set planet type
+					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.atmosphericComposition = null;	//No atmosphere on airless moons
+					moon.atmPressure = 0;
+
+					count[1]++;
+				}
+				
 			}
 
 			moon.planetName = planetName + " " + moonNames[i];
-
-			//Currently just planet flux
-			moon.flux = flux;
 			
 			//Set planet atm pressure. Done here because planet flux doesn't exist before now. Not done for 0 moons
 			if(moon.planetType == 0){

@@ -25,6 +25,7 @@ public class Star : MonoBehaviour {
 	public string starClass; //stellar class O through M
 	public string starName; //Name of the star
 	public Constellation starConstellation; //constellation this star is a part of
+	public GameObject sprite;
 
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
@@ -32,9 +33,9 @@ public class Star : MonoBehaviour {
 	private string[] planetNames = new string[]{"a","b","c","d","e","f","g","h","i","j"}; //For getting letter of planet
 
 	//Planet sprites, assigned on the star controller
-	public static SpriteRenderer[] planetsGas;
-	public static SpriteRenderer[] planetsTerrestrial;
-	public static SpriteRenderer[] planetsIce;
+	public static GameObject[] planetsGas;
+	public static GameObject[] planetsTerrestrial;
+	public static GameObject[] planetsIce;
 
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
@@ -73,11 +74,7 @@ public class Star : MonoBehaviour {
 		SystemStar.planetCam.enabled = true;					//This line sometimes returns a NRE "Object reference not set to an instance of an object"
 		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = true;
-		for(int i = 0; i < planets.Length; i++){
-			SystemPlanet planetScript = SystemStar.planets[i].GetComponent<SystemPlanet>() as SystemPlanet;
-			planetScript.setUpPlanet(planets[i]);
-			SystemStar.ShowPlanet(i);
-		}
+		SystemStar.LoadSystem(planets, this);
 	}
 
 	public void UnloadSystem () {
