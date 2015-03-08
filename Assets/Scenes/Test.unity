@@ -202,17 +202,17 @@ MonoBehaviour:
   - {fileID: 140544, guid: 996be1f9f68e40e45b4d848469e6ef7b, type: 2}
   starObjects:
   - {fileID: 100000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
-  - {fileID: 100000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}
-  - {fileID: 100000, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
-  - {fileID: 100000, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
-  - {fileID: 100000, guid: 4169c71bb186d7b48a0230d9a18c2e41, type: 2}
-  - {fileID: 100000, guid: 3cdb306662018914d8496d13b1ee98f5, type: 2}
-  - {fileID: 100000, guid: 17848f2b555d215489a035af6797dffa, type: 2}
+  - {fileID: 168086, guid: 80fd904150cbf0c4c9da00e23b145de5, type: 2}
+  - {fileID: 111796, guid: 80fae8e549aaeb2488f56336b3fafc3b, type: 2}
+  - {fileID: 164258, guid: e744d13c5f2540a4a8fc98a0469effed, type: 2}
+  - {fileID: 138922, guid: 6e3858c44f2c75e40babf33739075d71, type: 2}
+  - {fileID: 182544, guid: 91e930e7d7c68b949816958c379c6314, type: 2}
+  - {fileID: 128012, guid: 17848f2b555d215489a035af6797dffa, type: 2}
   systemStarObjects:
   - {fileID: 100000, guid: 8314b6e5f9da1bb4ebc5b7a05b79db93, type: 2}
   - {fileID: 100000, guid: 3043e87d2981da84383cca3cc96c0daf, type: 2}
-  - {fileID: 100000, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
-  - {fileID: 100000, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
+  - {fileID: 181328, guid: 35d2cb7aece74934ba94e4dec852065b, type: 2}
+  - {fileID: 123700, guid: 362de8a843805204fb06d93f89b800a3, type: 2}
   - {fileID: 100000, guid: f7925fa98ecb82b46bd1baf1b91bfd52, type: 2}
   - {fileID: 100000, guid: 3cdb306662018914d8496d13b1ee98f5, type: 2}
   - {fileID: 158650, guid: 019b646d2e8cfb740b828e316ceb4163, type: 2}

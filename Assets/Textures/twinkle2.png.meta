@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: d53f10446b6af2b4789d128a8b46b31f
+timeCreated: 1425798368
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: f0
+    21300002: f1
+    21300004: f2
+    21300006: f3
+    21300008: m0
+    21300010: k0
+    21300012: b0
+    21300014: a0
+    21300016: g0
+    21300018: twinkle2_9
+    21300020: m1
+    21300022: k1
+    21300024: a1
+    21300026: b1
+    21300028: g1
+    21300030: twinkle2_15
+    21300032: m2
+    21300034: k2
+    21300036: a2
+    21300038: b2
+    21300040: g2
+    21300042: twinkle2_21
+    21300044: m3
+    21300046: k3
+    21300048: a3
+    21300050: b3
+    21300052: g3
+    21300054: twinkle2_27
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 40
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: f0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: f1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: f2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: f3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: m0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: k0
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: b0
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: a0
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: g0
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: twinkle2_9
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 188
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: m1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: k1
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: a1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: b1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: g1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: twinkle2_15
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 158
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: m2
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: k2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: a2
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: b2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: g2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: twinkle2_21
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 128
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: m3
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: k3
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: a3
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: b3
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: g3
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: twinkle2_27
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 98
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
