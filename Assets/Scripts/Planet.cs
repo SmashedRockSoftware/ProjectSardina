@@ -38,8 +38,8 @@ public class Planet : MonoBehaviour{
 	//If you want an element to not be spawned, then set it to -10
 	//If an element is 0, then the generator will pick a number between -700 and 300, or it will make it a primary element
 	//Elements assigned to 11 will never be a primary element
-	public float[] gasElements = new float[]	{11,          11,      0,         0,         0,         0,     11,    11,      11};//Atmospheric composition for atmosphere'd moons
-	public string[] elementNames = new string[]	{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
+	private float[] gasElements = new float[]	{11,          11,      0,         0,         0,         0,     11,    11,      11};//Atmospheric composition for atmosphere'd moons
+	private string[] elementNames = new string[]	{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
 	public static int[] count = new int[2]; //For debug messages
 
@@ -72,7 +72,7 @@ public class Planet : MonoBehaviour{
 				
 				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + pRadius; //LU
 
-				if(RandomGenerator.getInt(0, 2) == 0){
+				if(RandomGenerator.getInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
@@ -82,7 +82,7 @@ public class Planet : MonoBehaviour{
 				}else{
 					moon.planetType = 1; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
-					moon.atmosphericComposition = null;	//No atmosphere on airless moons
+					moon.atmosphericComposition = PlanetOperations.planetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
 					moon.atmPressure = 0;
 
 					count[1]++;
@@ -91,7 +91,7 @@ public class Planet : MonoBehaviour{
 				
 				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + moons[i - 1].orbitRadius; //LU
 
-				if(RandomGenerator.getInt(0, 2) == 0){
+				if(RandomGenerator.getInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
@@ -101,7 +101,7 @@ public class Planet : MonoBehaviour{
 				}else{
 					moon.planetType = 1; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
-					moon.atmosphericComposition = null;	//No atmosphere on airless moons
+					moon.atmosphericComposition = PlanetOperations.planetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
 					moon.atmPressure = 0;
 
 					count[1]++;
@@ -119,8 +119,8 @@ public class Planet : MonoBehaviour{
 			//Albedo
 			moon.albedo = RandomGenerator.getAlbedo(moon);
 			
-			//Temperature TO BE IMPLEMENTED
-			moon.temperature = 0f;
+			//Temperature
+			moon.temperature = PlanetOperations.planetTemperature(moon);
 
 			float pMass = mass;
 			if(planetType == 1){

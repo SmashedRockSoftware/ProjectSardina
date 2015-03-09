@@ -162,7 +162,7 @@ public class PerlinStars : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		for(int i = 0; i < stars.Length; i++){
 			anim = stars[i].GetComponent<Animator>() as Animator;
-			anim.speed = 1;
+			anim.speed = RandomGenerator.getFloat(0.8f, 1.2f);
 		}
 
 		//Outputting debug stats
