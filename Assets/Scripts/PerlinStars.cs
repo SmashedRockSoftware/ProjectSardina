@@ -39,14 +39,14 @@ public class PerlinStars : MonoBehaviour {
 		
 		constellations = new Constellation[Mathf.RoundToInt((xRange + xRange * spacing)/constellationSize), Mathf.RoundToInt((yRange + yRange * spacing)/constellationSize)];
 
-		RandomGenerator.setSeed(seed);
-		RandomGenerator.setPerlin(octaves, frequency, persistence);
+		RandomGenerator.SetSeed(seed);
+		RandomGenerator.SetPerlin(octaves, frequency, persistence);
 
 		//Generate star gameobjects
 		for(int x = 0; x < xRange; x++){
 			for(int y = 0; y < yRange; y++){
-				if(RandomGenerator.get2DNoise(x, y) > threshold){
-					starPositionsList.Add(new Vector3((x + spacing * x) + RandomGenerator.getFloat(0, offsetRange), 0, (y + spacing * y) + RandomGenerator.getFloat(0, offsetRange)));
+				if(RandomGenerator.Get2DNoise(x, y) > threshold){
+					starPositionsList.Add(new Vector3((x + spacing * x) + RandomGenerator.GetFloat(0, offsetRange), 0, (y + spacing * y) + RandomGenerator.GetFloat(0, offsetRange)));
 				}
 			}
 		}
@@ -150,7 +150,7 @@ public class PerlinStars : MonoBehaviour {
 		stars = starList.ToArray();
 		for(int x = 0; x < constellations.GetLength(0); x++){
 			for(int y = 0; y < constellations.GetLength(1); y++){
-				constellations[x,y].finalizeStars();
+				constellations[x,y].FinalizeStars();
 			}
 		}
 
@@ -162,7 +162,7 @@ public class PerlinStars : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		for(int i = 0; i < stars.Length; i++){
 			anim = stars[i].GetComponent<Animator>() as Animator;
-			anim.speed = RandomGenerator.getFloat(0.8f, 1.2f);
+			anim.speed = RandomGenerator.GetFloat(0.8f, 1.2f);
 		}
 
 		//Outputting debug stats

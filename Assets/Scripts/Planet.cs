@@ -20,10 +20,11 @@ public class Planet : MonoBehaviour{
 	public float radius; //In earth/jupiter/neptune radius. In lunar radius.
 	public float surfaceGrav; //In m/s^2
 	public float flux; //In W/m^2, amount of energy reaching the atmosphere (for earth this is the solar constant) per second
-	public Gas[] atmosphericComposition;
 	public float atmPressure; //In bars
 	public float albedo; //Percentage of energy reflected
 	public float temperature; //In celsius
+	public Gas[] atmosphericComposition; //Array to hold gases of the atmosphere
+	public Resource[] resources; //Resources and amounts on this planet
 	
 	public static GameObject[] moonSprites; //Sprites assigned in star controller
 
@@ -48,13 +49,13 @@ public class Planet : MonoBehaviour{
 	}
 
 	public void MoonGenerator(){
-		moons = new Planet[getMoonNumber()];
+		moons = new Planet[GetMoonNumber()];
 
-		float pRadius = PlanetOperations.AUtoLU(PlanetOperations.earthRadiusToAU(radius));
+		float pRadius = PlanetOperations.AUtoLU(PlanetOperations.EarthRadiusToAU(radius));
 		if(planetType == 1){
-			pRadius  = PlanetOperations.AUtoLU(PlanetOperations.earthRadiusToAU(PlanetOperations.jupiterToEarthRadius(radius)));
+			pRadius  = PlanetOperations.AUtoLU(PlanetOperations.EarthRadiusToAU(PlanetOperations.JupiterToEarthRadius(radius)));
 		}else if(planetType == 2){
-			pRadius  = PlanetOperations.AUtoLU(PlanetOperations.earthRadiusToAU(PlanetOperations.neptuneToEarthRadius(radius)));
+			pRadius  = PlanetOperations.AUtoLU(PlanetOperations.EarthRadiusToAU(PlanetOperations.NeptuneToEarthRadius(radius)));
 		}
 
 		for(int i = 0; i < moons.Length; i++){
@@ -62,46 +63,46 @@ public class Planet : MonoBehaviour{
 
 			moon.planet = this;
 
-			moon.mass = RandomGenerator.getTerrestrialMass(); //Set mass
-			moon.radius = PlanetOperations.getRadiusMass(moon.mass, 0); //Set radius 
-			moon.surfaceGrav = PlanetOperations.getSurfaceGrav(PlanetOperations.moonToEarthMass(moon.mass), PlanetOperations.moonToEarthRadius(moon.radius));//Surface gravity by proportion to earth
+			moon.mass = RandomGenerator.GetTerrestrialMass(); //Set mass
+			moon.radius = PlanetOperations.GetRadiusMass(moon.mass, 0); //Set radius 
+			moon.surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.MoonToEarthMass(moon.mass), PlanetOperations.MoonToEarthRadius(moon.radius));//Surface gravity by proportion to earth
 
 			moon.flux = flux; //This should be changed sometime
 
 			if(i == 0){
 				
-				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + pRadius; //LU
+				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 1.0f) + pRadius; //LU
 
-				if(RandomGenerator.getInt(0, 10) != 0){
+				if(RandomGenerator.GetInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type
-					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
 					moon.atmPressure = 0;
 					
 					count[0]++;
 				}else{
 					moon.planetType = 1; //Set planet type
-					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
-					moon.atmosphericComposition = PlanetOperations.planetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
+					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.atmosphericComposition = PlanetOperations.PlanetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
 					moon.atmPressure = 0;
 
 					count[1]++;
 				}
 			}else{
 				
-				moon.orbitRadius = RandomGenerator.getFloat(0.5f, 1.0f) + moons[i - 1].orbitRadius; //LU
+				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 1.0f) + moons[i - 1].orbitRadius; //LU
 
-				if(RandomGenerator.getInt(0, 10) != 0){
+				if(RandomGenerator.GetInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type
-					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
 					moon.atmPressure = 0;
 					
 					count[0]++;
 				}else{
 					moon.planetType = 1; //Set planet type
-					moon.sprite = moonSprites[RandomGenerator.getInt(0, moonSprites.Length)]; //Get planet sprite
-					moon.atmosphericComposition = PlanetOperations.planetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
+					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
+					moon.atmosphericComposition = PlanetOperations.PlanetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
 					moon.atmPressure = 0;
 
 					count[1]++;
@@ -113,24 +114,24 @@ public class Planet : MonoBehaviour{
 			
 			//Set planet atm pressure. Done here because planet flux doesn't exist before now. Not done for 0 moons
 			if(moon.planetType == 0){
-				moon.atmPressure = PlanetOperations.planetPressure(moon.planetType, moon.flux, PlanetOperations.moonToEarthMass(moon.mass));
+				moon.atmPressure = PlanetOperations.PlanetPressure(moon.planetType, moon.flux, PlanetOperations.MoonToEarthMass(moon.mass));
 			}
 			
 			//Albedo
-			moon.albedo = RandomGenerator.getAlbedo(moon);
+			moon.albedo = RandomGenerator.GetAlbedo(moon);
 			
 			//Temperature
-			moon.temperature = PlanetOperations.planetTemperature(moon);
+			moon.temperature = PlanetOperations.PlanetTemperature(moon);
 
 			float pMass = mass;
 			if(planetType == 1){
-				pMass = PlanetOperations.jupiterToEarthMass(mass);
+				pMass = PlanetOperations.JupiterToEarthMass(mass);
 			}else if(planetType == 2){
-				pMass = PlanetOperations.neptuneToEarthMass(mass);
+				pMass = PlanetOperations.NeptuneToEarthMass(mass);
 			}
 			
 			//Newton's enhancement of Kepler's third law, with conversion from 365 day year to 360 day year. This time using G = 0.05236 LU^3/(Earth Mass * days^2)
-			moon.orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(moon.orbitRadius, 3f)/((pMass + PlanetOperations.moonToEarthMass(moon.mass)) * 0.05236f));
+			moon.orbitPeriod = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(moon.orbitRadius, 3f)/((pMass + PlanetOperations.MoonToEarthMass(moon.mass)) * 0.05236f));
 
 			moons[i] = moon;
 		}
@@ -140,13 +141,13 @@ public class Planet : MonoBehaviour{
 		return planetName;
 	}
 
-	private int getMoonNumber(){
+	private int GetMoonNumber(){
 		if(planetType == 0){
-			return moonNumbersT[RandomGenerator.getInt(0, moonNumbersT.Length)];
+			return moonNumbersT[RandomGenerator.GetInt(0, moonNumbersT.Length)];
 		}else if(planetType == 1){
-			return moonNumbersG[RandomGenerator.getInt(0, moonNumbersG.Length)];
+			return moonNumbersG[RandomGenerator.GetInt(0, moonNumbersG.Length)];
 		}else{
-			return moonNumbersI[RandomGenerator.getInt(0, moonNumbersI.Length)];
+			return moonNumbersI[RandomGenerator.GetInt(0, moonNumbersI.Length)];
 		}
 	}
 }

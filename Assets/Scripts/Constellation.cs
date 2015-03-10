@@ -25,13 +25,13 @@ public class Constellation {
 		yEnd = endY;
 	}
 
-	public string getNextName (){
+	public string GetNextName (){
 		string next = name + "-" + count;
 		count++;
 		return next;
 	}
 
-	public void finalizeStars (){
+	public void FinalizeStars (){
 		stars = starList.ToArray();
 	}
 

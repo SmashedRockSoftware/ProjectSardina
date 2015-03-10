@@ -4,37 +4,37 @@ using System.Collections.Generic;
 
 public static class PlanetOperations {
 
-	public static float getRadiusMass(float massInEarths, int type){
+	public static float GetRadiusMass(float massInEarths, int type){
 		float earth = 1.196f * Mathf.Pow(massInEarths, 0.412f);
 		if(type == 2){
-			return earthToNeptuneRadius(earth);
+			return EarthToNeptuneRadius(earth);
 		}else if(type == 1){
-			return earthToJupierRadius(earth);
+			return EarthToJupierRadius(earth);
 		}else{
 			return earth;
 		}
 	}
 
-	public static float getRadiusMassMoon(float massInMoons){
+	public static float GetRadiusMassMoon(float massInMoons){
 		float moon = 0.671f * Mathf.Exp(0.4241f * massInMoons);
 		return moon;
 	}
 	
-	public static Gas[] planetAtm(Planet planet, float[] gasArray, string[] elementNames){
+	public static Gas[] PlanetAtm(Planet planet, float[] gasArray, string[] elementNames){
 		float[] element = new float[gasArray.Length];
 		System.Array.Copy(gasArray, element, 9);
 		bool primary = true;		//For more realistic figures, this boolean determines a specific element that is (most of the time) majority composition
 		float total = 0;			//For the percent calculation later. Stores the total value of elements
 		for (int i = 0; i < element.Length; i++) {			
 			if (element[i] == 0){	//Calculates values not already set in Star class
-				if (((RandomGenerator.getInt(0,6) == 1) && primary && !Mathf.Approximately(element[i], 11f))){		//Random chance that an element is picked as primary element (currently, the first ones in the list are technically more likely)
-					element[i] = RandomGenerator.getFloat(500, 1400);	//High value for primary elements
+				if (((RandomGenerator.GetInt(0,6) == 1) && primary && !Mathf.Approximately(element[i], 11f))){		//Random chance that an element is picked as primary element (currently, the first ones in the list are technically more likely)
+					element[i] = RandomGenerator.GetFloat(500, 1400);	//High value for primary elements
 					primary = false;	//So there is only one primary
 				}else{
-					element[i] = RandomGenerator.getFloat(-700, 300);	//Normal values
+					element[i] = RandomGenerator.GetFloat(-700, 300);	//Normal values
 				}
 			}else{
-				element[i] = RandomGenerator.getFloat(element[i]-10, element[i]+10);	//Variance for pre set values in Star
+				element[i] = RandomGenerator.GetFloat(element[i]-10, element[i]+10);	//Variance for pre set values in Star
 				if (element[i] > 1500){	//Makes assigning values in Star worthwhile, or else there's a big chance your assigned value never gets used
 					primary = false;
 				}
@@ -54,17 +54,17 @@ public static class PlanetOperations {
 		return atmosphere.ToArray(); 
 	}
 	
-	public static float planetPressure(int type, float flux, float mass){	//get pressure
+	public static float PlanetPressure(int type, float flux, float mass){	//get pressure
 		float pressure=0;
 		if (type == 0) {
 			if (flux > 6000) {
-				pressure = RandomGenerator.getTerrestrialPressure (-.3f, .45f);
+				pressure = RandomGenerator.GetTerrestrialPressure (-.3f, .45f);
 			} else if (flux > 6000 && mass > 2.5) {
-				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
+				pressure = RandomGenerator.GetTerrestrialPressure (0, .5f);
 			} else if (mass < .2){
-				pressure = RandomGenerator.getTerrestrialPressure (0, .5f);
+				pressure = RandomGenerator.GetTerrestrialPressure (0, .5f);
 			}else{
-				pressure = RandomGenerator.getTerrestrialPressure (0, 1);
+				pressure = RandomGenerator.GetTerrestrialPressure (0, 1);
 			}
 		}
 		if (type == 1 || type == 2) {
@@ -73,7 +73,7 @@ public static class PlanetOperations {
 		return pressure;
 	}
 
-	public static float planetTemperature (Planet planet) {
+	public static float PlanetTemperature (Planet planet) {
 		float temperature;
 
 		float As = 0.2f;	//Surface albedo, the effect of this is very small
@@ -132,10 +132,10 @@ public static class PlanetOperations {
 				}
 			}else if(planet.planetType == 1){
 				//Effective Temp + Simulated Core heating. At 1 bar. Using Solar Luminosities/AU^2K^4 S-B Constant
-				temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(50f, 60f);
+				temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.GetFloat(50f, 60f);
 			}else{
 				//Effective Temp + Simulated Core heating. At 1 bar. Using Solar Luminosities/AU^2K^4 S-B Constant
-				temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.getFloat(15f, 30f);
+				temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.GetFloat(15f, 30f);
 			}
 		}else{
 			//Effective Temp. Using Solar Luminosities/AU^2K^4 S-B Constant
@@ -145,55 +145,72 @@ public static class PlanetOperations {
 		return temperature;
 	}
 
-	public static float getSurfaceGrav(float massInEarths, float radiusInEarths){
+	public static Resource[] PlanetResources(string[] planetResources){
+		Resource[] rArray = new Resource[planetResources.Length];
+
+		for(int i = 0; i < planetResources.Length; i++){
+			rArray[i] = new Resource(RandomGenerator.GetFloat(-100f, 100f), planetResources[i]);
+		}
+
+		List<Resource> resourceList = new List<Resource>();
+		for(int i = 0; i < rArray.Length; i++){
+			if(rArray[i].amount > 0){
+				resourceList.Add(rArray[i]);
+			}
+		}
+
+		return resourceList.ToArray();
+	}
+
+	public static float GetSurfaceGrav(float massInEarths, float radiusInEarths){
 		return 9.807f * (massInEarths/(radiusInEarths * radiusInEarths));
 	}
 
-	public static float jupiterToEarthMass(float jupiterMass){
+	public static float JupiterToEarthMass(float jupiterMass){
 		return 317.8f * jupiterMass;
 	}
 
-	public static float neptuneToEarthMass(float neptuneMass){
+	public static float NeptuneToEarthMass(float neptuneMass){
 		return 17.147f * neptuneMass;
 	}
 
-	public static float moonToEarthMass(float moonMass){
+	public static float MoonToEarthMass(float moonMass){
 		return 0.012300f * moonMass;
 	}
 
-	public static float earthToJupiterMass(float earthMass){
+	public static float EarthToJupiterMass(float earthMass){
 		return earthMass/317.8f;
 	}
 	
-	public static float earthToNeptuneMass(float earthMass){
+	public static float EarthToNeptuneMass(float earthMass){
 		return earthMass/17.147f;
 	}
 
-	public static float earthToMoonMass(float earthMass){
+	public static float EarthToMoonMass(float earthMass){
 		return earthMass/0.012300f; 
 	}
 
-	public static float jupiterToEarthRadius(float jupiterRadius){
+	public static float JupiterToEarthRadius(float jupiterRadius){
 		return 11.209f * jupiterRadius;
 	}
 	
-	public static float neptuneToEarthRadius(float neptuneRadius){
+	public static float NeptuneToEarthRadius(float neptuneRadius){
 		return 3.883f * neptuneRadius;
 	}
 
-	public static float moonToEarthRadius(float moonRadius){
+	public static float MoonToEarthRadius(float moonRadius){
 		return 0.273f * moonRadius;
 	}
 	
-	public static float earthToJupierRadius(float earthRadius){
+	public static float EarthToJupierRadius(float earthRadius){
 		return earthRadius/11.209f;
 	}
 	
-	public static float earthToNeptuneRadius(float earthRadius){
+	public static float EarthToNeptuneRadius(float earthRadius){
 		return earthRadius/3.883f;
 	}
 
-	public static float earthToMoonRadius(float earthRadius){
+	public static float EarthToMoonRadius(float earthRadius){
 		return earthRadius/0.273f;
 	}
 
@@ -205,7 +222,7 @@ public static class PlanetOperations {
 		return AU/0.00257f;
 	}
 
-	public static float earthRadiusToAU(float earthRadius){
+	public static float EarthRadiusToAU(float earthRadius){
 		return earthRadius * 0.000042563739f;
 	}
 

@@ -20,13 +20,13 @@ public class Calender : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(Pause.getPause()){
+		if(Pause.GetPause()){
 			wasPaused = true;
-		}else if (wasPaused == true && Pause.getPause() == false){
+		}else if (wasPaused == true && Pause.GetPause() == false){
 			lastTime = Time.time - lastTime;
 			wasPaused = false;
 		}
-		if(Time.time - lastTime >= dayLength && Pause.getPause() == false){
+		if(Time.time - lastTime >= dayLength && Pause.GetPause() == false){
 			if(date[0] > monthLength - 1){
 				if(date[1] > monthsInYear - 1){
 					date[2] = date[2] + 1;

@@ -11,7 +11,7 @@ public class StarGenerator {
 
 	public void GenerateStar () {
 		//Starstuff
-		starMass = RandomGenerator.getStarMass(); //Star mass is measured in solar masses
+		starMass = RandomGenerator.GetStarMass(); //Star mass is measured in solar masses
 		
 		//Simple mass-radius relationship
 		if(starMass > 1.0f){

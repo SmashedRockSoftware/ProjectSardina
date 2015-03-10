@@ -5,11 +5,11 @@ public static class Pause {
 
 	private static bool isPaused;
 
-	public static bool getPause(){
+	public static bool GetPause(){
 		return isPaused;
 	}
 
-	public static void setPause(bool pauseState){
+	public static void SetPause(bool pauseState){
 		isPaused = pauseState;
 	}
 }
