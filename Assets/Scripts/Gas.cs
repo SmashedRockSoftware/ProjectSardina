@@ -10,7 +10,6 @@ public class Gas{
 		gasName = name;
 	}
 
-
 	public override string ToString(){
 		return gasName + ": " + gasAmount;
 	}

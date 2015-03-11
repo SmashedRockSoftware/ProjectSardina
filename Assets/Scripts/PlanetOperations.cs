@@ -71,7 +71,6 @@ public static class PlanetOperations {
 			}else{
 				pressure = RandomGenerator.GetTerrestrialPressure (0, 1);
 			}
-			Debug.Log(planet.planet + " " + planet.name);
 		}else if (planet.planetType == 1 || planet.planetType == 2) {
 			pressure = 1000;
 		}

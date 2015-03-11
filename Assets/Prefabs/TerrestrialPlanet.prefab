@@ -10,6 +10,8 @@ GameObject:
   - 4: {fileID: 403548}
   - 212: {fileID: 21208490}
   - 95: {fileID: 9532830}
+  - 65: {fileID: 6537004}
+  - 114: {fileID: 11496552}
   m_Layer: 0
   m_Name: TerrestrialPlanet
   m_TagString: Untagged
@@ -29,6 +31,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!65 &6537004
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .639999986, y: .639999926, z: .199999973}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9532830
 Animator:
   serializedVersion: 3
@@ -46,6 +60,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11496552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edf402e993cb3440830cdc02ffc3a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21208490
 SpriteRenderer:
   m_ObjectHideFlags: 1

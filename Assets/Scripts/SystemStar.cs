@@ -51,10 +51,12 @@ public class SystemStar : MonoBehaviour {
 				GameObject m = Instantiate(planets[i].moons[k].sprite, new Vector3(1000 - SystemStar.nextPlanetLoc, 0, 0 + moonLoc), Quaternion.identity) as GameObject;
 				m.transform.eulerAngles = new Vector3(90, 0, 0);
 				moonLoc += 1.0f;
+				m.GetComponent<SystemPlanet>().SetPlanet(planets[i].moons[k]);
 				objects.Add(m);
 			}
 
 			SystemStar.nextPlanetLoc += 2.5f;
+			g.GetComponent<SystemPlanet>().SetPlanet(planets[i]);
 			objects.Add(g);
 		}
 	}

@@ -126,7 +126,7 @@ public class Planet : MonoBehaviour{
 			moon.albedo = RandomGenerator.GetAlbedo(moon);
 			
 			//Temperature
-			moon.temperature = PlanetOperations.PlanetTemperature(moon);
+			moon.temperature = PlanetOperations.PlanetTemperature(moon) - 273.2f;
 
 			float pMass = mass;
 			if(planetType == 1){

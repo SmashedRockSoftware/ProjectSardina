@@ -24,9 +24,9 @@ public class Star : MonoBehaviour {
 	private string[] terrestrialResources = new string[]{"Metals", "Test2", "Test3", "Test4"};
 	private int[,] terrestrialRange = new int[,]{{-100, 100},{-100, 100},{-100,100},{-100,100}};
 	private string[] gasResources = new string[]{"Fuel", "Engine stuff"};
-	private int[,] gasRange = new int[,]{{0, 100},{0,100}};
+	private int[,] gasRange = new int[,]{{1, 100},{1,100}};
 	private string[] iceResources = new string[]{"Ammo", "Weapon stuff"};
-	private int[,] iceRange = new int[,]{{0,100},{0,100}};
+	private int[,] iceRange = new int[,]{{1,100},{1,100}};
 
 	//Star vars, units listed
 	public float starMass; //solar masses
