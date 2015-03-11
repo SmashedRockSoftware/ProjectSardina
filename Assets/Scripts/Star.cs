@@ -18,10 +18,15 @@ public class Star : MonoBehaviour {
 	private string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
 	//Planet resources vars
-	//Planet resources are completely random between 0-100.
+	//Planet resources are completely random provided values
 	//This number represents the "richness" of a planet in said resource.
-	//Give the names of the resources to be generated.
-	private string[] terrestrialResources = new string[]{"Test1", "Test2", "Test3", "Test4"};
+	//Give the names of the resources to be generated, and the range you want generated
+	private string[] terrestrialResources = new string[]{"Metals", "Test2", "Test3", "Test4"};
+	private int[,] terrestrialRange = new int[,]{{-100, 100},{-100, 100},{-100,100},{-100,100}};
+	private string[] gasResources = new string[]{"Fuel", "Engine stuff"};
+	private int[,] gasRange = new int[,]{{0, 100},{0,100}};
+	private string[] iceResources = new string[]{"Ammo", "Weapon stuff"};
+	private int[,] iceRange = new int[,]{{0,100},{0,100}};
 
 	//Star vars, units listed
 	public float starMass; //solar masses
@@ -32,7 +37,6 @@ public class Star : MonoBehaviour {
 	public string starName; //Name of the star
 	public Constellation starConstellation; //constellation this star is a part of
 	public GameObject sprite;
-	public Animator anim;
 
 	private Camera mainCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
@@ -110,7 +114,8 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(planets[i].mass, 0); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
-				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources);
+
+				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
 
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 
@@ -124,6 +129,8 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(PlanetOperations.JupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.JupiterToEarthMass(planets[i].mass), PlanetOperations.JupiterToEarthRadius(planets[i].radius));
+
+				planets[i].resources = PlanetOperations.PlanetResources(gasResources, gasRange);
 				
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 
@@ -139,7 +146,7 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
-				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources);
+				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
 
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 
@@ -153,7 +160,9 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(PlanetOperations.JupiterToEarthMass(planets[i].mass), 1); //Set radius 
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.JupiterToEarthMass(planets[i].mass), PlanetOperations.JupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
-				
+
+				planets[i].resources = PlanetOperations.PlanetResources(gasResources, gasRange);
+
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 
 				count[1]++;
@@ -166,7 +175,9 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(PlanetOperations.NeptuneToEarthMass(planets[i].mass), 2); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.NeptuneToEarthMass(planets[i].mass), PlanetOperations.NeptuneToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
-				
+
+				planets[i].resources = PlanetOperations.PlanetResources(iceResources, iceRange);
+
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], iceElements, elementNames);				//set atmospheric composition
 
 				count[2]++;
@@ -181,7 +192,7 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetTerrestrialMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
-				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources);
+				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
 
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 
@@ -195,7 +206,9 @@ public class Star : MonoBehaviour {
 				planets[i].mass = RandomGenerator.GetGasMass(); //Set mass
 				planets[i].radius = PlanetOperations.GetRadiusMass(PlanetOperations.JupiterToEarthMass(planets[i].mass), 1); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.JupiterToEarthMass(planets[i].mass), PlanetOperations.JupiterToEarthRadius(planets[i].radius));//Surface gravity by proportion to earth
-				
+
+				planets[i].resources = PlanetOperations.PlanetResources(gasResources, gasRange);
+
 				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], gasElements, elementNames);				//set atmospheric composition
 
 				count[1]++;
@@ -208,7 +221,7 @@ public class Star : MonoBehaviour {
 		planets[i].flux = (27430000000 * Mathf.Pow(starTemperature, 4) * Mathf.Pow(starRadius, 2))/Mathf.Pow((planets[i].orbitRadius) * 149597876600, 2);
 
 		//Set planet atm pressure. Done here because planet flux doesn't exist before now.
-		planets[i].atmPressure = PlanetOperations.PlanetPressure(planets[i].planetType, planets[i].flux, planets[i].mass);
+		planets[i].atmPressure = PlanetOperations.PlanetPressure(planets[i]);
 
 		//Albedo
 		planets[i].albedo = RandomGenerator.GetAlbedo(planets[i]);
@@ -224,7 +237,7 @@ public class Star : MonoBehaviour {
 		}
 
 		//Spaces out smaller systems, to get some father out planets in systems of 5 or less planets
-		if(planets.Length <= 5 && notSpaced){
+		if(notSpaced){
 			if(RandomGenerator.GetInt(0, 4) == 0){
 				auMod += RandomGenerator.GetFloat(5.0f, 10.0f);
 			}

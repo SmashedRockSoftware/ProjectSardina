@@ -42,6 +42,13 @@ public class Planet : MonoBehaviour{
 	private float[] gasElements = new float[]	{11,          11,      0,         0,         0,         0,     11,    11,      11};//Atmospheric composition for atmosphere'd moons
 	private string[] elementNames = new string[]	{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
+	//Planet resources vars
+	//Planet resources are completely random provided values
+	//This number represents the "richness" of a planet in said resource.
+	//Give the names of the resources to be generated, and the range you want generated
+	private string[] moonResources = new string[]{"Metals", "Test2", "Test3", "Test4"};
+	private int[,] moonRange = new int[,]{{-100, 100},{-100, 100},{-100,100},{-100,100}};
+
 	public static int[] count = new int[2]; //For debug messages
 
 	void FixedUpdate(){
@@ -67,6 +74,8 @@ public class Planet : MonoBehaviour{
 			moon.radius = PlanetOperations.GetRadiusMass(moon.mass, 0); //Set radius 
 			moon.surfaceGrav = PlanetOperations.GetSurfaceGrav(PlanetOperations.MoonToEarthMass(moon.mass), PlanetOperations.MoonToEarthRadius(moon.radius));//Surface gravity by proportion to earth
 
+			moon.resources = PlanetOperations.PlanetResources(moonResources, moonRange);
+
 			moon.flux = flux; //This should be changed sometime
 
 			if(i == 0){
@@ -77,14 +86,12 @@ public class Planet : MonoBehaviour{
 					moon.planetType = 0; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
-					moon.atmPressure = 0;
 					
 					count[0]++;
 				}else{
 					moon.planetType = 1; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = PlanetOperations.PlanetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
-					moon.atmPressure = 0;
 
 					count[1]++;
 				}
@@ -96,14 +103,12 @@ public class Planet : MonoBehaviour{
 					moon.planetType = 0; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = null;	//No atmosphere on airless moons
-					moon.atmPressure = 0;
 					
 					count[0]++;
 				}else{
 					moon.planetType = 1; //Set planet type
 					moon.sprite = moonSprites[RandomGenerator.GetInt(0, moonSprites.Length)]; //Get planet sprite
 					moon.atmosphericComposition = PlanetOperations.PlanetAtm(moon, gasElements, elementNames); //Atmosphere on air'd moons
-					moon.atmPressure = 0;
 
 					count[1]++;
 				}
@@ -113,8 +118,8 @@ public class Planet : MonoBehaviour{
 			moon.planetName = planetName + " " + moonNames[i];
 			
 			//Set planet atm pressure. Done here because planet flux doesn't exist before now. Not done for 0 moons
-			if(moon.planetType == 0){
-				moon.atmPressure = PlanetOperations.PlanetPressure(moon.planetType, moon.flux, PlanetOperations.MoonToEarthMass(moon.mass));
+			if(moon.planetType == 1){
+				moon.atmPressure = PlanetOperations.PlanetPressure(moon);
 			}
 			
 			//Albedo
