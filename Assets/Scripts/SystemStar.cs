@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SystemStar : MonoBehaviour {
-	
-	public static Camera planetCam;
-	public Camera planetCamTemp;
 
 	public static float nextPlanetLoc = 4f; //For setting up system
 
@@ -13,7 +10,7 @@ public class SystemStar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		planetCam = planetCamTemp;
+
 	}
 	
 	// Update is called once per frame

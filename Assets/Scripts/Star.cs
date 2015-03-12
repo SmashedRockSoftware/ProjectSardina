@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Star : MonoBehaviour {
 
@@ -39,9 +40,11 @@ public class Star : MonoBehaviour {
 	public GameObject sprite;
 
 	private Camera mainCam;
+	private Camera planetCam;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
 	private bool notSpaced = true; //Check if extra expansion for small systems has taken place
 	private string[] planetNames = new string[]{"a","b","c","d","e","f","g","h","i","j"}; //For getting letter of planet
+	private PlanetSelect ps;
 
 	//Planet sprites, assigned on the star controller
 	public static GameObject[] planetsGas;
@@ -50,14 +53,11 @@ public class Star : MonoBehaviour {
 
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
-	//Give a camera reference to this star, called by PerlinStars
-	public void setCam (Camera cam){
-		mainCam = cam;
-	}
-
 	// Use this for initialization
 	void Awake () {
-
+		mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>() as Camera;
+		planetCam = GameObject.FindGameObjectWithTag("PlanetCam").GetComponent<Camera>() as Camera;
+		ps = GameObject.FindGameObjectWithTag("SystemText").GetComponent<PlanetSelect>() as PlanetSelect;
 	}
 
 	// Update is called once per frame
@@ -82,8 +82,8 @@ public class Star : MonoBehaviour {
 		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
 		mainCam.enabled = false;
 		listenerMain.enabled = false;
-		SystemStar.planetCam.enabled = true;					//This line sometimes returns a NRE "Object reference not set to an instance of an object"
-		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
+		planetCam.enabled = true;
+		AudioListener listenerPlanet = planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = true;
 		SystemStar.LoadSystem(planets, this);
 	}
@@ -92,11 +92,13 @@ public class Star : MonoBehaviour {
 		mainCam.enabled = true;
 		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
 		listenerMain.enabled = true;
-		AudioListener listenerPlanet = SystemStar.planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
+		AudioListener listenerPlanet = planetCam.gameObject.GetComponent<AudioListener>() as AudioListener;
 		listenerPlanet.enabled = false;
-		SystemStar.planetCam.enabled = false;
+		planetCam.enabled = false;
+		planetCam.transform.position = new Vector3(990f, 10f, 2.5f);
 		SystemStar.HidePlanets();
 		SystemStar.nextPlanetLoc = 4;
+		ps.ResetWindow();
 	}
 
 	void GeneratePlanet (int i) {

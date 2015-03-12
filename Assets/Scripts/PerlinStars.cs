@@ -113,7 +113,6 @@ public class PerlinStars : MonoBehaviour {
 			Star star = go.AddComponent<Star>() as Star;
 			gen.FillStar(star);
 			star.sprite = sprite;
-			star.setCam(Camera.main);
 			starList.Add(go);
 
 			//Finding constellation of the star

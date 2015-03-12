@@ -80,7 +80,7 @@ public class Planet : MonoBehaviour{
 
 			if(i == 0){
 				
-				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 1.0f) + pRadius; //LU
+				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 2.0f) + pRadius; //LU
 
 				if(RandomGenerator.GetInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type
@@ -97,7 +97,7 @@ public class Planet : MonoBehaviour{
 				}
 			}else{
 				
-				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 1.0f) + moons[i - 1].orbitRadius; //LU
+				moon.orbitRadius = RandomGenerator.GetFloat(0.5f, 3.0f) + moons[i - 1].orbitRadius; //LU
 
 				if(RandomGenerator.GetInt(0, 10) != 0){
 					moon.planetType = 0; //Set planet type

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class PlanetSelect : MonoBehaviour {
 
 	private Text gText;
+	private Text title;
 	private Planet planet;
 	private int window = 2;
 
 	// Use this for initialization
 	void Start () {
 		gText = GetComponent<Text>() as Text;
+		title = GameObject.FindGameObjectWithTag("NameText").GetComponent<Text>() as Text;
 	}
 
 	public void SetPlanet(Planet planet){
@@ -23,6 +25,7 @@ public class PlanetSelect : MonoBehaviour {
 	}
 	
 	public void ChangeText(){
+		title.text = planet.planetName;
 		if(window == 0){
 			string text = "TO DO";
 			gText.text = text;
@@ -63,6 +66,12 @@ public class PlanetSelect : MonoBehaviour {
 				}else{
 					text = "Atmospheric Composition at 1 Bar: \n";
 				}
+			}else{
+				if(planet.planetType == 0){
+					text = "No Atmosphere\n";
+				}else{
+					text = "Atmospheric Pressure: " + planet.atmPressure.ToString("F2") + " Bar\n";
+				}
 			}
 
 			if(planet.atmosphericComposition != null){
@@ -72,8 +81,6 @@ public class PlanetSelect : MonoBehaviour {
 					g = sorted[i];
 					text += UppercaseFirst(g.gasName) + ": " + (g.gasAmount * 100f).ToString("F2") + "%\n";
 				}
-			}else{
-				text = "No atmosphere \n";
 			}
 			text += "\nPlanetary Resources: \n";
 			Resource r;
@@ -85,9 +92,16 @@ public class PlanetSelect : MonoBehaviour {
 		}
 	}
 
+	public void ResetWindow(){
+		planet = null;
+		title.text = "No Planet Selected";
+		gText.text = "";
+	}
+
 	private Gas[] SortGases(Gas[] start){
 		List<Gas> gas = new List<Gas>();
 		float other = 0;
+
 		Gas g;
 		for(int i = 0; i < start.Length; i++){
 			g = start[i];
@@ -106,6 +120,9 @@ public class PlanetSelect : MonoBehaviour {
 				other += g.gasAmount;
 			}
 		}
+
+
+		gas.Sort();
 		gas.Add(new Gas(other, "Other"));
 		return gas.ToArray();
 	}

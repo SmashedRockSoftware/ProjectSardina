@@ -113,6 +113,17 @@ public static class PlanetOperations {
 
 			float F = (S / 4f) * (1f - A);	//F = (S/4)(1-A)
 
+			if(planet.planet != null){ //Reduce flux for moons based on % time blocked from the sun by primary
+				float d = AUtoLU(EarthRadiusToAU(planet.planet.radius));
+				if(planet.planet.planetType == 1){
+					d = AUtoLU(EarthRadiusToAU(JupiterToEarthRadius(planet.planet.radius)));
+				}else if(planet.planet.planetType == 2){
+					d = AUtoLU(EarthRadiusToAU(NeptuneToEarthRadius(planet.planet.radius)));
+				}
+				
+				F *= (1 - d/(2 * Mathf.PI * planet.orbitRadius));
+			}
+
 			float Te = Mathf.Pow ((F / sigma), 0.25f);	//Te = (F/σ)^0.25
 
 			float T0 = Te * Mathf.Pow ((1f + 0.75f * t), 0.25f);	//T0 = Te(1 + 0.75t)^0.25
@@ -145,17 +156,6 @@ public static class PlanetOperations {
 		}else{
 			//Effective Temp + Simulated Core heating. At 1 bar. Using Solar Luminosities/AU^2K^4 S-B Constant
 			temperature = Mathf.Pow((planet.star.starLuminosity * (1 - A))/(16 * Mathf.PI * 0.00000000000332f * planet.orbitRadius * planet.orbitRadius), 0.25f) + RandomGenerator.GetFloat(15f, 30f);
-		}
-
-		if(planet.planet != null){
-			float d = AUtoLU(EarthRadiusToAU(planet.planet.radius));
-			if(planet.planet.planetType == 1){
-				d = AUtoLU(EarthRadiusToAU(JupiterToEarthRadius(planet.planet.radius)));
-			}else if(planet.planet.planetType == 2){
-				d = AUtoLU(EarthRadiusToAU(NeptuneToEarthRadius(planet.planet.radius)));
-			}
-
-			temperature *= (1 - d/(2 * Mathf.PI * planet.orbitRadius));
 		}
 
 		return temperature;
