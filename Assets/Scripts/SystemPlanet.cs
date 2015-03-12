@@ -3,16 +3,20 @@ using System.Collections;
 
 public class SystemPlanet : MonoBehaviour {
 
-	public Transform star;
-	public float speed;
+	private Planet planet;
+	private PlanetSelect ps;
 
 	// Use this for initialization
 	void Start () {
-	
+		ps = GameObject.FindGameObjectWithTag("SystemText").GetComponent<PlanetSelect>() as PlanetSelect;
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		transform.RotateAround(star.position, Vector3.up, speed);
+
+	public void SetPlanet(Planet p){
+		planet = p;
+	}
+
+	void OnMouseDown () {
+		ps.SetPlanet(planet);
+		ps.ChangeText();
 	}
 }

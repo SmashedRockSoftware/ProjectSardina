@@ -6,11 +6,13 @@ public class BasicCamera : MonoBehaviour {
 //This was made on 2/13/14
 //The basic idead is that it has inputs that affect where the camera translates to
 	
-	public int speed = 10; //This lets us change the speed in the inspector
+	public int speedBase = 10; //This lets us change the speed in the inspector
 	public int ZLimit;//This locks it to the int + or - so it limits the camera
 	public int NegZLimit;
 	public int XLimit;//This locks it to the int + or - so it limits the camera
 	public int NegXLimit;
+
+	private float speed;
 
 	void MoveBuildCam(){
 		if(transform.position.z >= ZLimit) transform.position = new Vector3(transform.position.x, transform.position.y, ZLimit); //This forced it to stay within bounds of zlimit horizontaly
@@ -40,6 +42,7 @@ public class BasicCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		speed = speedBase/Time.timeScale;
 		if(Camera.main != null){ //Later we can determine a reason to disable this control
 			MoveBuildCam(); //This calls the function
 		}
