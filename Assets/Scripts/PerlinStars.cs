@@ -72,7 +72,7 @@ public class PerlinStars : MonoBehaviour {
 				Debug.Log(constellations[x,y]);
 			}
 		}
-
+		
 		//Adding star object to the stars
 		float lumin = 0;
 		int luminSmall = 0;
