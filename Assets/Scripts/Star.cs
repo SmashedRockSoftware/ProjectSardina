@@ -39,12 +39,12 @@ public class Star : MonoBehaviour {
 	public Constellation starConstellation; //constellation this star is a part of
 	public GameObject sprite;
 
-	private Camera mainCam;
-	private Camera planetCam;
+	private static Camera mainCam;
+	private static Camera planetCam;
+	private static PlanetSelect ps;
 	private float auMod = 0; //For systems with less planets, expands system out a bit
 	private bool notSpaced = true; //Check if extra expansion for small systems has taken place
 	private string[] planetNames = new string[]{"a","b","c","d","e","f","g","h","i","j"}; //For getting letter of planet
-	private PlanetSelect ps;
 
 	//Planet sprites, assigned on the star controller
 	public static GameObject[] planetsGas;
@@ -53,16 +53,16 @@ public class Star : MonoBehaviour {
 
 	public static int[] count = new int[3]; //For stat keeping purposes (generating debug messages)
 
-	// Use this for initialization
+	// Use this for initialization. It would be more efficient to assign these once, but it's not that bad.
 	void Awake () {
 		mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>() as Camera;
 		planetCam = GameObject.FindGameObjectWithTag("PlanetCam").GetComponent<Camera>() as Camera;
 		ps = GameObject.FindGameObjectWithTag("SystemText").GetComponent<PlanetSelect>() as PlanetSelect;
 	}
 
-	// Update is called once per frame
-	void Update () {
-
+	// Get a click on this star
+	void  OnMouseDown() {
+		LoadSystem();
 	}
 
 	public void PlanetaryGenerator () {
@@ -88,7 +88,7 @@ public class Star : MonoBehaviour {
 		SystemStar.LoadSystem(planets, this);
 	}
 
-	public void UnloadSystem () {
+	public static void UnloadSystem () {
 		mainCam.enabled = true;
 		AudioListener listenerMain = mainCam.GetComponent<AudioListener>() as AudioListener;
 		listenerMain.enabled = true;
