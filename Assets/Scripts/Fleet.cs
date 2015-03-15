@@ -18,6 +18,8 @@ public class Fleet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if(isSelected){}
+
 	}
 
 	void OnMouseDown(){

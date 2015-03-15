@@ -13,10 +13,16 @@ public class Star : MonoBehaviour {
 	//If you want an element to not be spawned, then set it to -10
 	//If an element is 0, then the generator will pick a number between -700 and 300, or it will make it a primary element
 	//Elements assigned to 11 will never be a primary elemen
-	private float[] gasElements = new float[]		{5000,       400,      100,       11,       11,         11,    11,    11,      11};//Atmospheric composition for gas giants
-	private float[] terrestrialElements = new float[]{11,         11,       0,         0,        0,          0,     11,    11,      11};//Atmospheric composition for terrestrials
-	private float[] iceElements = new float[]		{5000,       400,      500,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
-	private string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
+	private static float[] gasElements = new float[]		{5000,       400,      100,       11,       11,         11,    11,    11,      11};//Atmospheric composition for gas giants
+	private static float[] iceElements = new float[]		{5000,       400,      500,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
+	private static string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
+
+	//Terrestrial Templates
+	//This allows terrestrials to have coherent types, so habitability is actually likely
+	private static PlanetTemplate[] terrestrialTemplates = new PlanetTemplate[]{
+		new PlanetTemplate(new float[,]{{0,0},{0,0},{1,10},{200, 300},{600, 800},{10,20},{20,30},{30,40},{0,30}}, elementNames, 0.7f, 1.3f, 0.3f, 0.4f),
+		new PlanetTemplate(new float[,]{{0,0},{0,0},{1,10},{1, 10},{20, 30},{900,1000},{1,10},{1,10},{0,30}}, elementNames, 70f, 130f, 0.8f, 0.95f)
+	};
 
 	//Planet resources vars
 	//Planet resources are completely random provided values
@@ -119,8 +125,6 @@ public class Star : MonoBehaviour {
 
 				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
 
-				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
-
 				count[0]++;
 
 			}else{
@@ -149,8 +153,6 @@ public class Star : MonoBehaviour {
 				planets[i].radius = PlanetOperations.GetRadiusMass(planets[i].mass, 0); //Set radius
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
-
-				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
 
 				count[0]++;
 
@@ -196,8 +198,6 @@ public class Star : MonoBehaviour {
 				planets[i].surfaceGrav = PlanetOperations.GetSurfaceGrav(planets[i].mass, planets[i].radius);//Surface gravity by proportion to earth
 				planets[i].resources = PlanetOperations.PlanetResources(terrestrialResources, terrestrialRange);
 
-				planets[i].atmosphericComposition = PlanetOperations.PlanetAtm(planets[i], terrestrialElements, elementNames);		//set atmospheric composition
-
 				count[0]++;
 				
 			}else{
@@ -227,6 +227,11 @@ public class Star : MonoBehaviour {
 
 		//Albedo
 		planets[i].albedo = RandomGenerator.GetAlbedo(planets[i]);
+
+		//For terrestrials, overwrite
+		if(planets[i].planetType == 0){
+			terrestrialTemplates[RandomGenerator.GetInt(0, terrestrialTemplates.Length)].FillPlanet(planets[i]);
+		}
 
 		//Temperature
 		planets[i].temperature = PlanetOperations.PlanetTemperature(planets[i]) - 273.2f;
