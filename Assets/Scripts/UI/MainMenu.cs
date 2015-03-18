@@ -12,4 +12,8 @@ public class MainMenu : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void ChangeWindow(int windowID){
+		Camera.main.transform.position = new Vector3(200*windowID, 0, -10);
+	}
 }

@@ -7,6 +7,7 @@ TagManager:
   - SystemText
   - NameText
   - PlanetCam
+  - Main
   layers:
   - Default
   - TransparentFX
