@@ -6,7 +6,10 @@ public class Multiplayer : MonoBehaviour {
 
 	public Text playerList;
 	public Text chat;
+	public GameObject seed;
 	public MainMenu menu;
+	public bool ready = false;
+	public int readyPlayers = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -26,12 +29,23 @@ public class Multiplayer : MonoBehaviour {
 		string[] data = getUserData();
 		menu.ChangeWindow(2);
 		GetComponent<NetworkView>().RPC("AddPlayerName", RPCMode.AllBuffered, data[0]);
+		seed.SetActive(false);
 	}
 
 	void OnServerInitialized(){
 		string[] data = getUserData();
 		menu.ChangeWindow(2);
 		GetComponent<NetworkView>().RPC("AddPlayerName", RPCMode.AllBuffered, data[0]);
+	}
+
+	void OnDisconnectedFromServer(NetworkDisconnection info){
+		if(!Network.isServer){
+			menu.ChangeWindow(1);
+		}
+	}
+
+	void OnPlayerDisconnected(NetworkPlayer player){
+		Network.RemoveRPCs(player);
 	}
 
 	[RPC]
@@ -41,7 +55,7 @@ public class Multiplayer : MonoBehaviour {
 
 	[RPC]
 	void RemovePlayerName(string name){
-		playerList.text.Remove(playerList.text.IndexOf(name), name.Length);
+		playerList.text = playerList.text.Replace(name, "");
 	}
 
 	[RPC]
@@ -49,20 +63,66 @@ public class Multiplayer : MonoBehaviour {
 		chat.text = message + chat.text;
 	}
 
+	[RPC]
+	void StartGameRPC(int seed){
+		MultiplayerManager.seed = seed;
+		Application.LoadLevel(1);
+	}
+
+	[RPC]
+	void AddReadyPlayer(int n, string name){
+		if(Network.isServer){
+			readyPlayers += n;
+		}
+		if(n == 1){
+			playerList.text = playerList.text.Replace(name, "<color=yellow>" + name + "</color>");
+		}else{
+			playerList.text = playerList.text.Replace("<color=yellow>" + name + "</color>", name);
+		}
+	}
+
+	public void StartGame(){
+		string[] data = getUserData();
+		if(Network.isServer){
+			if(Network.connections.Length <= readyPlayers){
+			GetComponent<NetworkView>().RPC("StartGameRPC", RPCMode.All, int.Parse(seed.GetComponent<InputField>().text));
+			}else{
+				AddChatMessage("<color=yellow>Not all players are ready.</color>\n");
+			}
+		}else{
+			if(ready == false){
+				GetComponent<NetworkView>().RPC("AddChatMessage", RPCMode.All, "<color=yellow>" + data[0] + " is ready.</color>\n");
+				GetComponent<NetworkView>().RPC("AddReadyPlayer", RPCMode.AllBuffered, 1, data[0]);
+				ready = true;
+			}else{
+				GetComponent<NetworkView>().RPC("AddChatMessage", RPCMode.All, "<color=yellow>" + data[0] + " is not ready.</color>\n");
+				GetComponent<NetworkView>().RPC("AddReadyPlayer", RPCMode.AllBuffered, -1, data[0]);
+				ready = false;
+			}
+		}
+	}
+
 	public void SendChatMessage(InputField inField){
 		string[] data = getUserData();
-		string finMessage = data[0] + ": " + inField.text + "\n";
+		if(!inField.text.Equals("")){
+			string finMessage = data[0] + ": " + inField.text + "\n";
 		inField.text = "";
 		GetComponent<NetworkView>().RPC("AddChatMessage", RPCMode.All, finMessage);
+		}
 	}
 
 	public void Disconnect(){
-		RemovePlayerName(getUserData()[0] + "\n");
+		string[] data = getUserData();
+		GetComponent<NetworkView>().RPC("RemovePlayerName", RPCMode.All, data[0] + "\n");
 		if(Network.isServer){
 			Network.Disconnect();
 		}else{
+			GetComponent<NetworkView>().RPC("AddChatMessage", RPCMode.All, "<color=yellow>" + data[0] + " has disconnected.</color>\n");
 			Network.CloseConnection(Network.connections[0], true);
 		}
+		chat.text = "";
+		playerList.text = "";
+		seed.SetActive(true);
 	}
 
 	public void ConnectToServer(){

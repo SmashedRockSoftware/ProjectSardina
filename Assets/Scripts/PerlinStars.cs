@@ -30,8 +30,8 @@ public class PerlinStars : MonoBehaviour {
 	private Vector3[] starPositions;
 	private List<GameObject> starList = new List<GameObject>();
 
-	// Use this for initialization
-	IEnumerator Start () {
+	public IEnumerator CreateMap () {
+		seed = MultiplayerManager.seed;
 		Planet.moonSprites = moonsTemp;
 		Star.planetsIce = planetsTempIce;
 		Star.planetsGas = planetsTempGas;

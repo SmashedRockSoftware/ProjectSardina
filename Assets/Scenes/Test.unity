@@ -305,6 +305,8 @@ GameObject:
   - 4: {fileID: 339947513}
   - 114: {fileID: 339947512}
   - 114: {fileID: 339947514}
+  - 114: {fileID: 339947516}
+  - 148: {fileID: 339947515}
   m_Layer: 0
   m_Name: StarController
   m_TagString: GameController
@@ -379,6 +381,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b46eb0183a12a5b4e8ae482fe859bf16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!148 &339947515
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339947511}
+  m_Enabled: 1
+  m_StateSynchronization: 0
+  m_Observed: {fileID: 339947513}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
+--- !u!114 &339947516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339947511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27eed7ae920aff8409584dadd2712f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &706331665
@@ -522,7 +547,6 @@ GameObject:
   - 124: {fileID: 763204430}
   - 81: {fileID: 763204429}
   - 114: {fileID: 763204434}
-  - 114: {fileID: 763204435}
   - 114: {fileID: 763204436}
   m_Layer: 0
   m_Name: Main Camera
@@ -612,17 +636,6 @@ MonoBehaviour:
   NegZLimit: 0
   XLimit: 100
   NegXLimit: 0
---- !u!114 &763204435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 763204428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b595ca40139e794eba1652dcd1eb5a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &763204436
 MonoBehaviour:
   m_ObjectHideFlags: 0
