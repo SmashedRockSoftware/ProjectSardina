@@ -25,70 +25,72 @@ public class PlanetSelect : MonoBehaviour {
 	}
 	
 	public void ChangeText(){
-		title.text = planet.planetName;
-		if(window == 0){
-			string text = "TO DO";
-			gText.text = text;
-		}else if(window == 1){
-			if(planet.planet == null){
-				string text = "Semimajor Axis: " + planet.orbitRadius.ToString("F2") + " AU\n";
-				text += "Period: " + planet.orbitPeriod.ToString("F2") + " Years\n";
-				if(planet.planetType == 0){
-					text += "Mass: " + planet.mass.ToString("F2") + " Earth Masses\n";
-					text += "Radius: " + planet.radius.ToString("F2") + " Earth Radii\n";
-				}else if(planet.planetType == 1){
-					text += "Mass: " + planet.mass.ToString("F2") + " Jupiter Masses\n";
-					text += "Radius: " + planet.radius.ToString("F2") + " Jupiter Radii\n";
-				}else{
-					text += "Mass: " + planet.mass.ToString("F2") + " Neptune Masses\n";
-					text += "Radius: " + planet.radius.ToString("F2") + " Neptune Radii\n";
-				}
-				text += "Surface Gravity: " + planet.surfaceGrav.ToString("F2") + " m/s²\n";
-				text += "Albedo: " + planet.albedo.ToString("F2") + "\n";
-				text += "Avg. Temperature: " + planet.temperature.ToString("F2") + " °C";
+		if(planet != null){
+			title.text = planet.planetName;
+			if(window == 0){
+				string text = "TO DO";
 				gText.text = text;
-			}else{
-				string text = "Semimajor Axis: " + planet.orbitRadius.ToString("F2") + " LU\n";
-				text += "Period: " + planet.orbitPeriod.ToString("F2") + " Days\n";
-				text += "Mass: " + planet.mass.ToString("F2") + " Lunar Masses\n";
-				text += "Radius: " + planet.radius.ToString("F2") + " Lunar Radii\n";
-				text += "Surface Gravity: " + planet.surfaceGrav.ToString("F2") + " m/s²\n";
-				text += "Albedo: " + planet.albedo.ToString("F2") + "\n";
-				text += "Avg. Temperature: " + planet.temperature.ToString("F2") + " °C";
-				gText.text = text;
-			}
-		}else{
-			string text = "";
-			if(planet.planet == null){
-				if(planet.planetType == 0){
-					text = "Atmospheric Pressure: " + planet.atmPressure.ToString("F2") + " Bar\n";
-					text += "Atmospheric Compostion: \n";
+			}else if(window == 1){
+				if(planet.planet == null){
+					string text = "Semimajor Axis: " + planet.orbitRadius.ToString("F2") + " AU\n";
+					text += "Period: " + planet.orbitPeriod.ToString("F2") + " Years\n";
+					if(planet.planetType == 0){
+						text += "Mass: " + planet.mass.ToString("F2") + " Earth Masses\n";
+						text += "Radius: " + planet.radius.ToString("F2") + " Earth Radii\n";
+					}else if(planet.planetType == 1){
+						text += "Mass: " + planet.mass.ToString("F2") + " Jupiter Masses\n";
+						text += "Radius: " + planet.radius.ToString("F2") + " Jupiter Radii\n";
+					}else{
+						text += "Mass: " + planet.mass.ToString("F2") + " Neptune Masses\n";
+						text += "Radius: " + planet.radius.ToString("F2") + " Neptune Radii\n";
+					}
+					text += "Surface Gravity: " + planet.surfaceGrav.ToString("F2") + " m/s²\n";
+					text += "Albedo: " + planet.albedo.ToString("F2") + "\n";
+					text += "Avg. Temperature: " + planet.temperature.ToString("F2") + " °C";
+					gText.text = text;
 				}else{
-					text = "Atmospheric Composition at 1 Bar: \n";
+					string text = "Semimajor Axis: " + planet.orbitRadius.ToString("F2") + " LU\n";
+					text += "Period: " + planet.orbitPeriod.ToString("F2") + " Days\n";
+					text += "Mass: " + planet.mass.ToString("F2") + " Lunar Masses\n";
+					text += "Radius: " + planet.radius.ToString("F2") + " Lunar Radii\n";
+					text += "Surface Gravity: " + planet.surfaceGrav.ToString("F2") + " m/s²\n";
+					text += "Albedo: " + planet.albedo.ToString("F2") + "\n";
+					text += "Avg. Temperature: " + planet.temperature.ToString("F2") + " °C";
+					gText.text = text;
 				}
 			}else{
-				if(planet.planetType == 0){
-					text = "No Atmosphere\n";
+				string text = "";
+				if(planet.planet == null){
+					if(planet.planetType == 0){
+						text = "Atmospheric Pressure: " + planet.atmPressure.ToString("F2") + " Bar\n";
+						text += "Atmospheric Compostion: \n";
+					}else{
+						text = "Atmospheric Composition at 1 Bar: \n";
+					}
 				}else{
-					text = "Atmospheric Pressure: " + planet.atmPressure.ToString("F2") + " Bar\n";
+					if(planet.planetType == 0){
+						text = "No Atmosphere\n";
+					}else{
+						text = "Atmospheric Pressure: " + planet.atmPressure.ToString("F2") + " Bar\n";
+					}
 				}
-			}
 
-			if(planet.atmosphericComposition != null){
-				Gas[] sorted = SortGases(planet.atmosphericComposition);
-				Gas g;
-				for(int i = 0; i < sorted.Length; i++){
-					g = sorted[i];
-					text += UppercaseFirst(g.gasName) + ": " + (g.gasAmount * 100f).ToString("F2") + "%\n";
+				if(planet.atmosphericComposition != null){
+					Gas[] sorted = SortGases(planet.atmosphericComposition);
+					Gas g;
+					for(int i = 0; i < sorted.Length; i++){
+						g = sorted[i];
+						text += UppercaseFirst(g.gasName) + ": " + (g.gasAmount * 100f).ToString("F2") + "%\n";
+					}
 				}
+				text += "\nPlanetary Resources: \n";
+				Resource r;
+				for(int i = 0; i < planet.resources.Length; i++){
+					r = planet.resources[i];
+					text += UppercaseFirst(r.name) + ": " + r.amount + "\n";
+				}
+				gText.text = text;
 			}
-			text += "\nPlanetary Resources: \n";
-			Resource r;
-			for(int i = 0; i < planet.resources.Length; i++){
-				r = planet.resources[i];
-				text += UppercaseFirst(r.name) + ": " + r.amount + "\n";
-			}
-			gText.text = text;
 		}
 	}
 

@@ -67,8 +67,12 @@ public class Star : MonoBehaviour {
 	}
 
 	// Get a click on this star
-	void  OnMouseDown() {
-		LoadSystem();
+	void  OnMouseOver() {
+		if(Input.GetMouseButtonDown(0)){
+			LoadSystem();
+		}else if(Input.GetMouseButtonDown(1)){
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<Empire>().OrderFleets(gameObject);
+		}
 	}
 
 	public void PlanetaryGenerator () {

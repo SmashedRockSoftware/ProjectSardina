@@ -6,9 +6,11 @@ public class PlanetCamera : MonoBehaviour {
 	//This was made on 2/13/14
 	//The basic idead is that it has inputs that affect where the camera translates to
 	
-	public int speed = 10; //This lets us change the speed in the inspector
+	public int speedBase = 10; //This lets us change the speed in the inspector
 	public int XLimit;//This locks it to the int + or - so it limits the camera
 	public int NegXLimit;
+
+	private float speed;
 	
 	void MoveBuildCam(){
 		Camera cam = GetComponent<Camera>() as Camera;
@@ -31,7 +33,8 @@ public class PlanetCamera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
+		speed = speedBase/Time.timeScale;
 		if(Camera.main == null){ //Later we can determine a reason to disable this control
 			MoveBuildCam(); //This calls the function
 		}

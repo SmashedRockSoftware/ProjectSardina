@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class Multiplayer : MonoBehaviour {
@@ -9,8 +10,10 @@ public class Multiplayer : MonoBehaviour {
 	public GameObject seed;
 	public MainMenu menu;
 	public bool ready = false;
-	public int readyPlayers = 0;
+	public List<string> names = new List<string>();
 
+	private int readyPlayers = 0;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -50,6 +53,9 @@ public class Multiplayer : MonoBehaviour {
 
 	[RPC]
 	void AddPlayerName(string name){
+		if(Network.isServer){
+			names.Add(name);
+		}
 		playerList.text += name + "\n";
 	}
 
@@ -66,6 +72,11 @@ public class Multiplayer : MonoBehaviour {
 	[RPC]
 	void StartGameRPC(int seed){
 		MultiplayerManager.seed = seed;
+		if(Network.isServer){
+			MultiplayerManager.names = names.ToArray();
+		}else{
+			MultiplayerManager.userName = getUserData()[0];
+		}
 		Application.LoadLevel(1);
 	}
 
@@ -75,9 +86,9 @@ public class Multiplayer : MonoBehaviour {
 			readyPlayers += n;
 		}
 		if(n == 1){
-			playerList.text = playerList.text.Replace(name, "<color=yellow>" + name + "</color>");
+			playerList.text = playerList.text.Replace(name, "<color=green>" + name + "</color>");
 		}else{
-			playerList.text = playerList.text.Replace("<color=yellow>" + name + "</color>", name);
+			playerList.text = playerList.text.Replace("<color=green>" + name + "</color>", name);
 		}
 	}
 
@@ -85,7 +96,12 @@ public class Multiplayer : MonoBehaviour {
 		string[] data = getUserData();
 		if(Network.isServer){
 			if(Network.connections.Length <= readyPlayers){
-			GetComponent<NetworkView>().RPC("StartGameRPC", RPCMode.All, int.Parse(seed.GetComponent<InputField>().text));
+				int output = 0;
+				if(int.TryParse(seed.GetComponent<InputField>().text, out output) == true){
+					GetComponent<NetworkView>().RPC("StartGameRPC", RPCMode.All, output);
+				}else{
+					AddChatMessage("<color=yellow>Please enter a seed.</color>\n");
+				}
 			}else{
 				AddChatMessage("<color=yellow>Not all players are ready.</color>\n");
 			}

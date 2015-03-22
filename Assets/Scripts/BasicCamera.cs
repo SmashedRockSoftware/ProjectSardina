@@ -12,6 +12,8 @@ public class BasicCamera : MonoBehaviour {
 	public int XLimit;//This locks it to the int + or - so it limits the camera
 	public int NegXLimit;
 
+	private bool cameraEnabled = false;
+
 	private float speed;
 
 	void MoveBuildCam(){
@@ -41,11 +43,20 @@ public class BasicCamera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		speed = speedBase/Time.timeScale;
-		if(Camera.main != null){ //Later we can determine a reason to disable this control
+		if(Camera.main != null && cameraEnabled){ //Later we can determine a reason to disable this control
 			MoveBuildCam(); //This calls the function
 		}
+	}
+
+	public void SetCamera(bool state){
+		GetComponent<NetworkView>().RPC("SetCameraRPC", RPCMode.All, state);
+	}
+
+	[RPC]
+	public void SetCameraRPC(bool state){
+		cameraEnabled = state;
 	}
 }
 

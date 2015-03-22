@@ -51,16 +51,20 @@ public class PerlinStars : MonoBehaviour {
 			}
 		}
 
+		List<Vector3> toRemove = new List<Vector3>();
 		//Destroying stars on top of each other
 		for(int i = 0; i < starPositionsList.Count; i++){
 			for(int x = 0; x < starPositionsList.Count; x++){
 				if(starPositionsList[i] != starPositionsList[x]){
 					if(Vector3.Distance(starPositionsList[i], starPositionsList[x]) < 1f){
 						Vector3 star = starPositionsList[i];
-						starPositionsList.Remove(star);
+						toRemove.Add(star);
 					}
 				}
 			}
+		}
+		for(int i = 0; i < toRemove.Count; i++){
+			starPositionsList.Remove(toRemove[i]);
 		}
 
 		//Generationg constellations
