@@ -148,9 +148,11 @@ public class Multiplayer : MonoBehaviour {
 	
 	public void StartServer(){
 		string[] data = getUserData();
-		Network.incomingPassword = "";
-		bool useNat = !Network.HavePublicAddress();
-		Network.InitializeServer(int.Parse(data[2]) , int.Parse(data[1]), useNat);
+		if(data[0] != "" && data[1] != "" && data[2] != ""){
+			Network.incomingPassword = "";
+			bool useNat = !Network.HavePublicAddress();
+			Network.InitializeServer(int.Parse(data[2]) , int.Parse(data[1]), useNat);
+		}
 	}
 
 	public string[] getUserData(){

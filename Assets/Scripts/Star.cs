@@ -13,8 +13,8 @@ public class Star : MonoBehaviour {
 	//If you want an element to not be spawned, then set it to -10
 	//If an element is 0, then the generator will pick a number between -700 and 300, or it will make it a primary element
 	//Elements assigned to 11 will never be a primary elemen
-	private static float[] gasElements = new float[]		{5000,       400,      100,       11,       11,         11,    11,    11,      11};//Atmospheric composition for gas giants
-	private static float[] iceElements = new float[]		{5000,       400,      500,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
+	private static float[] gasElements = new float[]		{5000,       400,      50,       11,       11,         11,    11,    11,      11};//Atmospheric composition for gas giants
+	private static float[] iceElements = new float[]		{5000,       400,      200,       11,       11,         11,    11,    11,      11};//Atmospheric composition for ice giants
 	private static string[] elementNames = new string[]		{"hydrogen", "helium", "methane", "oxygen", "nitrogen", "co2", "h2o", "argon", "other"};//Must be in respective order as above
 
 	//Terrestrial Templates

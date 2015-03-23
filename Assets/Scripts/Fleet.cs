@@ -17,19 +17,19 @@ public class Fleet : MonoBehaviour {
 	private bool isSelected = false;
 	private bool inFlight = false;
 	private SpriteRenderer select;
-	private float startTime;
 	private float distance;
 	private float totalTime;
 	private float fracJourney;
-	private float calSpeed;
 	private int[] chargeFinish;
 	private int[] nextMoveDay;
 	private int posInMove = 1;
+	private LineRenderer pathLine;
 
 	// Use this for initialization
 	void Start () {
 		SpriteRenderer[] sr = GetComponentsInChildren<SpriteRenderer>() as SpriteRenderer[];
 		select = sr[1];
+		pathLine = GetComponentInChildren<LineRenderer>() as LineRenderer;
 	}
 	
 	// Update is called once per frame
@@ -38,33 +38,36 @@ public class Fleet : MonoBehaviour {
 			target = null;
 		}
 		if(target != null){
+			pathLine.enabled = isSelected;
 			if(inFlight && !Pause.GetPause()){
 				totalTime = distance/speed;
+				pathLine.SetPosition(curPath.Count, transform.position);
 				if(Calender.IsDate(nextMoveDay)){
-					gameObject.transform.position = Vector3.Lerp(transform.position, curPath[0].transform.position + new Vector3(0,1,0), posInMove/totalTime);
+					gameObject.transform.position = Vector3.Lerp(currentStar.transform.position + Vector3.up, curPath[0].transform.position + Vector3.up, posInMove/totalTime);
 					posInMove++;
 					nextMoveDay = Calender.GetFutureDate(1);
 				}
-				if(curPath.Count == 1 && transform.position == curPath[0].transform.position + new Vector3(0,1,0)){
+				if(curPath.Count == 1 && transform.position == curPath[0].transform.position + Vector3.up){
 					currentStar = curPath[0];
 					target = null;
 					curPath = null;
 					inFlight = false;
 					posInMove = 1;
-				}else if(transform.position == curPath[0].transform.position + new Vector3(0,1,0)){
+					pathLine.SetVertexCount(0);
+				}else if(transform.position == curPath[0].transform.position + Vector3.up){
 					currentStar = curPath[0];
 					curPath.RemoveAt(0);
-					startTime = Time.time;
 					distance = Vector3.Distance(currentStar.transform.position, curPath[0].transform.position);
 					inFlight = false;
 					chargeFinish = Calender.GetFutureDate(chargeTime);
 					posInMove = 1;
+					pathLine.SetVertexCount(curPath.Count + 1);
 				}
 			}else if(!inFlight){
 				if(Calender.IsDate(chargeFinish)){
 					inFlight = true;
-					startTime = Time.time;
 					nextMoveDay = Calender.GetFutureDate(1);
+					distance = Vector3.Distance(currentStar.transform.position, curPath[0].transform.position);
 				}
 			}
 		}
@@ -76,11 +79,21 @@ public class Fleet : MonoBehaviour {
 	}
 
 	public void SetTarget(GameObject g){
-		if(isSelected && !inFlight){
+		if(isSelected){
 			target = g;
 			curPath = FindPath(target);
-			distance = Vector3.Distance(currentStar.transform.position, curPath[0].transform.position);
 			chargeFinish = Calender.GetFutureDate(chargeTime);
+			DrawLine();
+		}
+	}
+
+	private void DrawLine (){
+		pathLine.SetVertexCount(curPath.Count + 1);
+		pathLine.SetPosition(curPath.Count, currentStar.transform.position - Vector3.up);
+		int nextOpen = curPath.Count - 1;
+		for(int i = 0; i < curPath.Count; i++){
+			pathLine.SetPosition(nextOpen, curPath[i].transform.position - Vector3.up);
+			nextOpen--;
 		}
 	}
 
