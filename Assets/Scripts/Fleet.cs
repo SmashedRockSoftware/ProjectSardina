@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
-using UnityEditor;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Fleet : MonoBehaviour {
+public class Fleet : MonoBehaviour, IOrderHandler, IPointerClickHandler, IDeselectableHandler, ISelectableHandler{
 
 	public GameObject target = null;
 	public List<GameObject> curPath = null;
 
+	public NetworkPlayer owner;
 	public List<Ship> ships = new List<Ship>();
 	public GameObject currentStar;
 	public float range = 10f;
@@ -54,6 +55,10 @@ public class Fleet : MonoBehaviour {
 					inFlight = false;
 					posInMove = 1;
 					pathLine.SetVertexCount(0);
+					if(GetComponent<NetworkView>().isMine){
+						FleetMoveEventData data = new FleetMoveEventData(this, EventSystem.current);
+						ExecuteEvents.Execute<IFleetMoveHandler>(currentStar, data, (x,y)=>x.OnFleetMove(data));
+					}
 				}else if(transform.position == curPath[0].transform.position + Vector3.up){
 					currentStar = curPath[0];
 					curPath.RemoveAt(0);
@@ -62,6 +67,10 @@ public class Fleet : MonoBehaviour {
 					chargeFinish = Calender.GetFutureDate(chargeTime);
 					posInMove = 1;
 					pathLine.SetVertexCount(curPath.Count + 1);
+					if(GetComponent<NetworkView>().isMine){
+						FleetMoveEventData data = new FleetMoveEventData(this, EventSystem.current);
+						ExecuteEvents.Execute<IFleetMoveHandler>(currentStar, data, (x,y)=>x.OnFleetMove(data));
+					}
 				}
 			}else if(!inFlight){
 				if(Calender.IsDate(chargeFinish)){
@@ -73,14 +82,30 @@ public class Fleet : MonoBehaviour {
 		}
 	}
 
-	void OnMouseDown(){
-		isSelected = !isSelected;
-		select.enabled = isSelected;
+	public void OnPointerClick(PointerEventData data){
+		if(data.button == PointerEventData.InputButton.Left && GetComponent<NetworkView>().isMine){
+			isSelected = !isSelected;
+			select.enabled = isSelected;
+		}
 	}
 
-	public void SetTarget(GameObject g){
-		if(isSelected){
-			target = g;
+	public void Select(){
+		if(GetComponent<NetworkView>().isMine){
+			isSelected = true;
+			select.enabled = true;
+		}
+	}
+
+	public void Deselect(){
+		if(GetComponent<NetworkView>().isMine){
+			isSelected = false;
+			select.enabled = false;
+		}
+	}
+
+	public void OnOrder(OrderEventData data){
+		if(isSelected && !inFlight  && GetComponent<NetworkView>().isMine){
+			target = data.target;
 			curPath = FindPath(target);
 			chargeFinish = Calender.GetFutureDate(chargeTime);
 			DrawLine();

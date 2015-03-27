@@ -11,6 +11,7 @@ public class Multiplayer : MonoBehaviour {
 	public MainMenu menu;
 	public bool ready = false;
 	public List<string> names = new List<string>();
+	public Color[] playerColors = new Color[]{new Color(200, 0, 0), new Color(0, 0, 255), new Color(0, 0, 0), new Color(0, 190, 0), new Color(200, 200 ,200), new Color(150, 0, 250), new Color(250, 250, 0), new Color(250, 150, 0)};
 
 	private int readyPlayers = 0;
 	
@@ -72,8 +73,10 @@ public class Multiplayer : MonoBehaviour {
 	[RPC]
 	void StartGameRPC(int seed){
 		MultiplayerManager.seed = seed;
+		MultiplayerManager.playerColor = playerColors[int.Parse(Network.player.ToString())];
 		if(Network.isServer){
 			MultiplayerManager.names = names.ToArray();
+			MultiplayerManager.userName = getUserData()[0];
 		}else{
 			MultiplayerManager.userName = getUserData()[0];
 		}
@@ -142,11 +145,18 @@ public class Multiplayer : MonoBehaviour {
 	}
 
 	public void ConnectToServer(){
+		readyPlayers = 0;
+		playerList.text = "";
+		chat.text = "";
 		string[] data = getUserData();
 		Network.Connect(data[3], int.Parse(data[1]), "");
 	}
 	
 	public void StartServer(){
+		readyPlayers = 0;
+		playerList.text = "";
+		chat.text = "";
+		seed.SetActive(true);
 		string[] data = getUserData();
 		if(data[0] != "" && data[1] != "" && data[2] != ""){
 			Network.incomingPassword = "";

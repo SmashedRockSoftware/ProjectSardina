@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Star : MonoBehaviour {
+public class Star : MonoBehaviour, IPointerClickHandler{
 
 	//Planet vars
 	public Planet[] planets;
@@ -21,7 +22,8 @@ public class Star : MonoBehaviour {
 	//This allows terrestrials to have coherent types, so habitability is actually likely
 	private static PlanetTemplate[] terrestrialTemplates = new PlanetTemplate[]{
 		new PlanetTemplate(new float[,]{{0,0},{0,0},{1,10},{200, 300},{600, 800},{10,20},{20,30},{30,40},{0,30}}, elementNames, 0.7f, 1.3f, 0.3f, 0.4f),
-		new PlanetTemplate(new float[,]{{0,0},{0,0},{1,10},{1, 10},{20, 30},{900,1000},{1,10},{1,10},{0,30}}, elementNames, 70f, 130f, 0.8f, 0.95f)
+		new PlanetTemplate(new float[,]{{0,0},{0,0},{1,10},{1, 10},{20, 30},{900,1000},{1,10},{1,10},{0,30}}, elementNames, 70f, 130f, 0.8f, 0.95f),
+		new PlanetTemplate(new float[,]{{0,0},{0,0},{0,0},{1, 10},{50, 100},{9000,10000},{0,0},{50,100},{0,30}}, elementNames, 0.001f, 0.02f, 0.2f, 0.3f)
 	};
 
 	//Planet resources vars
@@ -67,10 +69,10 @@ public class Star : MonoBehaviour {
 	}
 
 	// Get a click on this star
-	void  OnMouseOver() {
-		if(Input.GetMouseButtonDown(0)){
+	public void OnPointerClick(PointerEventData data) {
+		if(data.button == PointerEventData.InputButton.Left){
 			LoadSystem();
-		}else if(Input.GetMouseButtonDown(1)){
+		}else if(data.button == PointerEventData.InputButton.Right){
 			GameObject.FindGameObjectWithTag("GameController").GetComponent<Empire>().OrderFleets(gameObject);
 		}
 	}

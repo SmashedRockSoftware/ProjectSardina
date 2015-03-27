@@ -54,6 +54,10 @@ public class BasicCamera : MonoBehaviour {
 		GetComponent<NetworkView>().RPC("SetCameraRPC", RPCMode.All, state);
 	}
 
+	public void PositionCamera(Vector3 pos){
+		transform.position = new Vector3(pos.x, 10, pos.z);
+	}
+
 	[RPC]
 	public void SetCameraRPC(bool state){
 		cameraEnabled = state;

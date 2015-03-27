@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class SystemPlanet : MonoBehaviour {
+public class SystemPlanet : MonoBehaviour, IPointerClickHandler{
 
 	private Planet planet;
 	private PlanetSelect ps;
@@ -15,7 +16,7 @@ public class SystemPlanet : MonoBehaviour {
 		planet = p;
 	}
 
-	void OnMouseDown () {
+	public void OnPointerClick (PointerEventData data) {
 		ps.SetPlanet(planet);
 		ps.ChangeText();
 	}

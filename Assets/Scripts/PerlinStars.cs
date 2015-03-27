@@ -119,6 +119,8 @@ public class PerlinStars : MonoBehaviour {
 			star.sprite = sprite;
 			starList.Add(go);
 
+			go.AddComponent<PoliticalStar>();
+
 			//Finding constellation of the star
 			int row = 0;
 			int column = 0;
